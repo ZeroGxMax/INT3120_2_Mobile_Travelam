@@ -15,3 +15,8 @@ To run the app in the Android Studio emulator, follow these steps:
 - Once the emulator is up and running, you can:
   - Scan the QR code using the Expo Go app installed on the emulator (if available).
   - Or press `a` in the terminal/command prompt to run the app on the Android emulator.
+
+# Develop App with React DevTools
+- To facilitate development, you can use React DevTools.
+- Open a terminal or command prompt.
+- Run `npx react-devtools` to launch React DevTools.
