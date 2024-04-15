@@ -1,27 +1,25 @@
-import React from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { TailwindProvider } from 'tailwindcss-react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { setCustomText } from 'react-native-global-props';
+import {  useFonts, Inter_200ExtraLight, Inter_300Light, Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold, Inter_800ExtraBold,  Inter_900Black } from '@expo-google-fonts/inter';
 
-import * as eva from "@eva-design/eva";
-import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
-import { EvaIconsPack } from "@ui-kitten/eva-icons";
-import { default as customTheme } from "./customTheme.json";
+import HomeScreen from './screens/HomeScreen';
+import DiscoverScreen from './screens/DiscoverScreen';
+import ItemScreen from './screens/ItemScreen';
 
-import { RootNavigator } from "./src/navigation/RootNavigator";
-import { AuthenticatedUserProvider } from "./src/providers";
+const Stack = createNativeStackNavigator();
 
-const App = () => {
+export default function App() {
   return (
-    <>
-      <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={{ ...eva.light, ...customTheme }}>
-        <AuthenticatedUserProvider>
-          <SafeAreaProvider>
-            <RootNavigator />
-          </SafeAreaProvider>
-        </AuthenticatedUserProvider>
-      </ApplicationProvider>
-    </>
+    <TailwindProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Discover" component={DiscoverScreen} />
+          <Stack.Screen name="Item" component={ItemScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </TailwindProvider>
   );
-};
-
-export default App;
+}
