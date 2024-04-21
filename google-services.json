@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "269119879844",
+    "firebase_url": "https://travelam-b45ed-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "travelam-b45ed",
+    "storage_bucket": "travelam-b45ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269119879844:android:deb8a062674874d08a4431",
+        "android_client_info": {
+          "package_name": "com.mobile.travelam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvUMG51AH0c5IL-zWhDp_uC5N0Wky94ZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
