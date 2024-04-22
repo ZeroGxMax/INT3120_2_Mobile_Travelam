@@ -13,6 +13,7 @@ const HomeScreen = () => {
         navigation.setOptions({
             headerShown: false,
         });
+        
     }, []);
 
     return (

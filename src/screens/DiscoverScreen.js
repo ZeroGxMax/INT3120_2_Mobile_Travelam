@@ -13,6 +13,9 @@ import RcmCard from './rcm_card';
 
 const Discover = () => {
 
+
+    console.log("Hello?")
+
     const mockTourData = [
         { id: 1, title: 'Paris & Louvre Exploration', demoImage: 'https://res.klook.com/image/upload/Mobile/City/swox6wjsl5ndvkv5jvum.jpg' },
         { id: 2, title: 'Magical Japan Adventure', demoImage: 'https://c4.wallpaperflare.com/wallpaper/611/69/87/japan-mountains-mount-fuji-asian-architecture-wallpaper-preview.jpg' },

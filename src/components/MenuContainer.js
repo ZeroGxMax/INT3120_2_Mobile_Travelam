@@ -16,7 +16,8 @@ const MenuContainer = ({ title, imageSrc, type, setType }) => {
             <View className={`w-24 h-20 rounded-xl mt-2 items-center justify-center bg-[#80BEED]/50`}>
                 <Image 
                     source={imageSrc}
-                    className="w-16 h-16 object-cover"
+                    className="object-cover"
+                    style={{width: 64, height: 64}}
                 />
             </View>
             <Text className={`my-2 ${type === title.toLowerCase() ? "text-black" : "text-gray-400" }`}>{title}</Text>

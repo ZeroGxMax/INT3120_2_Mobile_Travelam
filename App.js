@@ -4,9 +4,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { auth } from './FireBase';
 import { getApp, getApps, initializeApp, deleteApp } from "firebase/app";
 
-import HomeScreen from './screens/HomeScreen';
-import DiscoverScreen from './screens/DiscoverScreen';
-import ItemScreen from './screens/ItemScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import DiscoverScreen from './src/screens/DiscoverScreen';
+import ItemScreen from './src/screens/ItemScreen';
 
 const Stack = createNativeStackNavigator();
 
