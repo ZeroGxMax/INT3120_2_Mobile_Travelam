@@ -30,3 +30,4 @@ export { default as DarkGreyPin} from "./pin-grey-dark.png";
 export { default as BluePin} from "./pin-blue.png";
 export { default as BluePinSmall} from "./pin-blue-small.png";
 export { default as BluePinNavi} from "./pin-blue-navi.png";
+export { default as Logo} from "./splash_ver_2.png"

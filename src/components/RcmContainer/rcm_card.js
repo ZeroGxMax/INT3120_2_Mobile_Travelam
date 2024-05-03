@@ -1,9 +1,13 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 const RcmCard = (props) => {
+    const navigation = useNavigation();
+
     return (
-        <TouchableOpacity style={styles.cardWrapper} className="bg-[#F6F6F6]">
+        <TouchableOpacity style={styles.cardWrapper} className="bg-[#F6F6F6]" onPress={() => navigation.navigate("Home")}>
             <Image source={{ uri: props.src }} style={styles.cardImage} resizeMode='stretch' />
             <View style={styles.footerBlack} ></View>
             <View style={styles.infoWrapper}>
@@ -31,18 +35,18 @@ const styles = StyleSheet.create({
     },
     footerBlack: {
         position: 'absolute',
-        top: '70%',
+        top: '75%',
         left: 0,
         width: '100%',
-        height: 70,
+        height: 60,
         backgroundColor: 'black',
-        opacity: 0.5,
+        opacity: 0.6,
         borderRadius: 7,
         transform: [{ rotate: '180deg' }],
     },
     infoWrapper: {
         position: 'absolute',
-        top: '75%',
+        top: '79%',
         width: '100%',
         textAlign: "center",
         paddingVertical: 0,
