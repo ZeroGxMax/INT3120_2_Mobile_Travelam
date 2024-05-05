@@ -50,4 +50,55 @@ const getTourById = async (tourId) => {
     }
 };
 
-export { getAllTours, getTourById }
+const getTourByCountryId = async (countryId) => {
+    try {
+        const tourRef = ref(db, 'tour/data');
+        const tourDestRef = ref(db, "tour_dest/data");
+        const destRef = ref(db, "destination/data");
+
+        const tourSnapshot = await get(tourRef);
+        const tourDestSnapshot = await get(tourDestRef);
+        const destSnapshot = await get(destRef);
+
+        let foundTours = [];
+
+        tourSnapshot.forEach((tourChild) => {
+            const tourData = tourChild.val();
+            const tourId = tourData.id;
+
+            let found = false;
+
+            tourDestSnapshot.forEach((tourDestChild) => {
+                const tourDestData = tourDestChild.val();
+                const destId = tourDestData.destId;
+
+                if (tourDestData.tourId == tourId) {
+                    destSnapshot.forEach((destChild) => {
+                        const destData = destChild.val();
+                        if (destData && destData.id == destId && destData.countryId == countryId && !found) {
+                            foundTours.push(tourData);
+                            found = true;
+                            return;
+                        }
+                    });
+                }
+                if (found) {
+                    return;
+                }
+            });
+        });
+
+        if (foundTours.length === 0) {
+            console.log("No tour found!");
+        }
+
+        return foundTours;
+    } catch (error) {
+        console.error("Error finding specific tours by country:", error);
+        throw error;
+    }
+};
+
+
+
+export { getAllTours, getTourById, getTourByCountryId }
