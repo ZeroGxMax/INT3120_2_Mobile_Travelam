@@ -15,7 +15,11 @@ import RcmCardContainer from '../components/RcmContainer/RcmCardContainer';
 import RcmStackContainer from '../components/RcmContainer/RcmStackContainer'
 import Footer from '../components/Footer'
 
+import ToursContent from './DiscoverScreenContent/ToursContent';
+
+
 const Discover = () => {
+
 
     const mockTourData = [
         { id: 1, title: 'Paris & Louvre Exploration', demoImage: 'https://res.klook.com/image/upload/Mobile/City/swox6wjsl5ndvkv5jvum.jpg' },
@@ -37,35 +41,6 @@ const Discover = () => {
         demoImage: 'https://res.klook.com/image/upload/Mobile/City/swox6wjsl5ndvkv5jvum.jpg',
         description: 'Paris, the city of dazzling lights and world-class culture, is not only an ideal destination for romantics but also a magnet for travelers drawn to its historic architecture, high art, and superb cuisine.'
     };
-
-    const ToursContent = () => (
-        <>
-            <RcmBanner
-                images={images}
-            />
-            <RcmCardContainer mockTourData={mockTourData} name='Paris' />
-            <FullRcmContainer
-                imageSrc={mockTourFullData.demoImage}
-                name={mockTourFullData.name}
-                description={mockTourFullData.description}
-            />
-            <RcmCardContainer mockTourData={mockTourData} name='Paris' />
-            <RcmStackContainer
-                mockTourData={mockTourData}
-                name='Paris'
-            />
-            <FullRcmContainer
-                imageSrc={mockTourFullData.demoImage}
-                name={mockTourFullData.name}
-                description={mockTourFullData.description}
-            />
-            <RcmStackContainer
-                mockTourData={mockTourData}
-                name='Paris'
-            />
-        </>
-    );
-
 
     const AccommodationsContent = () => (
         <Text className="text-2xl px-8 mb-4">Accommodations Content</Text>
@@ -187,7 +162,7 @@ const Discover = () => {
                     {/* Search results */}
                     <Text className="text-2xl px-8" style={{fontWeight: 400}}>Explore</Text>
                     <>
-                        {type === 'tours' && <ToursContent />}
+                        {type === 'tours' && <ToursContent countryName={"France"}/>}
                         {type === 'accommodations' && <AccommodationsContent />}
                         {type === 'activities' && <ActivitiesContent />}
                         {type === 'restaurants' && <RestaurantsContent />}

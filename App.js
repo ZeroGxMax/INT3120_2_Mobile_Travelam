@@ -6,6 +6,7 @@ import { ref, get, getDatabase, set, remove } from "firebase/database";
 
 import { auth, storage, firebaseApp } from './src/services/firebaseService';
 import { getAllTours, getTourById, getTour, getTourByCountryId } from './src/services/firebase/tours';
+import { getCountryFromName } from './src/services/firebase/country';
 
 import HomeScreen from './src/screens/HomeScreen';
 import DiscoverScreen from './src/screens/DiscoverScreen';
@@ -26,14 +27,15 @@ export default function App() {
     console.log("Firebase is not initialized.");
   }
 
+  // getCountryFromName("France")
 
-  getTourByCountryId(6)
-  .then(tour => {
-    console.log("Tour: ", tour);
-  })
-  .catch(error => {
-    console.error("Error:", error);
-  });
+  // getTourByCountryId(6)
+  // .then(tour => {
+  //   console.log("Tour: ", tour);
+  // })
+  // .catch(error => {
+  //   console.error("Error:", error);
+  // });
 
   return (
     <TailwindProvider>
