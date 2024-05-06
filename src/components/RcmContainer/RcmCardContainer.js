@@ -2,6 +2,8 @@ import { View, Text, SafeAreaView, Image, ScrollView, ActivityIndicator, StyleSh
 import RcmCard from './rcm_card'
 
 const RcmCardContainer = ({ mockTourData, name }) => {
+
+    
     return (
         <View style={styles.rcmBlock}>
             <View>
