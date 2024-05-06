@@ -1,12 +1,13 @@
-import { TailwindProvider } from 'tailwindcss-react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { auth } from './FireBase';
-import { getApp, getApps, initializeApp, deleteApp } from "firebase/app";
-
-import HomeScreen from './src/screens/HomeScreen';
-import DiscoverScreen from './src/screens/DiscoverScreen';
-import ItemScreen from './src/screens/ItemScreen';
+import { getApps } from "firebase/app";
+import * as eva from "@eva-design/eva";
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
+import { EvaIconsPack } from "@ui-kitten/eva-icons";
+import { default as customTheme } from "./customTheme.json";
+import { MainNavigator } from "./src/navigation/MainNavigator";
+import { AuthenticatedUserProvider } from "./src/providers";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,14 +25,15 @@ export default function App() {
   }
 
   return (
-    <TailwindProvider>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Discover" component={DiscoverScreen} />
-          <Stack.Screen name="Item" component={ItemScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </TailwindProvider>
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={{ ...eva.light, ...customTheme }}>
+        <AuthenticatedUserProvider>
+          <SafeAreaProvider>
+            <MainNavigator />
+          </SafeAreaProvider>
+        </AuthenticatedUserProvider>
+      </ApplicationProvider>
+    </>
   );
 }

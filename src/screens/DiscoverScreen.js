@@ -3,18 +3,26 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import * as Location from 'expo-location';
+import Feather from 'react-native-vector-icons/Feather';
 
 import { REACT_NATIVE_GOOGLE_PLACES_API_KEY } from "@env";
 import { AttractionsIcon, Avatar, BluePin, ChevronDown, HotelIcon, NotFound, RestaurantsIcon, Search, TourIcon, TransportationIcon } from '../assets';
 import MenuContainer from '../components/MenuContainer';
 import ItemCardContainer from '../components/ItemCardContainer';
 import { getPlacesData, getUserLocation } from '../api';
-import RcmCard from './rcm_card';
+import FullRcmContainer from '../components/RcmContainer/FullRcmContainer'
+import RcmBanner from '../components/RcmBanner'
+import RcmCardContainer from '../components/RcmContainer/RcmCardContainer';
+import RcmStackContainer from '../components/RcmContainer/RcmStackContainer'
+import Footer from '../components/Footer'
+import { styles } from './DiscoverScreenContent/discover';
+import {colors} from "../assets/colors/colors"
+
+import ToursContent from './DiscoverScreenContent/ToursContent';
+
 
 const Discover = () => {
 
-
-    console.log("Hello?")
 
     const mockTourData = [
         { id: 1, title: 'Paris & Louvre Exploration', demoImage: 'https://res.klook.com/image/upload/Mobile/City/swox6wjsl5ndvkv5jvum.jpg' },
@@ -23,21 +31,19 @@ const Discover = () => {
         { id: 4, title: 'Kyoto Temples', demoImage: 'https://w0.peakpx.com/wallpaper/898/965/HD-wallpaper-kyoto-japan-temple-city-buildings-houses.jpg' },
     ];
 
-    const ToursContent = () => (
-        <>
-            <View style={styles.rcmBlock}>
-                <ScrollView horizontal={true}>
-                    <View style={styles.cardContainer}>
-                        {mockTourData.map((tour) => (
-                            <View key={tour.id} style={styles.cardWrapper}>
-                                <RcmCard id={tour.id} name={tour.title} src={tour.demoImage} />
-                            </View>
-                        ))}
-                    </View>
-                </ScrollView>
-            </View>
-        </>
-    );
+    const images = [
+        { img: 'https://res.klook.com/image/upload/Mobile/City/swox6wjsl5ndvkv5jvum.jpg' },
+        { img: 'https://c4.wallpaperflare.com/wallpaper/611/69/87/japan-mountains-mount-fuji-asian-architecture-wallpaper-preview.jpg' },
+        { img: 'https://images4.alphacoders.com/743/743533.jpg' },
+        { img: 'https://w0.peakpx.com/wallpaper/898/965/HD-wallpaper-kyoto-japan-temple-city-buildings-houses.jpg' }
+    ]
+
+    const mockTourFullData = {
+        id: 1,
+        name: 'Paris & Louvre Exploration',
+        demoImage: 'https://res.klook.com/image/upload/Mobile/City/swox6wjsl5ndvkv5jvum.jpg',
+        description: 'Paris, the city of dazzling lights and world-class culture, is not only an ideal destination for romantics but also a magnet for travelers drawn to its historic architecture, high art, and superb cuisine.'
+    };
 
     const AccommodationsContent = () => (
         <Text className="text-2xl px-8 mb-4">Accommodations Content</Text>
@@ -102,10 +108,22 @@ const Discover = () => {
     }, []);
 
     return (
-        <SafeAreaView className="flex-1 bg-[#F6F6F6] relative">
+        <ScrollView className="flex-1 bg-[#F6F6F6] relative" style={styles.container}>
+            <SafeAreaView>
+                <View style={styles.menuWrapper}>
+                    <Feather
+                        name="menu"
+                        size={32}
+                        color={colors.black}
+                        style={styles.menuIcon}
+                    />
+                    <Image source={Avatar} style={styles.profileImage} />
+                </View>
+            </SafeAreaView>
+
 
             {/* Header */}
-            <View className="flex-row items-start justify-between px-8 pt-5">
+            <View className="flex-row items-start justify-between px-8 pt-5 mt-10">
                 <View className="mr-12">
                     {/* <Text className="mb-2">Hello
                         <Text> traveller,</Text>
@@ -155,50 +173,20 @@ const Discover = () => {
                     <ActivityIndicator size="large" color="#336699" />
                 </View>
             ) : (
-                <>
+                <View>
                     {/* Search results */}
-                    <Text className="text-2xl px-8 mb-4">Explore</Text>
+                    <Text className="text-2xl px-8" style={{ fontWeight: 400 }}>Explore</Text>
                     <>
-                        {type === 'tours' && <ToursContent />}
+                        {type === 'tours' && <ToursContent countryName={"France"} />}
                         {type === 'accommodations' && <AccommodationsContent />}
                         {type === 'activities' && <ActivitiesContent />}
                         {type === 'restaurants' && <RestaurantsContent />}
                         {type === 'transportation' && <TransportationContent />}
                     </>
-                    {/* <ScrollView horizontal={true}>
-                        <View className="px-8 flex-row items-start justify-evenly">
-                            {mainData?.length > 0 ? (
-                                <>
-                                    {mainData?.map((data, i) => (
-                                        data?.name && (
-                                            <ItemCardContainer
-                                                key={i}
-                                                // imageSrc={
-                                                //     data?.photo?.images?.medium?.url ?
-                                                //     data?.photo?.images?.medium?.url :
-                                                //     "https://res.cloudinary.com/diyvlobep/image/upload/v1680617719/restaurant-default_ml2fb9.png"
-                                                // } 
-                                                name={data?.name}
-                                                location={data?.location_string}
-                                                data={data}
-                                            />
-                                        )
-                                    ))}
-                                </>
-                            ) : (
-                                <>
-                                    <View className="w-full h-full px-10 flex items-center space-y-4 justify-center">
-                                        <Image source={NotFound} className="w-28 h-28 object-cover" />
-                                        <Text>Try searching by a different keyword.</Text>
-                                    </View>
-                                </>
-                            )}
-                        </View>
-                    </ScrollView> */}
 
                     {/* Categories */}
-                    <Text className="text-2xl px-8">Categories</Text>
-                    <View>
+                    <Text className="text-2xl px-8 mt-5">Categories</Text>
+                    <View style={styles.wrapper}>
                         <View className="flex-row items-center justify-between px-8 p-5 mt-0">
                             <MenuContainer
                                 key={"tours"}
@@ -240,31 +228,12 @@ const Discover = () => {
                             />
                         </View>
                     </View>
+                    <Footer></Footer>
 
-                </>
+                </View>
             )}
-        </SafeAreaView>
-    );
-};
+        </ScrollView>
+    )
+}
 
-const styles = StyleSheet.create({
-    rcmBlock: {
-        backgroundColor: '#FFFFFF',
-        paddingVertical: 10,
-        height: 235,
-    },
-    rcmTitle: {
-        fontSize: 20,
-        fontWeight: "bold",
-        marginBottom: 10,
-    },
-    cardContainer: {
-        paddingHorizontal: 10,
-        flexDirection: 'row',
-    },
-    cardWrapper: {
-        marginRight: 20,
-    }
-});
-
-export default Discover;
+export default Discover
