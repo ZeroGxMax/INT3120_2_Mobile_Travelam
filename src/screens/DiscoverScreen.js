@@ -3,6 +3,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import * as Location from 'expo-location';
+import Feather from 'react-native-vector-icons/Feather';
 
 import { REACT_NATIVE_GOOGLE_PLACES_API_KEY } from "@env";
 import { AttractionsIcon, Avatar, BluePin, ChevronDown, HotelIcon, NotFound, RestaurantsIcon, Search, TourIcon, TransportationIcon } from '../assets';
@@ -14,6 +15,8 @@ import RcmBanner from '../components/RcmBanner'
 import RcmCardContainer from '../components/RcmContainer/RcmCardContainer';
 import RcmStackContainer from '../components/RcmContainer/RcmStackContainer'
 import Footer from '../components/Footer'
+import { styles } from './DiscoverScreenContent/discover';
+import {colors} from "../assets/colors/colors"
 
 import ToursContent from './DiscoverScreenContent/ToursContent';
 
@@ -29,10 +32,10 @@ const Discover = () => {
     ];
 
     const images = [
-        {img: 'https://res.klook.com/image/upload/Mobile/City/swox6wjsl5ndvkv5jvum.jpg'},
-        {img: 'https://c4.wallpaperflare.com/wallpaper/611/69/87/japan-mountains-mount-fuji-asian-architecture-wallpaper-preview.jpg'},
-        {img: 'https://images4.alphacoders.com/743/743533.jpg'},
-        {img: 'https://w0.peakpx.com/wallpaper/898/965/HD-wallpaper-kyoto-japan-temple-city-buildings-houses.jpg'}
+        { img: 'https://res.klook.com/image/upload/Mobile/City/swox6wjsl5ndvkv5jvum.jpg' },
+        { img: 'https://c4.wallpaperflare.com/wallpaper/611/69/87/japan-mountains-mount-fuji-asian-architecture-wallpaper-preview.jpg' },
+        { img: 'https://images4.alphacoders.com/743/743533.jpg' },
+        { img: 'https://w0.peakpx.com/wallpaper/898/965/HD-wallpaper-kyoto-japan-temple-city-buildings-houses.jpg' }
     ]
 
     const mockTourFullData = {
@@ -105,7 +108,19 @@ const Discover = () => {
     }, []);
 
     return (
-        <ScrollView className="flex-1 bg-[#F6F6F6] relative">
+        <ScrollView className="flex-1 bg-[#F6F6F6] relative" style={styles.container}>
+            <SafeAreaView>
+                <View style={styles.menuWrapper}>
+                    <Feather
+                        name="menu"
+                        size={32}
+                        color={colors.black}
+                        style={styles.menuIcon}
+                    />
+                    <Image source={Avatar} style={styles.profileImage} />
+                </View>
+            </SafeAreaView>
+
 
             {/* Header */}
             <View className="flex-row items-start justify-between px-8 pt-5 mt-10">
@@ -160,9 +175,9 @@ const Discover = () => {
             ) : (
                 <View>
                     {/* Search results */}
-                    <Text className="text-2xl px-8" style={{fontWeight: 400}}>Explore</Text>
+                    <Text className="text-2xl px-8" style={{ fontWeight: 400 }}>Explore</Text>
                     <>
-                        {type === 'tours' && <ToursContent countryName={"France"}/>}
+                        {type === 'tours' && <ToursContent countryName={"France"} />}
                         {type === 'accommodations' && <AccommodationsContent />}
                         {type === 'activities' && <ActivitiesContent />}
                         {type === 'restaurants' && <RestaurantsContent />}
@@ -214,17 +229,11 @@ const Discover = () => {
                         </View>
                     </View>
                     <Footer></Footer>
-                
+
                 </View>
             )}
         </ScrollView>
     )
 }
-
-const styles = StyleSheet.create({
-    wrapper: {
-        position: 'relative',
-    }
-})
 
 export default Discover
