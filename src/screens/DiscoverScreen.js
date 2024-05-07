@@ -12,6 +12,7 @@ import DiscoverItem from './DiscoverScreenContent/DiscoverItem';
 import CountryPackage from './DiscoverScreenContent/CountryPackage';
 import { getTourByCountryId, getAllTours, getTourById } from '../services/firebase/tours';
 import { getCountryFromId, getCountryFromName, getAllCountry } from "../services/firebase/country";
+import LoadingView from '../components/utils/LoadingView';
 
 
 const Discover = () => {
@@ -20,6 +21,8 @@ const Discover = () => {
 
     const [country, setCountry] = useState([])
     const [tours, setTours] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     const countryName = "France"
 
     useLayoutEffect(() => {
@@ -39,20 +42,26 @@ const Discover = () => {
                 const countryData = await getCountryFromName(countryName);
                 // If country data is found, fetch tours by countryId
                 if (countryData) {
-                    
                     const toursData = await getTourByCountryId(countryData.id);
                     setTours(toursData);
+                    setLoading(false);
                     // console.log(tours[1].demoImage)
                 } else {
                     console.log(`Country with name "${countryName}" not found.`);
+                    setLoading(false);
                 }
             } catch (error) {
                 console.error("Error fetching data:", error);
+                setLoading(false);
             }
         };
 
         fetchData();
     }, [countryName]);
+
+    if (loading) {
+        return <LoadingView />;
+    }
 
     return (
         <ScrollView style={styles.container}>
