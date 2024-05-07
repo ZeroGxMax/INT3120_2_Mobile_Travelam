@@ -9,12 +9,12 @@ const CountryPackage = ({ item }) => {
     const navigation = useNavigation();
 
     const onPressHandler = () => {
-        navigation.navigate('Details', {
-            item: item,
+        navigation.navigate('Package', {
+            country: item
         });
     };
 
-    console.log(item.demoImage)
+    // console.log(item.demoImage)
 
     return (
         <TouchableOpacity onPress={onPressHandler}>

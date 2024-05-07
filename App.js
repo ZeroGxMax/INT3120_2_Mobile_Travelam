@@ -11,6 +11,7 @@ import { getCountryFromName } from './src/services/firebase/country';
 import HomeScreen from './src/screens/HomeScreen';
 import DiscoverScreen from './src/screens/DiscoverScreen';
 import ItemScreen from './src/screens/ItemScreen';
+import PackageScreen from './src/screens/PackageScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,7 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Discover" component={DiscoverScreen} />
           <Stack.Screen name="Item" component={ItemScreen} />
+          <Stack.Screen name="Package" component={PackageScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </TailwindProvider>

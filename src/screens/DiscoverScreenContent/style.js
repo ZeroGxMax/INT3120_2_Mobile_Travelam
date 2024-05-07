@@ -1,5 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import {colors} from "../../assets/colors/colors"
+
+const { width, height } = Dimensions.get("screen");
 
 export const styles = StyleSheet.create({
     container: {
@@ -42,6 +44,8 @@ export const styles = StyleSheet.create({
         color: colors.gray,
     },
     discoverItemsWrapper: {
+        left: 15,
+        width: width,
         paddingVertical: 20,
     },
     discoverItem: {
