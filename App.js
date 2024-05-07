@@ -1,6 +1,13 @@
-import { TailwindProvider } from 'tailwindcss-react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { getApps } from "firebase/app";
+import * as eva from "@eva-design/eva";
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
+import { EvaIconsPack } from "@ui-kitten/eva-icons";
+import { default as customTheme } from "./customTheme.json";
+import { MainNavigator } from "./src/navigation/MainNavigator";
+import { AuthenticatedUserProvider } from "./src/providers";
 import { getApp, getApps, initializeApp, deleteApp } from "firebase/app";
 import { ref, get, getDatabase, set, remove } from "firebase/database";
 
@@ -40,6 +47,16 @@ export default function App() {
   // });
 
   return (
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={{ ...eva.light, ...customTheme }}>
+        <AuthenticatedUserProvider>
+          <SafeAreaProvider>
+            <MainNavigator />
+          </SafeAreaProvider>
+        </AuthenticatedUserProvider>
+      </ApplicationProvider>
+    </>
     <TailwindProvider>
       <NavigationContainer>
         <Stack.Navigator>
