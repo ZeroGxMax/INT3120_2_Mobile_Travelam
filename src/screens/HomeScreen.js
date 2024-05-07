@@ -13,12 +13,12 @@ const HomeScreen = () => {
         navigation.setOptions({
             headerShown: false,
         });
-        
+
     }, []);
 
     return (
         <SafeAreaView className="flex-1 relative">
-            
+
             {/* Background Image */}
             <Image
                 source={HomeMorning}
@@ -36,7 +36,7 @@ const HomeScreen = () => {
                 </View>
             </Animatable.View>
 
-            <Animatable.View 
+            <Animatable.View
                 animation={"slideInUp"}
                 easing="ease-in"
                 duration={1000}
@@ -55,7 +55,7 @@ const HomeScreen = () => {
                         iterationCount={"infinite"}
                         className="w-full h-16 rounded-full"
                     >
-                        <LinearGradient 
+                        <LinearGradient
                             colors={["#80BEED", "#00FF9C95"]}
                             start={[0, 0]}
                             end={[1, 1]}
