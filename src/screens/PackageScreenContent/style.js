@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { colors } from "../../assets/colors/colors";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -24,6 +25,10 @@ export const styles = StyleSheet.create({
     cardView: {
         height: height / 1.8,
         width: width,
+    },
+    backIcon: {
+        marginLeft: 20,
+        marginTop: 30,
     },
 
 });
