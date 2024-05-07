@@ -58,5 +58,24 @@ const getCountryFromName = async (countryName) => {
     }
 };
 
+const getAllCountry = async () => {
+    try {
+        const countryRef = ref(db, 'country/data');
+        const snapshot = await get(countryRef);
 
-export {getCountryFromId, getCountryFromName}
+        const allCountries = [];
+
+        snapshot.forEach((childSnapshot) => {
+            const childData = childSnapshot.val();
+            allCountries.push(childData);
+        });
+
+        return allCountries;
+    } catch (error) {
+        console.error("Error getting all countries:", error);
+        throw error;
+    }
+};
+
+
+export {getCountryFromId, getCountryFromName, getAllCountry}
