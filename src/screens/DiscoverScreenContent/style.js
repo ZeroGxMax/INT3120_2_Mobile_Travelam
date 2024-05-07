@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     },
     discoverTitle: {
         marginHorizontal: 20,
-        fontFamily: 'Lato-Bold',
+        // fontFamily: 'Lato-Bold',
         fontSize: 32,
     },
     discoverCategoriesWrapper: {
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     },
     discoverCategoryText: {
         marginRight: 30,
-        fontFamily: 'Lato-Regular',
+        // fontFamily: 'Lato-Regular',
         fontSize: 16,
         color: colors.gray,
     },
@@ -56,9 +56,11 @@ export const styles = StyleSheet.create({
         borderRadius: 20,
     },
     discoverItemTitle: {
-        fontFamily: 'Lato-Bold',
+        textAlign: "center",
         fontSize: 18,
         color: colors.white,
+        flex: 1,
+
     },
     discoverItemLocationWrapper: {
         flexDirection: 'row',
@@ -67,7 +69,7 @@ export const styles = StyleSheet.create({
     },
     discoverItemLocationText: {
         marginLeft: 5,
-        fontFamily: 'Lato-Bold',
+        // fontFamily: 'Lato-Bold',
         fontSize: 14,
         color: colors.white,
     },
@@ -76,7 +78,7 @@ export const styles = StyleSheet.create({
     },
     activitiesTitle: {
         marginHorizontal: 20,
-        fontFamily: 'Lato-Bold',
+        // fontFamily: 'Lato-Bold',
         fontSize: 24,
         color: colors.black,
     },
@@ -93,7 +95,7 @@ export const styles = StyleSheet.create({
     },
     activityItemText: {
         marginTop: 5,
-        fontFamily: 'Lato-Bold',
+        // fontFamily: 'Lato-Bold',
         fontSize: 14,
         color: colors.gray,
     },
@@ -102,7 +104,7 @@ export const styles = StyleSheet.create({
     },
     learnMoreTitle: {
         marginHorizontal: 20,
-        fontFamily: 'Lato-Bold',
+        // fontFamily: 'Lato-Bold',
         fontSize: 24,
         color: colors.black,
     },
@@ -119,10 +121,20 @@ export const styles = StyleSheet.create({
         borderRadius: 20,
     },
     learnMoreItemText: {
-        fontFamily: 'Lato-Bold',
+        // fontFamily: 'Lato-Bold',
         fontSize: 18,
         color: colors.white,
         marginHorizontal: 10,
         marginVertical: 20,
+    },
+    imageButtonBackground: {
+        backgroundColor: "rgba(0,0,0,0.5)",
+        width: 170,
+        height: "30%",
+        position: "absolute",
+    },
+    centeredContainer: {
+        flex: 1,
+        top: 20,
     },
 });
