@@ -11,16 +11,16 @@ export const ForgotPasswordScreen = ({ navigation }) => {
   const [errorState, setErrorState] = useState("");
 
   const handleSendPasswordResetEmail = (values) => {
-    // const { email } = values;
+     const { email } = values;
 
-    // sendPasswordResetEmail(auth, email)
-    //   .then(() => {
-    //     console.log("Success: Password Reset Email sent.");
-    //     navigation.navigate("Login");
-    //   })
-    //   .catch((error) => setErrorState(error.message));
+     sendPasswordResetEmail(auth, email)
+       .then(() => {
+         console.log("Success: Password Reset Email sent.");
+         navigation.navigate("Login");
+       })
+       .catch((error) => setErrorState(error.message));
 
-    console.log("Laugh my ass out")
+//    console.log("Laugh my ass out")
   };
 
   return (

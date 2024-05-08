@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, ScrollView, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, Image, ScrollView, ActivityIndicator, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -10,6 +10,8 @@ import { Avatar } from '../assets';
 
 import DiscoverItem from './DiscoverScreenContent/DiscoverItem';
 import CountryPackage from './DiscoverScreenContent/CountryPackage';
+import { signOut } from "firebase/auth";
+import { auth } from "../services/firebaseService"
 import { getTourByCountryId, getAllTours, getTourById } from '../services/firebase/tours';
 import { getCountryFromId, getCountryFromName, getAllCountry } from "../services/firebase/country";
 import LoadingView from '../components/utils/LoadingView';
@@ -59,6 +61,10 @@ const Discover = () => {
         fetchData();
     }, [countryName]);
 
+    const handleLogout = () => {
+      signOut(auth).catch((error) => console.log("Error logging out: ", error));
+    };
+
     if (loading) {
         return <LoadingView />;
     }
@@ -75,7 +81,9 @@ const Discover = () => {
                         color={colors.black}
                         style={styles.menuIcon}
                     />
-                    <Image source={Avatar} style={styles.profileImage} />
+                    <TouchableOpacity onPress={handleLogout}>
+                        <Image source={Avatar} style={styles.profileImage} />
+                    </TouchableOpacity>
                 </View>
             </SafeAreaView>
 

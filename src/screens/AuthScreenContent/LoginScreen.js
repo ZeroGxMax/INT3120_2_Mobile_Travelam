@@ -9,6 +9,7 @@ import { Colors } from "../../config";
 import { useTogglePasswordVisibility } from "../../hooks";
 import { loginValidationSchema } from "../../utils";
 import { Logo2 } from '../../assets'
+import { auth } from '../../services/firebaseService'
 
 export const LoginScreen = ({ navigation }) => {
   const [errorState, setErrorState] = useState("");
@@ -16,12 +17,12 @@ export const LoginScreen = ({ navigation }) => {
     useTogglePasswordVisibility();
 
   const handleLogin = (values) => {
-    // const { email, password } = values;
-    // signInWithEmailAndPassword(auth, email, password).catch((error) =>
-    //   setErrorState(error.message)
-    // );
+     const { email, password } = values;
+     signInWithEmailAndPassword(auth, email, password).catch((error) =>
+       setErrorState(error.message)
+     );
 
-    console.log("Laugh my ass out")
+//    console.log("Laugh my ass out")
 
   };
   return (
