@@ -32,7 +32,7 @@ export const MainNavigator = () => {
 
   return (
     <NavigationContainer>
-      <AuthStack />
+      <AppStack />
     </NavigationContainer>
   );
 };
