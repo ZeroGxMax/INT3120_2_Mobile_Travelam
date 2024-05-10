@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     },
     backIcon: {
         marginLeft: 20,
-        marginTop: 60,
+        marginTop: 30,
     },
     titlesWrapper: {
         marginHorizontal: 20,
