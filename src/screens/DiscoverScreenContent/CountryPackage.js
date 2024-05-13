@@ -1,8 +1,8 @@
 import React from 'react';
-import { TouchableOpacity, ImageBackground, Text, View } from 'react-native';
+import { TouchableOpacity, Text, View, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Entypo } from 'react-native-vector-icons';
-import { colors } from "../../assets/colors/colors";
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { colors } from '../../assets/colors/colors';
 import { styles } from './style';
 
 const CountryPackage = ({ item }) => {
@@ -14,28 +14,28 @@ const CountryPackage = ({ item }) => {
         });
     };
 
-    // console.log(item.demoImage)
+    // console.log(item)
 
     return (
-        <TouchableOpacity onPress={onPressHandler}>
-            <ImageBackground
-                // source={item.demoImage}
-                source={{ uri: item.demoImage }}
-                style={[
-                    styles.discoverItem,
-                    { marginLeft: item.id == 'discover-1' ? 20 : 0 },
-                ]}
-                imageStyle={styles.discoverItemImage}>
-                <View style={styles.imageButtonBackground}>
-                    <View style={styles.centeredContainer}>
-                        <Text style={styles.discoverItemTitle}>{item.countryName}</Text>
-                    </View>
-                    {/* <View style={styles.discoverItemLocationWrapper}>
-                    <Entypo name="location-pin" size={18} color={colors.white} />
-                    <Text style={styles.discoverItemLocationText}>{item.location}</Text>
+        <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={onPressHandler}
+        >
+            <ImageBackground style={styles.cardImage} source={{ uri: item.demoImage }}>
+                {/* <View style={{ flexDirection: 'row' }}>
+                    <Icon name="star" size={20} color={colors.white} />
+                    <Text style={{ marginLeft: 5, color: colors.white }}>5.0</Text>
                 </View> */}
-                </View>
+                <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end' }}>
+                    {/* <View style={{ flexDirection: 'row' }}>
+                        <Icon name="place" size={20} color={colors.white} />
+                        <Text style={{ marginLeft: 5, color: colors.white }}>{item.countryName}</Text>
+                    </View> */}
 
+                </View>
+                <Text style={{ color: colors.white, fontSize: 20, fontWeight: 'bold', marginBottom: 5, textAlign: "center" }}>
+                    {item.countryName}
+                </Text>
             </ImageBackground>
         </TouchableOpacity>
     );
