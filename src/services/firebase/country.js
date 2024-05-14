@@ -15,7 +15,7 @@ const getCountryFromId = async (countryId) => {
 
             if (childData && childData.id && childData.id === countryId) {
                 foundData = childData;
-                console.log("Node with countryId =", countryId, "found:", foundData);
+                console.log("Node with countryId =", countryId, "found!");
             }
         });
 
@@ -58,5 +58,58 @@ const getCountryFromName = async (countryName) => {
     }
 };
 
+const getCountryIdFromTourId = async (tourId) => {
+    try {
+        const tourDestRef = ref(db, "tour_dest/data");
+        const destRef = ref(db, "destination/data");
 
-export {getCountryFromId, getCountryFromName}
+        const tourDestSnapshot = await get(tourDestRef);
+        const destSnapshot = await get(destRef);
+
+        let foundCountry = null;
+
+        tourDestSnapshot.forEach((tourDestChild) => {
+            const tourDestData = tourDestChild.val();
+            if (tourDestData.tourId == tourId) {
+                const destId = tourDestData.destId;
+                destSnapshot.forEach((destChild) => {
+                    const destData = destChild.val();
+                    if (destData && destData.id == destId) {
+                        foundCountry = destData.countryId;
+                        return;
+                    }
+                });
+                if (foundCountry) {
+                    return;
+                }
+            }
+        });
+
+        return foundCountry;
+    } catch (error) {
+        console.error("Error finding country from tour ID:", error);
+        throw error;
+    }
+};
+
+const getAllCountry = async () => {
+    try {
+        const countryRef = ref(db, 'country/data');
+        const snapshot = await get(countryRef);
+
+        const allCountries = [];
+
+        snapshot.forEach((childSnapshot) => {
+            const childData = childSnapshot.val();
+            allCountries.push(childData);
+        });
+
+        return allCountries;
+    } catch (error) {
+        console.error("Error getting all countries:", error);
+        throw error;
+    }
+};
+
+
+export { getCountryFromId, getCountryFromName, getAllCountry, getCountryIdFromTourId }

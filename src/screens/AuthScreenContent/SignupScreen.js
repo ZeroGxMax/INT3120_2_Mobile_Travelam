@@ -9,6 +9,7 @@ import { Colors } from "../../config";
 import { Logo2 } from "../../assets"
 import { useTogglePasswordVisibility } from "../../hooks";
 import { signupValidationSchema } from "../../utils";
+import { auth } from "../../services/firebaseService"
 
 export const SignupScreen = ({ navigation }) => {
   const [errorState, setErrorState] = useState("");
@@ -23,13 +24,13 @@ export const SignupScreen = ({ navigation }) => {
   } = useTogglePasswordVisibility();
 
   const handleSignup = async (values) => {
-    // const { email, password } = values;
+     const { email, password } = values;
 
-    // createUserWithEmailAndPassword(auth, email, password).catch((error) =>
-    //   setErrorState(error.message)
-    // );
+     createUserWithEmailAndPassword(auth, email, password).catch((error) =>
+       setErrorState(error.message)
+     );
 
-    console.log("Laugh my ass out")
+//    console.log("Laugh my ass out")
   };
 
   return (

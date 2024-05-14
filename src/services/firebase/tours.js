@@ -18,6 +18,46 @@ const getAllTours = async (tourId) => {
     }
 };
 
+const getBestTours = async (limit = 10) => {
+    try {
+        const tourRef = ref(db, 'tour/data');
+
+        const snapshot = await get(tourRef);
+
+        let bestTours = []; 
+        let highestVotings = []; // Variable to store the highest votings
+
+        snapshot.forEach((childSnapshot) => {
+            const childData = childSnapshot.val(); 
+
+            if (bestTours.length < limit || childData.voting > Math.min(...highestVotings)) {
+                bestTours.push(childData);
+                highestVotings.push(childData.voting);
+                
+                // If the number of best tours exceeds the limit, remove the tour with the lowest Votings
+                if (bestTours.length > limit) {
+                    const lowestVotingsIndex = highestVotings.indexOf(Math.min(...highestVotings));
+                    bestTours.splice(lowestVotingsIndex, 1);
+                    highestVotings.splice(lowestVotingsIndex, 1);
+                }
+            }
+        });
+
+        // If no tour with a Votings is found
+        if (bestTours.length === 0) {
+            console.log("Best tour: No tours found.");
+        } else {
+            console.log("Best tours found!");
+        }
+
+        return bestTours; // Return the best tours
+    } catch (error) {
+        console.error("Error finding best tours:", error);
+        throw error;
+    }
+};
+
+
 const getTourById = async (tourId) => {
     try {
         // Reference to the 'tour' node
@@ -101,4 +141,4 @@ const getTourByCountryId = async (countryId) => {
 
 
 
-export { getAllTours, getTourById, getTourByCountryId }
+export { getAllTours, getTourById, getTourByCountryId, getBestTours }
