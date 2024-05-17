@@ -5,6 +5,7 @@ import { colors } from "../../assets/colors/colors";
 const { width, height } = Dimensions.get("screen");
 
 const PackageCard = ({ title, description, image, onPress }) => {
+    console.log(image)
     return (
         <TouchableOpacity onPress={onPress} style={localStyles.card}>
             <View style={{ flexDirection: "row" }}>

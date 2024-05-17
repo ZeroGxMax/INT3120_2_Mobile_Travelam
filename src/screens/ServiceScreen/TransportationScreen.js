@@ -1,38 +1,38 @@
 import { View, Text, FlatList, ImageBackground, Animated, Dimensions, Image, TouchableOpacity} from 'react-native';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { styles } from './PackageScreenContent/style';
-import { getTourByCountryId } from '../services/firebase/tours';
-import PackageCard from './PackageScreenContent/PackageCard';
+import { styles } from '../PackageScreenContent/style';
+import { getAllTransportation } from '../../services/firebase/transportation';
+import PackageCard from '../PackageScreenContent/PackageCard';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { colors } from '../assets/colors/colors';
-import LoadingView from '../components/utils/LoadingView';
+import { colors } from '../../assets/colors/colors';
+import LoadingView from '../../components/utils/LoadingView';
 
-const PackageScreen = ({ route }) => {
+const TransportationScreen = () => {
     const navigation = useNavigation();
 
     const { width, height } = Dimensions.get("screen");
-    const { country } = route.params
-    const [tours, setTours] = useState([]);
+    const [transportation, setTransportation] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Fetch tours data by country id
-        const fetchToursData = async () => {
+        // Fetch transportation data by country id
+        const fetchTransportationData = async () => {
             try {
-                const toursData = await getTourByCountryId(country.id);
-                setTours(toursData);
+                const transportationData = await getAllTransportation();
+                setTransportation(transportationData);
                 setLoading(false);
+                // console.log(transportation.data[1].demoImage)
             } catch (error) {
-                console.error('Error fetching tours:', error);
+                console.error('Error fetching transportation:', error);
                 setLoading(false);
             }
         };
 
-        fetchToursData();
-    }, [country.id]);
+        fetchTransportationData();
+    }, []);
 
-    handlePress = (item) => {
+    const handlePress = (item) => {
         navigation.navigate('Detail', {
             item: item,
         })
@@ -46,13 +46,13 @@ const PackageScreen = ({ route }) => {
         <View>
             <FlatList
                 contentContainerStyle={{ flexGrow: 1 }}
-                data={tours}
+                data={transportation}
                 renderItem={({ item, index }) => {
-                    if (index === 0) { // Render the image background for the first item
+                    if (index == 0) { 
                         return (
                             <View style={{ width: width, height: 250 }}>
                                 <ImageBackground
-                                    source={{ uri: country.demoImage }}
+                                    source={{ uri: transportation[9].demoImage }}
                                     style={styles.backgroundImage}
                                 >
                                     <TouchableOpacity
@@ -62,7 +62,7 @@ const PackageScreen = ({ route }) => {
                                     </TouchableOpacity>
                                     <View style={styles.textView}>
                                         <Text style={styles.title}>
-                                            {country.countryName}
+                                            Transportation
                                         </Text>
                                     </View>
                                 </ImageBackground>
@@ -71,11 +71,10 @@ const PackageScreen = ({ route }) => {
                         );
                     } else { // Render other items using PackageCard component
                         return (
-
                             <PackageCard
-                                title={item.title}
+                                title={item.type}
                                 image={item.demoImage}
-                                description={item.description}
+                                description={item.additionInfo}
                                 onPress={() => handlePress(item)}
                             />
                         );
@@ -87,4 +86,4 @@ const PackageScreen = ({ route }) => {
     );
 }
 
-export default PackageScreen
+export default TransportationScreen

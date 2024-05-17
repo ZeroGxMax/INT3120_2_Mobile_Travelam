@@ -1,23 +1,47 @@
 import React from 'react';
-import { View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { View, TouchableOpacity } from 'react-native';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 import { styles } from './style'; 
 import { colors } from '../../assets/colors/colors';
 
 const ListCategories = () => {
+    const navigation = useNavigation();
+
+    const handlePress = (category) => {
+        switch (category) {
+            case 'transportation':
+                navigation.navigate('Transportation');
+                break;
+            case 'restaurant':
+                navigation.navigate('Restaurant'); 
+                break;
+            case 'activity':
+                navigation.navigate('Activity'); 
+                break;
+            case 'accommodation':
+                navigation.navigate('Accommodation');
+                break;
+            default:
+                break;
+        }
+    };
+
     const categoryIcons = [
-        <Icon name="flight" size={25} color={colors.primary} />,
-        <Icon name="beach-access" size={25} color={colors.primary} />,
-        <Icon name="near-me" size={25} color={colors.primary} />,
-        <Icon name="place" size={25} color={colors.primary} />,
+        { name: "emoji-transportation", category: "transportation" },
+        { name: "local-restaurant", category: "restaurant" },
+        { name: "attractions", category: "activity" },
+        { name: "hotel", category: "accommodation" },
     ];
 
     return (
         <View style={styles.categoryContainer}>
             {categoryIcons.map((icon, index) => (
-                <View key={index} style={styles.iconContainer}>
-                    {icon}
-                </View>
+                <TouchableOpacity key={index} onPress={() => handlePress(icon.category)}>
+                    <View style={styles.iconContainer}>
+                        <MaterialIcon name={icon.name} size={25} color={colors.primary} />
+                    </View>
+                </TouchableOpacity>
             ))}
         </View>
     );
