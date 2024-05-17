@@ -3,6 +3,25 @@ import { ref, get, getDatabase, set, remove, orderByChild } from "firebase/datab
 
 const db = getDatabase(firebaseApp)
 
+const getAllCountry = async () => {
+    try {
+        const countryRef = ref(db, 'country/data');
+        const snapshot = await get(countryRef);
+
+        const allCountries = [];
+
+        snapshot.forEach((childSnapshot) => {
+            const childData = childSnapshot.val();
+            allCountries.push(childData);
+        });
+
+        return allCountries;
+    } catch (error) {
+        console.error("Error getting all countries:", error);
+        throw error;
+    }
+};
+
 const getCountryFromId = async (countryId) => {
     try {
         const countryRef = ref(db, 'country/data');
@@ -92,24 +111,108 @@ const getCountryIdFromTourId = async (tourId) => {
     }
 };
 
-const getAllCountry = async () => {
+const getCountryIdFromRestaurantId = async (restaurantId) => {
     try {
-        const countryRef = ref(db, 'country/data');
-        const snapshot = await get(countryRef);
+        const restaurantRef = ref(db, "restaurant/data");
+        const destRef = ref(db, "destination/data");
 
-        const allCountries = [];
+        const restaurantSnapshot = await get(restaurantRef);
+        const destSnapshot = await get(destRef);
 
-        snapshot.forEach((childSnapshot) => {
-            const childData = childSnapshot.val();
-            allCountries.push(childData);
+        let foundCountry = null;
+
+        restaurantSnapshot.forEach((restaurantChild) => {
+            const restaurantData = restaurantChild.val();
+            if (restaurantData.id == restaurantId) {
+                const destId = restaurantData.destId;
+                destSnapshot.forEach((destChild) => {
+                    const destData = destChild.val();
+                    if (destData && destData.id == destId) {
+                        foundCountry = destData.countryId;
+                        return;
+                    }
+                });
+                if (foundCountry) {
+                    return;
+                }
+            }
         });
 
-        return allCountries;
+        return foundCountry;
     } catch (error) {
-        console.error("Error getting all countries:", error);
+        console.error("Error finding country from restaurant ID:", error);
+        throw error;
+    }
+};
+
+const getCountryIdFromAccommodationId = async (accommodationId) => {
+    try {
+        const accommodationRef = ref(db, "accommodation/data");
+        const destRef = ref(db, "destination/data");
+
+        const accommodationSnapshot = await get(accommodationRef);
+        const destSnapshot = await get(destRef);
+
+        let foundCountry = null;
+
+        accommodationSnapshot.forEach((accommodationChild) => {
+            const accommodationData = accommodationChild.val();
+            if (accommodationData.id == accommodationId) {
+                const destId = accommodationData.destId;
+                destSnapshot.forEach((destChild) => {
+                    const destData = destChild.val();
+                    if (destData && destData.id == destId) {
+                        foundCountry = destData.countryId;
+                        return;
+                    }
+                });
+                if (foundCountry) {
+                    return;
+                }
+            }
+        });
+
+        return foundCountry;
+    } catch (error) {
+        console.error("Error finding country from accommodation ID:", error);
+        throw error;
+    }
+};
+
+const getCountryIdFromActivityId = async (activityId) => {
+    try {
+        const activityRef = ref(db, "activity/data");
+        const destRef = ref(db, "destination/data");
+
+        const activitySnapshot = await get(activityRef);
+        const destSnapshot = await get(destRef);
+
+        let foundCountry = null;
+
+        activitySnapshot.forEach((activityChild) => {
+            const activityData = activityChild.val();
+            if (activityData.id == activityId) {
+                const destId = activityData.destId;
+                destSnapshot.forEach((destChild) => {
+                    const destData = destChild.val();
+                    if (destData && destData.id == destId) {
+                        foundCountry = destData.countryId;
+                        return;
+                    }
+                });
+                if (foundCountry) {
+                    return;
+                }
+            }
+        });
+
+        return foundCountry;
+    } catch (error) {
+        console.error("Error finding country from activity ID:", error);
         throw error;
     }
 };
 
 
-export { getCountryFromId, getCountryFromName, getAllCountry, getCountryIdFromTourId }
+
+export { getCountryFromId, getCountryFromName, getAllCountry, getCountryIdFromTourId, getCountryIdFromRestaurantId, getCountryIdFromAccommodationId, getCountryIdFromActivityId }

@@ -1,39 +1,46 @@
-import { View, Text, FlatList, ImageBackground, Animated, Dimensions, Image, TouchableOpacity} from 'react-native';
+import { View, Text, FlatList, ImageBackground, Animated, Dimensions, Image, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from '../PackageScreenContent/style';
-import { getAllTransportation } from '../../services/firebase/trans';
+import { getAllActivity } from '../../services/firebase/activity';
 import ServicePackageCard from './ServiceScreenContent/ServicePackageCard';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { colors } from '../../assets/colors/colors';
 import LoadingView from '../../components/utils/LoadingView';
 
-const TransportationScreen = () => {
+const ActivityScreen = () => {
     const navigation = useNavigation();
 
     const { width, height } = Dimensions.get("screen");
-    const [transportation, setTransportation] = useState([]);
+    const [activity, setActivity] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    function separateLinks(links) {
+        const linksArray = links.split(',');
+
+        const trimmedLinks = linksArray.map(link => link.trim());
+
+        return trimmedLinks;
+    }
+
     useEffect(() => {
-        // Fetch transportation data by country id
-        const fetchTransportationData = async () => {
+        const fetchActivityData = async () => {
             try {
-                const transportationData = await getAllTransportation();
-                setTransportation(transportationData);
+                const activityData = await getAllActivity();
+                setActivity(activityData);
                 setLoading(false);
-                // console.log(transportation.data[1].demoImage)
+                // console.log(separateLinks(activityData.data[0].demoImage)[0])
             } catch (error) {
-                console.error('Error fetching transportation:', error);
+                console.error('Error fetching activity:', error);
                 setLoading(false);
             }
         };
 
-        fetchTransportationData();
+        fetchActivityData();
     }, []);
 
     const handlePress = (item) => {
-        navigation.navigate('TransDetail', {
+        navigation.navigate('ActivityDetail', {
             item: item,
         })
     };
@@ -46,13 +53,13 @@ const TransportationScreen = () => {
         <View>
             <FlatList
                 contentContainerStyle={{ flexGrow: 1 }}
-                data={transportation}
+                data={activity}
                 renderItem={({ item, index }) => {
-                    if (index == 0) { 
+                    if (index == 0) {
                         return (
                             <View style={{ width: width, height: 250 }}>
                                 <ImageBackground
-                                    source={{ uri: transportation[9].demoImage }}
+                                    source={{ uri: separateLinks(activity[0].demoImage)[0] }}
                                     style={styles.backgroundImage}
                                 >
                                     <TouchableOpacity
@@ -62,28 +69,28 @@ const TransportationScreen = () => {
                                     </TouchableOpacity>
                                     <View style={styles.textView}>
                                         <Text style={styles.title}>
-                                            Transportation
+                                            Activity
                                         </Text>
                                     </View>
                                 </ImageBackground>
 
                             </View>
                         );
-                    } else { // Render other items using ServicePackageCard component
+                    } else {
                         return (
                             <ServicePackageCard
-                                title={item.type}
-                                image={item.demoImage}
-                                description={item.additionInfo}
+                                title={item.name}
+                                image={separateLinks(item.demoImage)[0]}
+                                description={item.description}
                                 onPress={() => handlePress(item)}
                             />
                         );
                     }
                 }}
-                keyExtractor={(item, index) => index.toString()} // Key extractor to avoid key warning
+                keyExtractor={(item, index) => index.toString()}
             />
         </View>
     );
 }
 
-export default TransportationScreen
+export default ActivityScreen

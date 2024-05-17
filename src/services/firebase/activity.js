@@ -3,6 +3,21 @@ import { ref, get, getDatabase, set, remove, orderByChild } from "firebase/datab
 
 const db = getDatabase(firebaseApp)
 
+const getAllActivity = async () => {
+    try {
+        const activityRef = ref(db, 'activity/data');
+        const snapshot = await get(activityRef); 
+
+        // console.log("Reference:", restaurantsRef.toString());
+        // console.log("Restaurant data:", snapshot.val());
+
+        return snapshot.val();
+    } catch (error) {
+        console.error("Error getting activities:", error);
+        throw error;
+    }
+};
+
 const getActFromId = async (actId) => {
     try {
         const actRef = ref(db, 'activity/data');
@@ -89,4 +104,4 @@ const getActFromDestId = async (destId) => {
     }
 };
 
-export { getActFromId, getActFromName, getActFromDestId }
+export { getActFromId, getActFromName, getActFromDestId, getAllActivity }

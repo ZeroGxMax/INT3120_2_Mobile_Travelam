@@ -14,6 +14,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import { styles } from './DetailScreenContent/style';
 import { getCountryIdFromTourId, getCountryFromId } from '../services/firebase/country';
 import LoadingView from '../components/utils/LoadingView';
+import SmallButton from '../components/SmallButton';
 
 const height = Dimensions.get('window').height;
 
@@ -53,6 +54,7 @@ const DetailScreen = ({ route, navigation }) => {
                 source={{ uri: item.demoImage }}
                 style={styles.backgroundImage}
             >
+
                 <TouchableOpacity
                     style={styles.backIcon}
                     onPress={() => navigation.goBack()}>
