@@ -2,8 +2,8 @@ import { View, Text, FlatList, ImageBackground, Animated, Dimensions, Image, Tou
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from '../PackageScreenContent/style';
-import { getAllRestaurants } from '../../services/firebase/restaurant';
-import PackageCard from '../PackageScreenContent/PackageCard';
+import { getAllRestaurants } from '../../services/firebase/rest';
+import ServicePackageCard from './ServiceScreenContent/ServicePackageCard';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { colors } from '../../assets/colors/colors';
 import LoadingView from '../../components/utils/LoadingView';
@@ -40,7 +40,7 @@ const RestaurantScreen = () => {
     }, []);
 
     const handlePress = (item) => {
-        navigation.navigate('Detail', {
+        navigation.navigate('RestDetail', {
             item: item,
         })
     };
@@ -48,43 +48,6 @@ const RestaurantScreen = () => {
     if (loading) {
         return <LoadingView />;
     }
-
-    // return (
-    //     <View>
-    //         <View style={{ width: width, height: 250 }}>
-    //             <ImageBackground
-    //                 source={{ uri: separateLinks(restaurant[0].demoImage)[0] }}
-    //                 style={styles.backgroundImage}
-    //             >
-    //                 <TouchableOpacity
-    //                     style={styles.backIcon}
-    //                     onPress={() => navigation.goBack()}>
-    //                     <Entypo name="chevron-left" size={32} color={colors.white} />
-    //                 </TouchableOpacity>
-    //                 <View style={styles.textView}>
-    //                     <Text style={styles.title}>
-    //                         Restaurant
-    //                     </Text>
-    //                 </View>
-    //             </ImageBackground>
-    //         </View>
-
-    //         <FlatList
-    //             data={restaurant}
-    //             renderItem={({ item }) => (
-    //                 <View style={styles.listItem}>
-    //                     <Text>{item.name}</Text>
-    //                     <Text>{item.description}</Text>
-    //                     <TouchableOpacity onPress={() => handlePress(item)}>
-    //                         <Text style={styles.button}>View Details</Text>
-    //                     </TouchableOpacity>
-    //                 </View>
-    //             )}
-    //             keyExtractor={(item, index) => index.toString()}
-    //         />
-    //     </View>
-
-    // );
 
     return (
         <View>
@@ -115,7 +78,7 @@ const RestaurantScreen = () => {
                         );
                     } else {
                         return (
-                            <PackageCard
+                            <ServicePackageCard
                                 title={item.name}
                                 image={separateLinks(item.demoImage)[0]}
                                 description={item.description}
