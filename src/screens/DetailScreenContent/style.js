@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.white,
         marginTop: -20,
         borderRadius: 25,
+        marginBottom: 20
     },
     backIcon: {
         marginLeft: 20,

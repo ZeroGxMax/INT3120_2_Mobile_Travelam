@@ -9,6 +9,7 @@ import { default as customTheme } from "./customTheme.json";
 import { MainNavigator } from "./src/navigation/MainNavigator";
 import { AuthenticatedUserProvider } from "./src/providers";
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {

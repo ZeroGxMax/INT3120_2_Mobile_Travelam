@@ -1,12 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { onAuthStateChanged } from "firebase/auth";
-
+import { Provider } from "react-redux"
 import { AuthStack } from "./AuthStack";
 import { AppStack } from "./AppStack";
 import { AuthenticatedUserContext } from "../providers";
 import { LoadingIndicator } from "../components";
 import { auth } from "../services/firebaseService";
+import store from "../../store";
 
 export const MainNavigator = () => {
   const { user, setUser } = useContext(AuthenticatedUserContext);
@@ -31,8 +32,10 @@ export const MainNavigator = () => {
   }
 
   return (
-    <NavigationContainer>
-      {user ? <AppStack /> : <AuthStack />}
-    </NavigationContainer>
+    <Provider store={store}>
+        <NavigationContainer>
+            {user ? <AppStack /> : <AuthStack />}
+        </NavigationContainer>
+    </Provider>
   );
 };

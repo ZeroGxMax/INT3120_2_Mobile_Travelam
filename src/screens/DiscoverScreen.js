@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { View, Text, SafeAreaView, Image, ScrollView, StatusBar, FlatList, TouchableOpacity, Dimensions, TextInput } from 'react-native';
+=======
+import { View, Text, Button, Alert, SafeAreaView, Image, ScrollView, StatusBar, FlatList, TouchableOpacity, Dimensions, TextInput, StyleSheet } from 'react-native';
+>>>>>>> hieu
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -17,6 +21,10 @@ import { auth } from "../services/firebaseService"
 import { getTourByCountryId, getAllTours, getTourById, getBestTours } from '../services/firebase/tours';
 import { getCountryFromId, getCountryFromName, getAllCountry } from "../services/firebase/country";
 import LoadingView from '../components/utils/LoadingView';
+<<<<<<< HEAD
+=======
+
+>>>>>>> hieu
 
 
 const Discover = () => {
@@ -113,6 +121,15 @@ const Discover = () => {
                         renderItem={({ item }) => <RecommendedCard item={item} />}
                     />
                 </View>
+<<<<<<< HEAD
+=======
+                <TouchableOpacity
+                    style={sty.buttonWrapper}
+                    onPress={() => navigation.navigate("Customize")}
+                >
+                    <Text style={{ color: "white", fontWeight: 600, fontSize: 18 }}>Customize New Tour</Text>
+                </TouchableOpacity>
+>>>>>>> hieu
 
             </ScrollView>
         </SafeAreaView>
@@ -121,3 +138,16 @@ const Discover = () => {
 }
 
 export default Discover
+
+const sty = StyleSheet.create({
+    buttonWrapper: {
+        marginHorizontal: 20,
+        marginBottom: 20,
+        marginTop: 15,
+        backgroundColor: colors.green,
+        alignItems: 'center',
+        paddingVertical: 15,
+        borderRadius: 10,
+        color: "white"
+    },
+})

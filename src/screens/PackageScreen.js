@@ -71,7 +71,6 @@ const PackageScreen = ({ route }) => {
                         );
                     } else { // Render other items using PackageCard component
                         return (
-
                             <PackageCard
                                 title={item.title}
                                 image={item.demoImage}
