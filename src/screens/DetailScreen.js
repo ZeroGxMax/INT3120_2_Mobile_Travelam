@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     Image,
     ActivityIndicator,
+    ScrollView,
 } from 'react-native';
 import { colors } from '../assets/colors/colors';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -47,7 +48,7 @@ const DetailScreen = ({ route, navigation }) => {
 
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <ImageBackground
                 source={{ uri: item.demoImage }}
                 style={styles.backgroundImage}
@@ -89,8 +90,21 @@ const DetailScreen = ({ route, navigation }) => {
                     onPress={() => alert('You booked a trip!')}>
                     <Text style={styles.buttonText}>Book Now</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.buttonWrapper}
+                    onPress={() => navigation.navigate(
+                        "Destination",
+                        {
+                            id: countryId,
+                            name: countryData.countryName
+                        })}
+                >
+                    <Text style={styles.buttonText}>Customize</Text>
+                </TouchableOpacity>
+
             </View>
-        </View>
+        </ScrollView>
     );
 };
 
