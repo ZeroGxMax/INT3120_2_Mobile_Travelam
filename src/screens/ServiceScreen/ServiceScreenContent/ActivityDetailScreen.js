@@ -92,17 +92,6 @@ const InfoSection = ({ title, content }) => (
     </View>
 );
 
-const PriceSection = ({ content }) => (
-    <View style={[styles.infoSection, styles.centeredContent]}>
-        {/* <Text style={styles.infoTitle}>{title}</Text> */}
-        <View style={styles.priceWrapper}>
-
-            <Text style={styles.priceText}>${content}</Text>
-            <Text style={styles.subText}>/night</Text>
-        </View>
-    </View>
-);
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
