@@ -4,6 +4,19 @@ import { ref, get, getDatabase, set, remove, orderByChild } from "firebase/datab
 
 const db = getDatabase(firebaseApp)
 
+const getAllAccommodation = async () => {
+    try {
+        const accommodationRef = ref(db, 'accommodation/data');
+        const snapshot = await get(accommodationRef); 
+
+        return snapshot.val();
+    } catch (error) {
+        console.error("Error getting accommodation:", error);
+        throw error;
+    }
+};
+
+
 const getAccomFromId = async (accomId) => {
     try {
         const accomRef = ref(db, 'accommodation/data');
@@ -143,4 +156,4 @@ const getAllAccom = async () => {
 };
 
 
-export { getAccomFromId, getAccomListFromId, getAccomFromName, getAllAccom, getAccomFromDestId }
+export { getAccomFromId, getAccomListFromId, getAccomFromName, getAllAccom, getAccomFromDestId, getAllAccommodation }

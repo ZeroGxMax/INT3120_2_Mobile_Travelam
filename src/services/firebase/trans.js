@@ -3,6 +3,21 @@ import { ref, get, getDatabase, set, remove, orderByChild } from "firebase/datab
 
 const db = getDatabase(firebaseApp)
 
+const getAllTransportation = async () => {
+    try {
+        const transportationRef = ref(db, 'transportation/data'); 
+        const snapshot = await get(transportationRef);
+
+        // console.log("Reference:", transportationRef.toString());
+        // console.log("Transportation data:", snapshot.val());
+
+        return snapshot.val();
+    } catch (error) {
+        console.error("Error getting transportation:", error);
+        throw error;
+    }
+};
+
 const getTransFromId = async (transId) => {
     try {
         const transRef = ref(db, 'transportation/data');
@@ -122,4 +137,4 @@ const getTransFromDestId = async (destId) => {
     }
 };
 
-export { getTransFromId, getTransListFromId, getTransFromName, getTransFromDestId }
+export { getTransFromId, getTransListFromId, getTransFromName, getTransFromDestId, getAllTransportation }

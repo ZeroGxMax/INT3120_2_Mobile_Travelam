@@ -90,8 +90,8 @@ const CustomizeScreen = () => {
                 />
                 <AntDesign name="search1" size={24} color="#FF724C" />
             </View>
-            {queryData.map((item) => (
-                <CountryMenuItem key={item.id} item={item} />
+            {queryData.map((item, index) => (
+                <CountryMenuItem key={index} item={item} />
             ))}
         </ScrollView>
     );

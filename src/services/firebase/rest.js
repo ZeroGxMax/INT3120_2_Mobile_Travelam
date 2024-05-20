@@ -122,4 +122,19 @@ const getRestFromDestId = async (destId) => {
     }
 };
 
-export { getRestFromId, getRestListFromId, getRestFromName, getRestFromDestId }
+const getAllRestaurants = async () => {
+    try {
+        const restaurantsRef = ref(db, 'restaurant/data');
+        const snapshot = await get(restaurantsRef); 
+
+        // console.log("Reference:", restaurantsRef.toString());
+        // console.log("Restaurant data:", snapshot.val());
+
+        return snapshot.val();
+    } catch (error) {
+        console.error("Error getting restaurants:", error);
+        throw error;
+    }
+};
+
+export { getRestFromId, getRestListFromId, getRestFromName, getRestFromDestId, getAllRestaurants }

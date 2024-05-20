@@ -71,7 +71,7 @@ const CartScreen = () => {
                             }}
                         >
                             {sortedCart.map((item, index) => (
-                                <>
+                                <View key={index}>
                                     {startBaseId < item.baseId ? <View style={{
                                         backgroundColor: color_[item.baseId / 200],
                                         alignItems: 'center',
@@ -174,7 +174,7 @@ const CartScreen = () => {
                                             ${70 * item.quantity}
                                         </Text>
                                     </View>
-                                </>
+                                </View>
                             ))}
                         </View>
 

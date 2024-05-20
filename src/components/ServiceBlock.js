@@ -12,8 +12,10 @@ import {
 } from 'react-native';
 import { colors } from '../assets/colors/colors';
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-const ServiceBlock = ({ title, data, color }) => {
+const ServiceBlock = ({ title, data, color, navigationTarget }) => {
+    const navigation = useNavigation()
     return (
         <View style={styles.container}>
             <View style={{
@@ -29,20 +31,25 @@ const ServiceBlock = ({ title, data, color }) => {
             </View>
 
             {data.map((item) => (
-                <View style={{ 
-                    marginHorizontal: 10, 
-                    borderBottomWidth: 1, 
-                    paddingVertical: 10, 
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                }}>
+                <TouchableOpacity 
+                    style={{ 
+                        marginHorizontal: 10, 
+                        borderBottomWidth: 1, 
+                        paddingVertical: 10, 
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                    }} 
+                    onPress={() => navigation.navigate(navigationTarget, {
+                        item: item
+                    })}
+                >
                     <Text style={{ fontSize: 16 }}>
                         {item.name ? item.name : item.type}
                     </Text>
                     <View style={{ width: 30, alignItems: "center" }}>
                         <AntDesign name='right' size={20} color="black" />
                     </View>
-                </View>
+                </TouchableOpacity>
             ))}
         </View>
     );

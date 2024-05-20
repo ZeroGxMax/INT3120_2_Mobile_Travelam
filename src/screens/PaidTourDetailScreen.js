@@ -111,10 +111,10 @@ const DetailScreen = ({ route, navigation }) => {
                     <Text style={styles.descriptionTitle}>Services</Text>
                 </View>
                 <View style={{ marginHorizontal: 30 }}>
-                    <ServiceBlock title='Accommodations' color='#00FF9C' data={accomData} />
-                    <ServiceBlock title='Restaurants' color='#00FF9C' data={restData} />
-                    <ServiceBlock title='Transportations' color='#00FF9C' data={transData} />
-                    <ServiceBlock title='Activities' color='#00FF9C' data={actData} />
+                    <ServiceBlock title='Accommodations' color='#00FF9C' data={accomData} navigationTarget="AccomDetail" />
+                    <ServiceBlock title='Restaurants' color='#00FF9C' data={restData} navigationTarget="RestDetail" />
+                    <ServiceBlock title='Transportations' color='#00FF9C' data={transData} navigationTarget="TransDetail" />
+                    <ServiceBlock title='Activities' color='#00FF9C' data={actData} navigationTarget="ActivityDetail" />
                 </View>
             </View>
             <View style={{ height: 60 }}></View>
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         marginBottom: 40,
         marginTop: 20,
         position: 'absolute',
-        top: 0
+        top: 170
     },
     itemTitle: {
         // fontFamily: 'Lato-Bold',

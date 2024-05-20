@@ -2,7 +2,6 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { colors } from "../../assets/colors/colors"
 
 const { width, height } = Dimensions.get("screen");
-console.log(height)
 
 export const styles = StyleSheet.create({
     container: {

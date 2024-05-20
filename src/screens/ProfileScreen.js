@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   name: {
-    fontFamily: 'Poppins-Semibold',
     fontSize: 20,
     letterSpacing: 0,
     color: '#262626',

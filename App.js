@@ -8,7 +8,6 @@ import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { default as customTheme } from "./customTheme.json";
 import { MainNavigator } from "./src/navigation/MainNavigator";
 import { AuthenticatedUserProvider } from "./src/providers";
-import { MainDrawer } from "./src/navigation/MainDrawer"
 
 const Stack = createNativeStackNavigator();
 
