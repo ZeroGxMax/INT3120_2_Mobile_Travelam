@@ -110,7 +110,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   description: {
-    fontFamily: 'Poppins-Medium',
     fontSize: 12,
     letterSpacing: 0,
     color: '#808080',
@@ -131,7 +130,6 @@ const styles = StyleSheet.create({
   headerText: {
     color: '#fff',
     fontSize: 20,
-    fontFamily: 'Poppins-Semibold',
     letterSpacing: 0,
     justifyContent: 'flex-start',
   },

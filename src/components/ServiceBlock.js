@@ -30,7 +30,7 @@ const ServiceBlock = ({ title, data, color, navigationTarget }) => {
                 </Text>
             </View>
 
-            {data.map((item) => (
+            {data.map((item, index) => (
                 <TouchableOpacity 
                     style={{ 
                         marginHorizontal: 10, 
@@ -42,6 +42,7 @@ const ServiceBlock = ({ title, data, color, navigationTarget }) => {
                     onPress={() => navigation.navigate(navigationTarget, {
                         item: item
                     })}
+                    key={index}
                 >
                     <Text style={{ fontSize: 16 }}>
                         {item.name ? item.name : item.type}

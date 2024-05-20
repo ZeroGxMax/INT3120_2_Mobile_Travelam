@@ -92,8 +92,8 @@ const DestinationScreen = () => {
                 />
                 <AntDesign name="search1" size={24} color="#FF724C" />
             </View>
-            {queryData.map((item) => (
-                <DestinationMenuItem key={item.id} item={item} countryName={route.params.name}/>
+            {queryData.map((item, index) => (
+                <DestinationMenuItem key={index} item={item} countryName={route.params.name}/>
             ))}
         </ScrollView>
         </View>
