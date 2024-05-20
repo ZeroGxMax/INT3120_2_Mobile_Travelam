@@ -13,7 +13,7 @@ const getCountryFromId = async (countryId) => {
         snapshot.forEach((childSnapshot) => {
             const childData = childSnapshot.val();
 
-            if (childData && childData.id && childData.id === countryId) {
+            if (childData && childData.id && childData.id == countryId) {
                 foundData = childData;
                 console.log("Node with countryId =", countryId, "found!");
             }

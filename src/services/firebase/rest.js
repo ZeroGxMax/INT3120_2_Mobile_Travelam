@@ -30,6 +30,39 @@ const getRestFromId = async (restId) => {
     }
 };
 
+const getRestListFromId = async (restIdList) => {
+    try {
+        const restRef = ref(db, 'restaurant/data');
+        const snapshot = await get(restRef);
+
+        let foundData = [];
+        let i = 0;
+
+        snapshot.forEach((childSnapshot) => {
+            const childData = childSnapshot.val();
+
+            if (i === restIdList.length) {
+                return foundData;
+            }
+
+            if (childData && childData.id && childData.id == restIdList[i]) {
+                foundData.push(childData);
+                console.log("Node with restId =", restIdList[i], "found!");
+                i += 1
+            }
+        });
+
+        if (!foundData) {
+            console.log("Node with restId =", 1, "not found.");
+        }
+
+        return foundData;
+    } catch (error) {
+        console.error("Error finding rest:", error);
+        throw error;
+    }
+};
+
 const getRestFromName = async (restName) => {
     try {
         const restRef = ref(db, 'restaurant/data');
@@ -89,4 +122,4 @@ const getRestFromDestId = async (destId) => {
     }
 };
 
-export { getRestFromId, getRestFromName, getRestFromDestId }
+export { getRestFromId, getRestListFromId, getRestFromName, getRestFromDestId }

@@ -9,6 +9,7 @@ import { LoadingIndicator } from "../components";
 import { auth } from "../services/firebaseService";
 import store from "../../store";
 
+
 export const MainNavigator = () => {
   const { user, setUser } = useContext(AuthenticatedUserContext);
   const [isLoading, setIsLoading] = useState(false);
