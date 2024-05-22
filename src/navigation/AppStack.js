@@ -20,6 +20,7 @@ import RestDetailScreen from "../screens/ServiceScreen/ServiceScreenContent/Rest
 import AccomDetailScreen from "../screens/ServiceScreen/ServiceScreenContent/AccomDetailScreen";
 import ActivityDetailScreen from "../screens/ServiceScreen/ServiceScreenContent/ActivityDetailScreen";
 import TransDetailScreen from "../screens/ServiceScreen/ServiceScreenContent/TransDetailScreen";
+import CommentScreen from "../screens/CommentScreen";
 
 
 const Stack = createStackNavigator();
@@ -46,6 +47,8 @@ export const AppStack = () => {
           <Stack.Screen name="AccomDetail" component={AccomDetailScreen} options={{ headerShown: false }} />
           <Stack.Screen name="ActivityDetail" component={ActivityDetailScreen} options={{ headerShown: false }} />
           <Stack.Screen name="TransDetail" component={TransDetailScreen} options={{ headerShown: false }} />
+
+          <Stack.Screen name="Comment" component={CommentScreen} options={{ headerShown: false }} />
 
 
         </Stack.Navigator>
