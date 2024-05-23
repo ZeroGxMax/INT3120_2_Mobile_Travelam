@@ -63,22 +63,12 @@ export default class Comments extends PureComponent {
         this.setState({ editModalVisible: visible });
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps.data) {
-    //         this.setState({
-    //             loadingComments: false,
-    //         });
-    //     }
-    // }
-
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.data && prevState.loadingComments) {
             return {
                 loadingComments: false,
             };
         }
-
-        // Return null to indicate no change to state.
         return null;
     }
 
@@ -92,6 +82,7 @@ export default class Comments extends PureComponent {
 
     toggleExpand(c, focus) {
         const id = this.props.keyExtractor(c);
+        
         let expanded = this.state.expanded;
 
         let index = expanded.indexOf(id);
@@ -105,6 +96,7 @@ export default class Comments extends PureComponent {
         this.setState({ expanded: expanded });
         if (focus && index === -1) {
             this.focusOnReplyInput(id);
+            console.log(id)
         }
     }
 
@@ -123,6 +115,7 @@ export default class Comments extends PureComponent {
     }
 
     handleReply(c) {
+        console.log(this.props.isChild(c))
         if (!this.props.isChild) return;
         if (!this.props.isChild(c)) {
             this.toggleExpand(c, true);
@@ -196,6 +189,7 @@ export default class Comments extends PureComponent {
                 deleteAction={this.handleDelete}
                 editComment={this.handleEdit}
                 likesTapAction={this.props.likeAction ? this.handleLikesTap : null}
+                isChild={this.props.isChild(c)}
             />
         );
     }
@@ -269,7 +263,7 @@ export default class Comments extends PureComponent {
                     this.setLikesModalVisible(false), like.tap(like.name);
                 }}
                 style={styles.likeButton}
-                key={like.user_id + ""}
+                key={like.userId + ""}
             >
                 <View style={[styles.likeContainer]}>
                     <Image style={[styles.likeImage]} source={{ uri: "https://cdn.pixabay.com/photo/2021/05/30/06/34/like-6295005_640.png" }} />
@@ -474,6 +468,7 @@ export default class Comments extends PureComponent {
                 {/* Comments */}
                 {this.props.data ? (
                     <FlatList
+                        scrollEnabled={false}
                         keyboardShouldPersistTaps="always"
                         style={{ backgroundColor: "white" }}
                         data={this.props.data}
@@ -557,6 +552,7 @@ export default class Comments extends PureComponent {
                     <Text style={styles.likeHeader}>Users that liked the comment</Text>
                     {this.state.likesModalVisible ? (
                         <FlatList
+                            scrollEnabled={false}
                             initialNumToRender="10"
                             keyExtractor={item => item.like_id + ""}
                             data={this.state.likesModalData}

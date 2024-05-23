@@ -59,14 +59,14 @@ const DetailScreen = ({ route, navigation }) => {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.commentIcon}
-                        onPress={() => navigation.navigate("Comment", {item})}>
+                        onPress={() => navigation.navigate("Comment", {tour: item})}>
                         <Octicons name="comment-discussion" size={32} color={colors.white} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.contentWrapper}>
-                    <View style={styles.heartWrapper}>
+                    {/* <View style={styles.heartWrapper}>
                         <Entypo name="heart" size={32} color={colors.heart} />
-                    </View>
+                    </View> */}
                     <Text style={styles.itemTitle}>{item.title}</Text>
                     <View style={styles.locationWrapper}>
                         <Entypo name="location-pin" size={24} color={colors.white} />
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     heartWrapper: {
         position: 'absolute',
         right: 20,
-        top: 100,
+        // top: 100,
         width: 64,
         height: 64,
         backgroundColor: colors.white,

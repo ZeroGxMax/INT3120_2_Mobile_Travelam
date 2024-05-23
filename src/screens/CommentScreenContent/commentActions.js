@@ -1,13 +1,31 @@
 import moment from "moment";
-const sampleCommentsRaw = require("./sampleComment.json");
+import { getAllComments, getCommentsFromTourId } from "../../services/firebase/comment";
 
-sampleCommentsRaw.forEach(c => {
-    if (c.children) {
-        c.childrenCount = c.children.length;
+
+// let sampleComments = []; 
+
+export const fetchAndProcessComments = async (tourId) => {
+    try {
+        const sampleCommentsRaw = await getCommentsFromTourId(tourId);
+        sampleCommentsRaw.forEach(c => {
+            if (c.children) {
+                c.childrenCount = c.children.length;
+            }
+        });
+
+        let sampleComments = Object.freeze(sampleCommentsRaw);
+
+        console.log("Processed and frozen comments:", sampleComments);
+
+        return sampleComments;
+
+    } catch (error) {
+        console.error("Error fetching or processing comments:", error);
+        throw error;
     }
-});
+};
 
-const sampleComments = Object.freeze(sampleCommentsRaw);
+// fetchAndProcessComments();
 
 export function getComments() {
     const c = [...sampleComments];
@@ -18,7 +36,8 @@ export function paginateComments(
     comments,
     from_commentId,
     direction,
-    parent_commentId
+    parent_commentId,
+    sampleComments
 ) {
     const c = [...sampleComments];
     if (!parent_commentId) {
@@ -142,7 +161,7 @@ export function deleteComment(comments, cmnt) {
     return comments;
 }
 
-export function save(comments, text, parentCommentId, date, username) {
+export function save(comments, text, parentCommentId, date, username, sampleComments) {
     // find last comment id
     let lastCommentId = 0;
     sampleComments.forEach(c => {

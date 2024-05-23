@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0,
         backgroundColor: "white",
-        position: "absolute"
+        // position: "absolute"
     },
     menuItem: {
         padding: 10,
