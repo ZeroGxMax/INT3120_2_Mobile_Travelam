@@ -10,28 +10,36 @@ import {
 import { Link } from 'react-router-native';
 
 import MenuItem from '../components/MenuItem';
+import { auth } from '../services/firebaseService'
 
 
 
 export default Account = () => {
+  const user = auth.currentUser;
   const menus = [
     {
       title: 'Name',
+      prop: 'displayName'
     },
     {
       title: 'Phone Number',
+      prop: 'phoneNumber'
     },
     {
       title: 'E-mail',
+      prop: 'email'
     },
     {
       title: 'Change Password',
+      prop: 'email'
     },
     {
       title: 'Address',
+      prop: 'email'
     },
     {
       title: 'Credit Card',
+      prop: 'email'
     },
   ];
   return (
@@ -57,14 +65,15 @@ export default Account = () => {
               </TouchableOpacity>
             </View>
             <View style={{ marginTop: 75 }}>
-              <Text style={styles.name}>Billy McCoy</Text>
-              <Text style={styles.description}>Ui & Ux Designer</Text>
+              <Text style={styles.name}>{user.displayName}</Text>
+              <Text style={styles.description}>{user.email}</Text>
               <ScrollView style={styles.menuContainer}>
                 {menus.map((menu, key) => (
                   <MenuItem
                     title={menu.title}
                     key={key}
                     firstItem={key === 0 ? true : false}
+                    property={menu.prop}
                   />
                 ))}
               </ScrollView>

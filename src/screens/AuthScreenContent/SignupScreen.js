@@ -26,7 +26,11 @@ export const SignupScreen = ({ navigation }) => {
   const handleSignup = async (values) => {
      const { email, password } = values;
 
-     createUserWithEmailAndPassword(auth, email, password).catch((error) =>
+     createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+      let user = userCredential.user;
+      user.displayName = user.email
+      console.log("User Registered: ", user)
+     }).catch((error) =>
        setErrorState(error.message)
      );
 
