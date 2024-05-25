@@ -15,13 +15,20 @@ class Comment extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            menuVisible: false
+            menuVisible: false,
+            liked: props.liked,
         };
     }
 
     toggleMenuVisibility = () => {
         this.setState(prevState => ({ menuVisible: !prevState.menuVisible }));
     };
+
+    toggleLike = () => {
+        this.setState(prevState => ({
+            liked: !prevState.liked
+        }));
+    }
 
     handleAction = (action) => {
         return () => {
@@ -61,7 +68,7 @@ class Comment extends PureComponent {
     );
 
     render() {
-        const { menuVisible } = this.state;
+        let{ menuVisible, liked } = this.state;
         const {
             image,
             likesNr,
@@ -92,7 +99,7 @@ class Comment extends PureComponent {
                                         : { uri: image }
                                 }
                             />
-                            {likesNr && likeAction ? (
+                            {/* {likesNr && likeAction ? (
                                 <TouchableHighlight
                                     style={[styles.actionButton, { paddingTop: 5 }]}
                                     onPress={this.handleAction(this.props.likesTapAction)}
@@ -102,7 +109,7 @@ class Comment extends PureComponent {
                                         <Text style={styles.likeNr}>{likesNr}</Text>
                                     </View>
                                 </TouchableHighlight>
-                            ) : null}
+                            ) : null} */}
                         </View>
                     </TouchableHighlight>
                 </View>
@@ -120,7 +127,14 @@ class Comment extends PureComponent {
                         <Text style={[styles.body, this.getStyle("body")]}>{body}</Text>
                     </View>
                     <View style={styles.rightActionBar}>
-                        {likeAction && this.renderActionButton(likeAction, "Like", this.props.liked ? { color: "#4DB2DF" } : null)}
+                        <TouchableHighlight style={styles.actionButton} onPress={() => {
+                            this.props.likeAction(this.props.data)
+                            this.toggleLike();
+                        }}>
+                            <Text style={[styles.actionText, liked ? { color: "#4DB2DF" } : null]}>
+                                Like
+                            </Text>
+                        </TouchableHighlight>
                         {replyAction && this.renderActionButton(replyAction, "Reply")}
                     </View>
                 </TouchableOpacity>
@@ -130,7 +144,7 @@ class Comment extends PureComponent {
                         this.props.isChild && { position: 'absolute' }
                     ]}>
                         <View style={{ flex: 1.5 }}>
-                            {canEdit && this.renderMenuItem("Edit", this.props.editComment, this.getStyle("editText"))}
+                            {/* {canEdit && this.renderMenuItem("Edit", this.props.editComment, this.getStyle("editText"))} */}
                             {reportAction && !isOwnComment && (
                                 <TouchableOpacity
                                     style={styles.menuItem}
@@ -146,13 +160,13 @@ class Comment extends PureComponent {
                                     </Text>
                                 </TouchableOpacity>
                             )}
-                            {canEdit && this.renderMenuItem("Delete", this.props.deleteAction, this.getStyle("deleteText"))}
+                            {/* {canEdit && this.renderMenuItem("Delete", this.props.deleteAction, this.getStyle("deleteText"))} */}
                         </View>
-                        <View style={{ flex: 0.5, alignItems: "center", justifyContent: "center" }}>
+                        {/* <View style={{ flex: 0.5, alignItems: "center", justifyContent: "center" }}>
                             <TouchableOpacity style={styles.menuClose} onPress={this.toggleMenuVisibility}>
                                 <Text style={{ color: "silver" }}>X</Text>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                     </View>
                 )}
             </View>

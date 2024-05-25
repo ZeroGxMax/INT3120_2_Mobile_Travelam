@@ -152,10 +152,11 @@ const styles = StyleSheet.create({
         borderColor: "silver",
         zIndex: 999,
         width: 200,
+        height: 50,
         right: 0,
         top: 0,
         backgroundColor: "white",
-        // position: "absolute"
+        position: "absolute"
     },
     menuItem: {
         padding: 10,

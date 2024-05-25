@@ -21,11 +21,11 @@ const CommentScreen = ({ route, navigation }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log(tour.id)
+                // console.log(tour.id)
                 // const c = commentActions.getComments();
                 const processedComments = await commentActions.fetchAndProcessComments(tour.id);
                 setSampleComments(processedComments)
-                console.log(sampleComments)
+                // console.log(sampleComments)
                 setComments(processedComments.slice(-5));
                 // setComments(c);
                 setLoadingComments(false);
@@ -40,7 +40,6 @@ const CommentScreen = ({ route, navigation }) => {
     }, []);
 
     useEffect(() => {
-        // console.log("Sample Comments Updated:", sampleComments);
     }, [sampleComments]);
 
     const extractUsername = (c) => {
@@ -186,6 +185,7 @@ const CommentScreen = ({ route, navigation }) => {
                         parentCommentId,
                         date,
                         "testUser",
+                        tour.id,
                         sampleComments
                     );
                     setComments(newComments);
@@ -204,7 +204,7 @@ const CommentScreen = ({ route, navigation }) => {
                 }}
                 likeAction={(comment) => {
                     let newComments = commentActions.like(comments, comment);
-                    setComments(newComments);
+                    // setComments(newComments);
                 }}
                 deleteAction={(comment) => {
                     let newComments = commentActions.deleteComment(comments, comment);

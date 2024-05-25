@@ -184,7 +184,7 @@ export default class Comments extends PureComponent {
                 reported={
                     this.props.reportedExtractor ? this.props.reportedExtractor(c) : null
                 }
-                likeAction={this.props.likeAction ? this.handleLike : null}
+                likeAction={(comment) => this.handleLike(comment)}
                 editAction={this.handleEditAction}
                 deleteAction={this.handleDelete}
                 editComment={this.handleEdit}
@@ -267,7 +267,6 @@ export default class Comments extends PureComponent {
             >
                 <View style={[styles.likeContainer]}>
                     <Image style={[styles.likeImage]} source={{ uri: "https://cdn.pixabay.com/photo/2021/05/30/06/34/like-6295005_640.png" }} />
-                    {/* <Image style={[styles.likeImage]} source={{ uri: like.image }} /> */}
                     <Text style={[styles.likeName]}>{like.name}</Text>
                 </View>
             </TouchableHighlight>
