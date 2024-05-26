@@ -144,7 +144,6 @@ class Comment extends PureComponent {
                         this.props.isChild && { position: 'absolute' }
                     ]}>
                         <View style={{ flex: 1.5 }}>
-                            {/* {canEdit && this.renderMenuItem("Edit", this.props.editComment, this.getStyle("editText"))} */}
                             {reportAction && !isOwnComment && (
                                 <TouchableOpacity
                                     style={styles.menuItem}
@@ -160,13 +159,7 @@ class Comment extends PureComponent {
                                     </Text>
                                 </TouchableOpacity>
                             )}
-                            {/* {canEdit && this.renderMenuItem("Delete", this.props.deleteAction, this.getStyle("deleteText"))} */}
                         </View>
-                        {/* <View style={{ flex: 0.5, alignItems: "center", justifyContent: "center" }}>
-                            <TouchableOpacity style={styles.menuClose} onPress={this.toggleMenuVisibility}>
-                                <Text style={{ color: "silver" }}>X</Text>
-                            </TouchableOpacity>
-                        </View> */}
                     </View>
                 )}
             </View>

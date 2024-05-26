@@ -406,9 +406,8 @@ const CartScreen = () => {
 
                     <Pressable
                         onPress={() => {
-                            Alert.alert("Proceeding to pay ....")
-                            navigation.navigate('Discover')
-                            dispatch(cleanCart());
+                            navigation.navigate('Payment')
+                            // dispatch(cleanCart());
                         }}
                         style={{
                             backgroundColor: "#00A877",

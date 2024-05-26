@@ -1,10 +1,12 @@
 import React, { Component, useState, useEffect, useRef } from "react";
-import { ScrollView, Image, StyleSheet } from "react-native";
+import { ScrollView, Image, StyleSheet, View, TouchableOpacity, ImageBackground } from "react-native";
 import LoadingView from '../components/utils/LoadingView';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 import Comments from "./CommentScreenContent/Comments"
 import * as commentActions from "./CommentScreenContent/commentActions";
 import moment from "moment";
+import { colors } from "../assets/colors/colors";
 
 const CommentScreen = ({ route, navigation }) => {
     const { tour } = route.params;
@@ -141,12 +143,21 @@ const CommentScreen = ({ route, navigation }) => {
             }}
             ref={scrollViewRef}
         >
-            <Image
+            <ImageBackground
                 style={{ height: 200 }}
                 source={{
                     uri: tour.demoImage
                 }}
-            />
+            >
+                <View style={styles.iconRow}>
+                    <TouchableOpacity
+                        style={styles.backIcon}
+                        onPress={() => navigation.goBack()}>
+                        <Octicons name="chevron-left" size={32} color={colors.white} />
+                    </TouchableOpacity>
+                </View>
+            </ImageBackground>
+
             <Comments
                 data={comments}
                 viewingUserName={"Pearline@veda.ca"}
@@ -383,5 +394,14 @@ const styles = StyleSheet.create({
         borderColor: "silver",
         borderRadius: 5,
         margin: 10
-    }
+    },
+    backIcon: {
+        marginLeft: 10,
+        marginTop: 10,
+    },
+    iconRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 16,
+    },
 })
