@@ -6,10 +6,13 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 import { View, TextInput, Logo, Button, FormErrorMessage } from "../../components";
 import { Colors } from "../../config";
-import { Logo2 } from "../../assets"
+import { Logo2 } from "../../assets";
 import { useTogglePasswordVisibility } from "../../hooks";
 import { signupValidationSchema } from "../../utils";
-import { auth } from "../../services/firebaseService"
+import { auth, firebaseApp } from "../../services/firebaseService";
+import { ref, getDatabase, set } from "firebase/database";
+
+const db = getDatabase(firebaseApp);
 
 export const SignupScreen = ({ navigation }) => {
   const [errorState, setErrorState] = useState("");
@@ -24,23 +27,38 @@ export const SignupScreen = ({ navigation }) => {
   } = useTogglePasswordVisibility();
 
   const handleSignup = async (values) => {
-     const { email, password } = values;
+    const { email, password } = values;
 
-     createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-      let user = userCredential.user;
-      user.displayName = user.email
-      console.log("User Registered: ", user)
-     }).catch((error) =>
-       setErrorState(error.message)
-     );
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-//    console.log("Laugh my ass out")
+      console.log("User Registered: ", user);
+
+      // Add user to the Realtime Database
+      const newUserRef = ref(db, 'customer/data/' + user.uid);
+      await set(newUserRef, {
+        address: 'None',
+        avatar: 'https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png',
+        cardNo: 'None',
+        email: user.email,
+        name: user.email,
+        passport: 'None',
+        phoneNumber: 'None',
+        userId: user.uid
+      });
+
+      console.log('User added successfully');
+    } catch (error) {
+      console.error('Error adding user:', error);
+      setErrorState(error.message);
+    }
   };
 
   return (
     <View isSafe style={styles.container}>
       <KeyboardAwareScrollView enableOnAndroid={true}>
-        {/* LogoContainer: consits app logo and screen title */}
+        {/* LogoContainer: consists app logo and screen title */}
         <View style={styles.logoContainer}>
           <Logo uri={Logo2} />
           <Text style={styles.screenTitle}>Create a new account!</Text>
@@ -114,7 +132,7 @@ export const SignupScreen = ({ navigation }) => {
                 error={errors.confirmPassword}
                 visible={touched.confirmPassword}
               />
-              {/* Display Screen Error Mesages */}
+              {/* Display Screen Error Messages */}
               {errorState !== "" ? (
                 <FormErrorMessage error={errorState} visible={true} />
               ) : null}

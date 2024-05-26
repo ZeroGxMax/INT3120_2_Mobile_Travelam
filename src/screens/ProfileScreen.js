@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -8,18 +8,19 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Link } from 'react-router-native';
-
 import MenuItem from '../components/MenuItem';
 import { auth } from '../services/firebaseService'
+import { getCustomerFromId } from "../services/firebase/user"
 
+const MyContext = createContext();
 
-
-export default Account = () => {
-  const user = auth.currentUser;
+export default ProfileScreen = () => {
+  const [user, setUser] = useState({})
+  const [value, setValue] = useState('');
   const menus = [
     {
       title: 'Name',
-      prop: 'displayName'
+      prop: 'name',
     },
     {
       title: 'Phone Number',
@@ -31,20 +32,43 @@ export default Account = () => {
     },
     {
       title: 'Change Password',
-      prop: 'email'
+      prop: 'userId'
     },
     {
       title: 'Address',
-      prop: 'email'
+      prop: 'address'
     },
     {
       title: 'Credit Card',
-      prop: 'email'
+      prop: 'cardNo'
+    },
+    {
+      title: 'Passport',
+      prop: 'passport'
     },
   ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch all countries
+        console.log("Update Parents kakak")
+        const userAuth = auth.currentUser;
+        const userData = await getCustomerFromId(userAuth['uid']);
+        setUser(userData);
+        console.log(userData)
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [value]);
+
   return (
-    <>
-      <View style={styles.container}>
+    <MyContext.Provider value={{ value, setValue }}>
+      <ScrollView style={styles.container}>
         <View style={styles.headerTitle}>
           
         </View>
@@ -52,7 +76,7 @@ export default Account = () => {
           <View>
             <View style={styles.profileImageContainer}>
               <Image
-                source={require('../assets/avatar-1-pink-bg.png')}
+                source={{ uri: user.avatar }}
                 style={styles.profileImage}
               />
               <TouchableOpacity>
@@ -64,8 +88,8 @@ export default Account = () => {
                 </View>
               </TouchableOpacity>
             </View>
-            <View style={{ marginTop: 75 }}>
-              <Text style={styles.name}>{user.displayName}</Text>
+            <View style={{ marginTop: 75, paddingBottom: 200 }}>
+              <Text style={styles.name}>{user.name}</Text>
               <Text style={styles.description}>{user.email}</Text>
               <ScrollView style={styles.menuContainer}>
                 {menus.map((menu, key) => (
@@ -74,14 +98,15 @@ export default Account = () => {
                     key={key}
                     firstItem={key === 0 ? true : false}
                     property={menu.prop}
+                    context={MyContext}
                   />
                 ))}
               </ScrollView>
             </View>
           </View>
         </View>
-      </View>
-    </>
+      </ScrollView>
+    </MyContext.Provider>
 
   );
 };
@@ -147,6 +172,7 @@ const styles = StyleSheet.create({
     flex: 4,
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
+    marginTop: 100
   },
   icon: {
     width: 21,
@@ -154,5 +180,5 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     marginRight: 20,
   },
-  backButton: {alignSelf: 'center', padding: 5, paddingLeft: 0},
+  backButton: { alignSelf: 'center', padding: 5, paddingLeft: 0 },
 });
