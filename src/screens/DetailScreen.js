@@ -104,7 +104,7 @@ const PriceSection = ({ price }) => (
         <Text style={styles.sectionTitle}>Price</Text>
         <View style={styles.priceWrapper}>
             <Text style={styles.priceText}>${price}</Text>
-            <Text style={styles.subText}>/night</Text>
+            <Text style={styles.subText}>/person</Text>
         </View>
     </View>
 );

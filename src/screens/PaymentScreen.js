@@ -74,6 +74,7 @@ const PaymentScreen = () => {
                             </View>
                         </View>
                     </View>
+                    
                     <View style={styles.buttonContainer}>
                         <Button label={"Pay"} customStyles={styles.button} />
                     </View>
