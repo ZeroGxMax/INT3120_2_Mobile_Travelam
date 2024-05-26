@@ -264,8 +264,8 @@ const ChooseServiceScreen = () => {
                 [{ id: 0, name: "Accommodation", items: accom },
                 { id: 200, name: "Restaurant", items: rest },
                 { id: 400, name: "Transportation", items: trans },
-                { id: 600, name: "Activity", items: activity }].map((item, i) => (
-                    <ServiceItem item={item} key={i} />
+                { id: 600, name: "Activity", items: activity }].map((item, index) => (
+                    <ServiceItem item={item} key={index} />
                     ))
                 ) : (
                     <Text>No menu data available</Text>

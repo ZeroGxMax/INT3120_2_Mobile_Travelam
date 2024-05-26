@@ -45,6 +45,39 @@ const getTransFromId = async (transId) => {
     }
 };
 
+const getTransListFromId = async (transIdList) => {
+    try {
+        const transRef = ref(db, 'transportation/data');
+        const snapshot = await get(transRef);
+
+        let foundData = [];
+        let i = 0;
+
+        snapshot.forEach((childSnapshot) => {
+            const childData = childSnapshot.val();
+
+            if (i === transIdList.length) {
+                return foundData;
+            }
+
+            if (childData && childData.id && childData.id == transIdList[i]) {
+                foundData.push(childData);
+                console.log("Node with transId =", transIdList[i], "found!");
+                i += 1
+            }
+        });
+
+        if (!foundData) {
+            console.log("Node with transId =", 1, "not found.");
+        }
+
+        return foundData;
+    } catch (error) {
+        console.error("Error finding trans:", error);
+        throw error;
+    }
+};
+
 const getTransFromName = async (transName) => {
     try {
         const transRef = ref(db, 'transportation/data');
@@ -104,4 +137,4 @@ const getTransFromDestId = async (destId) => {
     }
 };
 
-export { getTransFromId, getTransFromName, getTransFromDestId, getAllTransportation }
+export { getTransFromId, getTransListFromId, getTransFromName, getTransFromDestId, getAllTransportation }

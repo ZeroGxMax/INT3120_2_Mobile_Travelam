@@ -45,6 +45,39 @@ const getActFromId = async (actId) => {
     }
 };
 
+const getActListFromId = async (actIdList) => {
+    try {
+        const actRef = ref(db, 'activity/data');
+        const snapshot = await get(actRef);
+
+        let foundData = [];
+        let i = 0;
+
+        snapshot.forEach((childSnapshot) => {
+            const childData = childSnapshot.val();
+
+            if (i === actIdList.length) {
+                return foundData;
+            }
+
+            if (childData && childData.id && childData.id == actIdList[i]) {
+                foundData.push(childData);
+                console.log("Node with actId =", actIdList[i], "found!");
+                i += 1;
+            }
+        });
+
+        if (!foundData) {
+            console.log("Node with actId =", 1, "not found.");
+        }
+
+        return foundData;
+    } catch (error) {
+        console.error("Error finding act:", error);
+        throw error;
+    }
+};
+
 const getActFromName = async (actName) => {
     try {
         const actRef = ref(db, 'activity/data');
@@ -104,4 +137,4 @@ const getActFromDestId = async (destId) => {
     }
 };
 
-export { getActFromId, getActFromName, getActFromDestId, getAllActivity }
+export { getActFromId, getActListFromId, getActFromName, getActFromDestId, getAllActivity }

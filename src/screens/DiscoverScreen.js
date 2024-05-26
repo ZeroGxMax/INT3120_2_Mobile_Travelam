@@ -69,7 +69,11 @@ const Discover = () => {
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
             <StatusBar translucent={false} backgroundColor={colors.primary} />
             <View style={styles.header}>
-                <Icon name="sort" size={28} color={colors.white} />
+                <Icon 
+                    name="sort" 
+                    size={28} 
+                    color={colors.white} 
+                    onPress={() => navigation.navigate("Options")} />
                 <Icon name="notifications-none" size={28} color={colors.white} />
             </View>
             <ScrollView style={styles.container}>
