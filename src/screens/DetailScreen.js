@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { colors } from '../assets/colors/colors';
 import Entypo from 'react-native-vector-icons/Entypo';
+import Octicons from 'react-native-vector-icons/Octicons'
 import { getCountryIdFromTourId, getCountryFromId } from '../services/firebase/country';
 import LoadingView from '../components/utils/LoadingView';
 
@@ -50,15 +51,22 @@ const DetailScreen = ({ route, navigation }) => {
             <ImageBackground
                 source={{ uri: item.demoImage }}
                 style={styles.backgroundImage}>
-                <TouchableOpacity
-                    style={styles.backIcon}
-                    onPress={() => navigation.goBack()}>
-                    <Entypo name="chevron-left" size={32} color={colors.white} />
-                </TouchableOpacity>
+                <View style={styles.iconRow}>
+                    <TouchableOpacity
+                        style={styles.backIcon}
+                        onPress={() => navigation.goBack()}>
+                        <Octicons name="chevron-left" size={32} color={colors.white} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.commentIcon}
+                        onPress={() => navigation.navigate("Comment", {tour: item})}>
+                        <Octicons name="comment-discussion" size={32} color={colors.white} />
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.contentWrapper}>
-                    <View style={styles.heartWrapper}>
+                    {/* <View style={styles.heartWrapper}>
                         <Entypo name="heart" size={32} color={colors.heart} />
-                    </View>
+                    </View> */}
                     <Text style={styles.itemTitle}>{item.title}</Text>
                     <View style={styles.locationWrapper}>
                         <Entypo name="location-pin" size={24} color={colors.white} />
@@ -96,7 +104,7 @@ const PriceSection = ({ price }) => (
         <Text style={styles.sectionTitle}>Price</Text>
         <View style={styles.priceWrapper}>
             <Text style={styles.priceText}>${price}</Text>
-            <Text style={styles.subText}>/night</Text>
+            <Text style={styles.subText}>/person</Text>
         </View>
     </View>
 );
@@ -122,8 +130,17 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginBottom: 40,
     },
+    iconRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 16,
+    },
     backIcon: {
         marginLeft: 20,
+        marginTop: 30,
+    },
+    commentIcon: {
+        marginRight: 20,
         marginTop: 30,
     },
     itemTitle: {
@@ -210,7 +227,7 @@ const styles = StyleSheet.create({
     heartWrapper: {
         position: 'absolute',
         right: 20,
-        top: 100,
+        // top: 100,
         width: 64,
         height: 64,
         backgroundColor: colors.white,
@@ -230,3 +247,4 @@ const styles = StyleSheet.create({
 });
 
 export default DetailScreen;
+

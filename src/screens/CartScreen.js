@@ -23,6 +23,7 @@ const CartScreen = () => {
     var startBaseId = -1
     const label_ = ['Accommodation', 'Restaurant', 'Transportation', 'Activity']
     const color_ = ['#007200', '#25a18e', '#004e64', '#00a5cf']
+    // console.log("cart: ", cart[0])
 
     return (
         <>
@@ -406,9 +407,8 @@ const CartScreen = () => {
 
                     <Pressable
                         onPress={() => {
-                            Alert.alert("Proceeding to pay ....")
-                            navigation.navigate('Discover')
-                            dispatch(cleanCart());
+                            navigation.navigate('Payment')
+                            // dispatch(cleanCart());
                         }}
                         style={{
                             backgroundColor: "#00A877",
