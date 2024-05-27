@@ -15,25 +15,61 @@ const CartScreen = () => {
     const cart = useSelector((state) => state.cart.cart);
     const sortedCart = [...cart].sort((a, b) => a.baseId - b.baseId);
     const total = cart
-        .map((item) => 70)
+        .map((item) => item.price)
         .reduce((curr, prev) => curr + prev, 0);
 
-    let cost_ = [0, 0, 0, 0]
+    let service = [{
+        label: 'Accommodation',
+        cost: 0
+    }, {
+        label: 'Restaurant',
+        cost: 0
+    }, {
+        label: 'Transportation',
+        cost: 0
+    }, {
+        label: 'Activity',
+        cost: 0
+    }]
 
     for (let i = 0; i < 4; i++) {
-        cost_[i] = cart
-            .map((item) => (item.baseId == i * 200) ? 70 : 0)
+        service[i].cost = cart
+            .map((item) => (item.baseId == i * 200) ? item.price : 0)
             .reduce((curr, prev) => curr + prev, 0);
     }
 
     const dispatch = useDispatch();
     var startBaseId = -1
-    const label_ = ['Accommodation', 'Restaurant', 'Transportation', 'Activity']
+
 
     const color_ = ['#007200', '#25a18e', '#004e64', '#00a5cf']
+    // console.log("cart: ", cart[0])
 
     return (
         <>
+            <View
+                style={{
+                    padding: 15,
+                    flexDirection: "row",
+                    alignItems: "center",
+                }}
+            >
+                <Ionicons
+                    onPress={() => navigation.goBack()}
+                    name="arrow-back"
+                    size={25}
+                    color="black"
+                />
+                <Text
+                    style={{
+                        fontSize: 22,
+                        fontWeight: "600",
+                        marginLeft: 20,
+                    }}
+                >
+                    {route.params.name}
+                </Text>
+            </View>
             <ScrollView>
                 {total > 0 ? (
                     <>
@@ -61,9 +97,10 @@ const CartScreen = () => {
                                         alignItems: 'center',
                                         paddingVertical: 10,
                                         borderRadius: 10
+
                                     }}>
                                         <Text style={styles.label}>
-                                            {(startBaseId = item.baseId) ? label_[item.baseId / 200] : 'Accommodation'}
+                                            {(startBaseId = item.baseId) ? service[item.baseId / 200].label : 'Accommodation'}
                                         </Text>
                                     </View> : null}
 
@@ -73,55 +110,32 @@ const CartScreen = () => {
                                             alignItems: "center",
                                             justifyContent: "space-between",
                                             marginVertical: 10,
+                                            paddingHorizontal: 10
                                         }}
                                         key={index}
                                     >
                                         <Text
                                             style={{
-                                                width: 100,
+                                                width: 280,
                                                 fontSize: 16,
                                                 fontWeight: "600",
+                                                borderRightWidth: 1,
+                                                borderRightColor: "#CCC",
+                                                paddingHorizontal: 15,
                                             }}
                                         >
-                                            {item.name ? item.name.substr(0, 20) : item.type}
+                                            {item.name ? item.name.substr(0, 80) : item.type}
                                         </Text>
-
-                                        <Pressable
-                                            style={{
-                                                flexDirection: "row",
-                                                paddingHorizontal: 10,
-                                                paddingVertical: 5,
-                                                alignItems: "center",
-                                                borderColor: "#BEBEBE",
-                                                borderWidth: 0.5,
-                                                borderRadius: 10,
-                                            }}
-                                        >
-                                            <Pressable
-                                                onPress={() => {
-                                                    dispatch(removeFromCart(item))
-                                                }}
-                                            >
-                                                <Text
-                                                    style={{
-                                                        fontSize: 16,
-                                                        color: "green",
-                                                        paddingHorizontal: 6,
-                                                        fontWeight: "600",
-                                                    }}
-                                                >
-                                                    REMOVE
-                                                </Text>
-                                            </Pressable>
-                                        </Pressable>
 
                                         <Text
                                             style={{
                                                 fontSize: 16,
                                                 fontWeight: "bold",
+                                                paddingHorizontal: 15
+
                                             }}
                                         >
-                                            ${70}
+                                            ${item.price}
                                         </Text>
                                     </View>
                                 </View>
@@ -145,6 +159,7 @@ const CartScreen = () => {
                                         flexDirection: "row",
                                         alignItems: "center",
                                         justifyContent: "space-between",
+                                        marginBottom: 8
                                     }}
                                 >
                                     <Text
@@ -166,117 +181,43 @@ const CartScreen = () => {
                                     </Text>
                                 </View>
 
-                                <View
-                                    style={{
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        marginVertical: 8,
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            fontSize: 18,
-                                            fontWeight: "400",
-                                            color: "gray",
-                                        }}
-                                    >
-                                        Accommodation
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: 18,
-                                            fontWeight: "400",
-                                            color: "green",
-                                        }}
-                                    >
-                                        ${cost_[0]}
-                                    </Text>
-                                </View>
+                                {service.map((item, index) => (
+                                    <>
+                                        {item.cost ? (
+                                            <View
+                                                style={{
+                                                    flexDirection: "row",
+                                                    alignItems: "center",
+                                                    justifyContent: "space-between",
+                                                    marginVertical: 8,
+                                                }}
 
-                                <View
-                                    style={{
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        marginVertical: 8,
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            fontSize: 18,
-                                            fontWeight: "400",
-                                            color: "gray",
-                                        }}
-                                    >
-                                        Restaurant
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: 18,
-                                            fontWeight: "400",
-                                            color: "green",
-                                        }}
-                                    >
-                                        ${cost_[1]}
-                                    </Text>
-                                </View>
-
-                                <View
-                                    style={{
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        marginVertical: 8,
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            fontSize: 18,
-                                            fontWeight: "400",
-                                            color: "gray",
-                                        }}
-                                    >
-                                        Transportation
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: 18,
-                                            fontWeight: "400",
-                                            color: "green",
-                                        }}
-                                    >
-                                        ${cost_[2]}
-                                    </Text>
-                                </View>
-
-                                <View
-                                    style={{
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        marginVertical: 8,
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            fontSize: 18,
-                                            fontWeight: "400",
-                                            color: "gray",
-                                        }}
-                                    >
-                                        Activity
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: 18,
-                                            fontWeight: "400",
-                                            color: "green",
-                                        }}
-                                    >
-                                        ${cost_[3]}
-                                    </Text>
-                                </View>
+                                                key={index}
+                                            >
+                                                <Text
+                                                    style={{
+                                                        fontSize: 18,
+                                                        fontWeight: "400",
+                                                        color: "gray",
+                                                    }}
+                                                >
+                                                    {item.label}
+                                                </Text>
+                                                <Text
+                                                    style={{
+                                                        fontSize: 18,
+                                                        fontWeight: "400",
+                                                        color: "green",
+                                                    }}
+                                                >
+                                                    ${item.cost}
+                                                </Text>
+                                            </View>
+                                        ) : (
+                                            null
+                                        )}
+                                    </>
+                                ))}
 
                                 <View
                                     style={{
@@ -396,9 +337,8 @@ const CartScreen = () => {
 
                     <Pressable
                         onPress={() => {
-                            Alert.alert("Proceeding to pay ....")
-                            navigation.navigate('Discover')
-                            dispatch(cleanCart());
+                            navigation.navigate('Payment')
+                            // dispatch(cleanCart());
                         }}
                         style={{
                             backgroundColor: "#00A877",

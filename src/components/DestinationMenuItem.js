@@ -17,6 +17,8 @@ const DestinationMenuItem = ({ item, countryName }) => {
   const navigation = useNavigation();
   const startTime = Math.floor(Math.random() * 2) + 1
   const endTime = Math.floor(Math.random() * 3) + (startTime + 1)
+  const timeFromHome = Math.floor(Math.random() * 60) + 1
+  const distance = Math.floor(Math.random() * timeFromHome / 2) + 1
   return (
     <View style={{ margin: 10 }}>
       <Pressable
@@ -92,6 +94,8 @@ const DestinationMenuItem = ({ item, countryName }) => {
                         rating:5.0,
                         time:`${startTime}-${endTime}`,
                         address:countryName,
+                        timeFromHome: timeFromHome,
+                        distance: distance
                     })
                 }
             >

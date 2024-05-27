@@ -27,7 +27,7 @@ export default ChooseServiceScreen = () => {
     const [value, setValue] = useState('');
     const cart = useSelector((state) => state.cart.cart);
     const total = cart
-        .map((item) => 70)
+        .map((item) => item.price)
         .reduce((curr, prev) => curr + prev, 0);
     const route = useRoute();
     console.log("Time: ", route.params.time)
@@ -47,10 +47,9 @@ export default ChooseServiceScreen = () => {
     const toggleModal = () => {
         setModalVisible(!modalVisible);
     };
-    const timeFromHome = Math.floor(Math.random() * 60) + 1
-    const distance = Math.floor(Math.random() * timeFromHome / 2) + 1
 
     const [loading, setLoading] = useState(true);
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -204,7 +203,7 @@ export default ChooseServiceScreen = () => {
                                 marginTop: 10,
                             }}
                         >
-                            <Text style={{ color: "white" }}>{timeFromHome} mins</Text>
+                            <Text style={{ color: "white" }}>{route.params.timeFromHome} mins</Text>
                             <Text
                                 style={{
                                     marginLeft: 15,
@@ -247,7 +246,7 @@ export default ChooseServiceScreen = () => {
                                     color: "white"
                                 }}
                             >
-                                {distance} Km from your home
+                                {route.params.distance} Km from your home
                             </Text>
                             
                         </View>
@@ -316,7 +315,7 @@ export default ChooseServiceScreen = () => {
                             onPress={() => {
                                 navigation.navigate("Cart", {
                                     name: route.params.name,
-                                    distance: distance
+                                    distance: route.params.distance
                                 })
                             }
                             }

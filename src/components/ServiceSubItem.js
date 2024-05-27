@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Pressable, Image } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../redux/CartReducer";
@@ -9,6 +9,17 @@ const ServiceSubItem = ({ service, baseId }) => {
   const cart = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(false);
+  
+
+  useEffect(() => {
+    const itemPresent = cart.find(
+      (item) => item.id  === service.id
+    );
+
+    if (itemPresent) {
+      setSelected(true)
+    }
+  }, []);
 
   return (
     <View style={{ padding: 10, margin: 10, borderColor: "gray", borderRadius: 5, backgroundColor: "#DDDDDD" }}>
@@ -22,9 +33,9 @@ const ServiceSubItem = ({ service, baseId }) => {
           <Text style={{ fontSize: 18, fontWeight: "600" }}>{
             service.name
               ? service.name.substr(0, 20)
-              : service.type}</Text
-          >
-          <Text style={{ fontWeight: "600" }}>{"70$"}</Text>
+              : service.type}
+          </Text>
+          <Text style={{ fontWeight: "600" }}>{service.price}$</Text>
           <Text
             style={{
               marginTop: 5,

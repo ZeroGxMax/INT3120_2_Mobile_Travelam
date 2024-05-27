@@ -1,13 +1,30 @@
 import moment from "moment";
-const sampleCommentsRaw = require("./sampleComment.json");
+import { getAllComments, getCommentsFromTourId, addNewComment, addNewReply, likeComment } 
+from "../../services/firebase/comment";
 
-sampleCommentsRaw.forEach(c => {
-    if (c.children) {
-        c.childrenCount = c.children.length;
+
+// let sampleComments = []; 
+
+export const fetchAndProcessComments = async (tourId) => {
+    try {
+        const sampleCommentsRaw = await getCommentsFromTourId(tourId);
+        sampleCommentsRaw.forEach(c => {
+            if (c.children) {
+                c.childrenCount = c.children.length;
+            }
+        });
+
+        let sampleComments = Object.freeze(sampleCommentsRaw);
+
+        return sampleComments;
+
+    } catch (error) {
+        console.error("Error fetching or processing comments:", error);
+        throw error;
     }
-});
+};
 
-const sampleComments = Object.freeze(sampleCommentsRaw);
+// fetchAndProcessComments();
 
 export function getComments() {
     const c = [...sampleComments];
@@ -18,7 +35,8 @@ export function paginateComments(
     comments,
     from_commentId,
     direction,
-    parent_commentId
+    parent_commentId,
+    sampleComments
 ) {
     const c = [...sampleComments];
     if (!parent_commentId) {
@@ -60,31 +78,36 @@ export function paginateComments(
 }
 
 export function like(comments, cmnt) {
+    // Nếu bình luận không có parentId, tức là bình luận gốc
     if (!cmnt.parentId) {
-        // add result to comments
         if (comments) {
-            comments.find(c => {
-                if (c.commentId === cmnt.commentId) {
-                    c.liked = !c.liked;
-                    return true;
+            // Tìm bình luận trong danh sách bình luận gốc
+            for (let c of comments) {
+                if (c.commentId == cmnt.commentId) {
+                    c.liked = !c.liked; // Đảo trạng thái liked
+                    likeComment(cmnt.commentId)
+                    break; 
                 }
-            });
+            }
         }
     } else {
-        comments.find(c => {
+        // Tìm trong danh sách bình luận gốc
+        for (let c of comments) {
+            // Nếu bình luận có children
             if (c.children) {
-                let isItFound = false;
-                c.children.find(child => {
-                    if (child.commentId === cmnt.commentId) {
+                // Tìm bình luận trong danh sách bình luận trả lời
+                for (let child of c.children) {
+                    if (child.commentId == cmnt.commentId) {
                         child.liked = !child.liked;
-                        isItFound = true;
+                        likeComment(cmnt.commentId)
+                        return comments; // Trả về danh sách đã thay đổi
                     }
-                });
-                return isItFound;
+                }
             }
-        });
+        }
     }
-    return comments;
+    
+    return comments; 
 }
 
 export function edit(comments, cmnt, text) {
@@ -142,56 +165,62 @@ export function deleteComment(comments, cmnt) {
     return comments;
 }
 
-export function save(comments, text, parentCommentId, date, username) {
-    // find last comment id
-    let lastCommentId = 0;
-    sampleComments.forEach(c => {
-        if (c.commentId > lastCommentId) {
-            lastCommentId = c.commentId;
-        }
-        if (c.children) {
-            c.children.forEach(c2 => {
-                if (c2.commentId > lastCommentId) {
-                    lastCommentId = c2.commentId;
-                }
-            });
-        }
-    });
-
-    const com = {
-        parentId: null,
-        commentId: lastCommentId + 1,
-        created_at: date,
-        updated_at: date,
-        liked: false,
-        reported: false,
-        email: username,
-        body: text,
-        likes: []
-    };
-
-    if (!parentCommentId) {
-        comments.push(com);
-    } else {
-        comments.find(c => {
-            if (c.commentId === parentCommentId) {
-                com.parentId = c.commentId;
-
-                if (c.children) {
-                    c.childrenCount = c.childrenCount * 1 + 1;
-                    c.children.push(com);
-                } else {
-                    c.childrenCount = 1;
-
-                    c.children = [];
-                    c.children.push(com);
-                }
-                return true;
+export function save(comments, text, parentCommentId, date, username, tourId, sampleComments) {
+    try {
+        // find last comment id
+        let lastCommentId = 0;
+        sampleComments.forEach(c => {
+            if (c.commentId > lastCommentId) {
+                lastCommentId = c.commentId;
             }
-        }, this);
-    }
+            if (c.children) {
+                c.children.forEach(c2 => {
+                    if (c2.commentId > lastCommentId) {
+                        lastCommentId = c2.commentId;
+                    }
+                });
+            }
+        });
 
-    return comments;
+        const com = {
+            parentId: null,
+            commentId: lastCommentId + 1,
+            created_at: date,
+            updated_at: date,
+            liked: false,
+            reported: false,
+            email: username,
+            body: text,
+            likes: []
+        };
+
+        if (!parentCommentId) {
+            comments.push(com);
+            addNewComment(tourId, text, date, username, "noUserIdYet");
+        } else {
+            comments.find(c => {
+                if (c.commentId === parentCommentId) {
+                    com.parentId = c.commentId;
+
+                    if (c.children) {
+                        c.childrenCount = c.childrenCount * 1 + 1;
+                        c.children.push(com);
+                    } else {
+                        c.childrenCount = 1;
+
+                        c.children = [];
+                        c.children.push(com);
+                    }
+                    return true;
+                }
+            }, this);
+            addNewReply(parentCommentId, text, date, username, "noUserIdYet");
+        }
+        return comments;
+    } catch (error) {
+        console.error("Error saving comment:", error);
+        throw error;
+    }
 }
 
 export function report(comments, cmnt) {

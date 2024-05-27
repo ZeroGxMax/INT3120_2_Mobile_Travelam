@@ -1,18 +1,20 @@
 import React, { Component, useState, useEffect, useRef } from "react";
-import { ScrollView, Image, StyleSheet } from "react-native";
+import { ScrollView, Image, StyleSheet, View, TouchableOpacity, ImageBackground } from "react-native";
 import LoadingView from '../components/utils/LoadingView';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 import Comments from "./CommentScreenContent/Comments"
 import * as commentActions from "./CommentScreenContent/commentActions";
 import moment from "moment";
+import { colors } from "../assets/colors/colors";
 
 const CommentScreen = ({ route, navigation }) => {
-    const { item } = route.params;
-    console.log(item)
+    const { tour } = route.params;
 
     const [loading, setLoading] = useState(true);
 
     const scrollViewRef = useRef(null);
+    const [sampleComments, setSampleComments] = useState([]);
     const [comments, setComments] = useState(null);
     const [loadingComments, setLoadingComments] = useState(true);
     const [lastCommentUpdate, setLastCommentUpdate] = useState(null);
@@ -21,11 +23,15 @@ const CommentScreen = ({ route, navigation }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const c = commentActions.getComments();
-                setComments(c);
+                // console.log(tour.id)
+                // const c = commentActions.getComments();
+                const processedComments = await commentActions.fetchAndProcessComments(tour.id);
+                setSampleComments(processedComments)
+                // console.log(sampleComments)
+                setComments(processedComments.slice(-5));
+                // setComments(c);
                 setLoadingComments(false);
                 setLastCommentUpdate(new Date().getTime());
-                console.log(comments.length)
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -34,6 +40,9 @@ const CommentScreen = ({ route, navigation }) => {
         };
         fetchData();
     }, []);
+
+    useEffect(() => {
+    }, [sampleComments]);
 
     const extractUsername = (c) => {
         try {
@@ -60,8 +69,13 @@ const CommentScreen = ({ route, navigation }) => {
     };
 
     const extractChildrenCount = (c) => {
+        // console.log(c)
         try {
-            return c.childrenCount || 0;
+            if (c.children) {
+                return c.childrenCount
+            } else {
+                return 0;
+            }
         } catch (e) {
             console.log(e);
         }
@@ -92,20 +106,28 @@ const CommentScreen = ({ route, navigation }) => {
     };
 
     const likesExtractor = (item) => {
-        return item.likes.map((like) => {
-            return {
-                image: like.image,
-                name: like.username,
-                user_id: like.user_id,
-                tap: (username) => {
-                    console.log("Taped: " + username);
-                },
-            };
-        });
+        if (item.likes) {
+            return item.likes.map((like) => {
+                return {
+                    image: like.image,
+                    name: like.username,
+                    userId: like.userId,
+                    tap: (username) => {
+                        console.log("Taped: " + username);
+                    },
+                };
+            });
+        }
     };
 
+    /** I change something here */
     const isCommentChild = (item) => {
-        return item.parentId !== null;
+        // return item.parentId !== null;
+        return item.parentId != null;
+    };
+
+    const extractKey = (item) => {
+        return item.commentId;
     };
 
     if (loading) {
@@ -121,98 +143,107 @@ const CommentScreen = ({ route, navigation }) => {
             }}
             ref={scrollViewRef}
         >
-            <Image
+            <ImageBackground
                 style={{ height: 200 }}
                 source={{
-                    uri: item.demoImage
+                    uri: tour.demoImage
+                }}
+            >
+                <View style={styles.iconRow}>
+                    <TouchableOpacity
+                        style={styles.backIcon}
+                        onPress={() => navigation.goBack()}>
+                        <Octicons name="chevron-left" size={32} color={colors.white} />
+                    </TouchableOpacity>
+                </View>
+            </ImageBackground>
+
+            <Comments
+                data={comments}
+                viewingUserName={"Pearline@veda.ca"}
+                userIsAdmin={true}
+                styles={{}}
+                initialDisplayCount={5}
+                editMinuteLimit={0}
+                usernameTapAction={(username) => {
+                    console.log("Taped user: " + username);
+                }}
+                childPropName={"children"}
+                isChild={(item) => isCommentChild(item)}
+                keyExtractor={(item) => extractKey(item)}
+                parentIdExtractor={(item) => item.parentId}
+                usernameExtractor={(item) => extractUsername(item)}
+                editTimeExtractor={(item) => extractEditTime(item)}
+                createdTimeExtractor={(item) => extractCreatedTime(item)}
+                bodyExtractor={(item) => extractBody(item)}
+                imageExtractor={(item) => extractImage(item)}
+                likeExtractor={(item) => likeExtractor(item)}
+                reportedExtractor={(item) => reportedExtractor(item)}
+                likesExtractor={(item) => likesExtractor(item)}
+                childrenCountExtractor={(item) => extractChildrenCount(item)}
+                replyAction={(offset) => {
+                    scrollViewRef.current.scrollTo({
+                        x: null,
+                        y: scrollIndex + offset - 300,
+                        animated: true,
+                    });
+                }}
+                saveAction={(text, parentCommentId) => {
+                    let date = moment().format("YYYY-MM-DD H:mm:ss");
+                    let newComments = commentActions.save(
+                        comments,
+                        text,
+                        parentCommentId,
+                        date,
+                        "testUser",
+                        tour.id,
+                        sampleComments
+                    );
+                    setComments(newComments);
+
+                    if (!parentCommentId) {
+                        scrollViewRef.current.scrollToEnd();
+                    }
+                }}
+                editAction={(text, comment) => {
+                    let newComments = commentActions.edit(comments, comment, text);
+                    setComments(newComments);
+                }}
+                reportAction={(comment) => {
+                    let newComments = commentActions.report(comments, comment);
+                    setComments(newComments);
+                }}
+                likeAction={(comment) => {
+                    let newComments = commentActions.like(comments, comment);
+                    // setComments(newComments);
+                }}
+                deleteAction={(comment) => {
+                    let newComments = commentActions.deleteComment(comments, comment);
+                    setComments(newComments);
+                }}
+                paginateAction={(from_comment_id, direction, parent_comment_id) => {
+                    let newComments = commentActions.paginateComments(
+                        comments,
+                        from_comment_id,
+                        direction,
+                        parent_comment_id,
+                        sampleComments
+                    );
+
+                    setComments(newComments);
+                    setTimeout(function () {
+                        if (direction == "up") {
+                            scrollViewRef.current.scrollTo({
+                                x: 0,
+                                y: 500,
+                                animated: true,
+                            });
+                        } else {
+                            scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
+                        }
+                    }, 3000);
                 }}
             />
-
-            {comments.length ? (
-                <Comments
-                    data={comments}
-                    viewingUserName={"Pearline@veda.ca"}
-                    userIsAdmin={true}
-                    styles={{}}
-                    initialDisplayCount={5}
-                    editMinuteLimit={0}
-                    usernameTapAction={(username) => {
-                        console.log("Taped user: " + username);
-                    }}
-                    childPropName={"children"}
-                    isChild={(item) => isCommentChild(item)}
-                    keyExtractor={(item) => item.commentId}
-                    parentIdExtractor={(item) => item.parentId}
-                    usernameExtractor={(item) => extractUsername(item)}
-                    editTimeExtractor={(item) => extractEditTime(item)}
-                    createdTimeExtractor={(item) => extractCreatedTime(item)}
-                    bodyExtractor={(item) => extractBody(item)}
-                    imageExtractor={(item) => extractImage(item)}
-                    likeExtractor={(item) => likeExtractor(item)}
-                    reportedExtractor={(item) => reportedExtractor(item)}
-                    likesExtractor={(item) => likesExtractor(item)}
-                    childrenCountExtractor={(item) => extractChildrenCount(item)}
-                    replyAction={(offset) => {
-                        scrollViewRef.current.scrollTo({
-                            x: null,
-                            y: scrollIndex + offset - 300,
-                            animated: true,
-                        });
-                    }}
-                    saveAction={(text, parentCommentId) => {
-                        let date = moment().format("YYYY-MM-DD H:mm:ss");
-                        let newComments = commentActions.save(
-                            comments,
-                            text,
-                            parentCommentId,
-                            date,
-                            "testUser"
-                        );
-                        setComments(newComments);
-
-                        if (!parentCommentId) {
-                            scrollViewRef.current.scrollToEnd();
-                        }
-                    }}
-                    editAction={(text, comment) => {
-                        let newComments = commentActions.edit(comments, comment, text);
-                        setComments(newComments);
-                    }}
-                    reportAction={(comment) => {
-                        let newComments = commentActions.report(comments, comment);
-                        setComments(newComments);
-                    }}
-                    likeAction={(comment) => {
-                        let newComments = commentActions.like(comments, comment);
-                        setComments(newComments);
-                    }}
-                    deleteAction={(comment) => {
-                        let newComments = commentActions.deleteComment(comments, comment);
-                        setComments(newComments);
-                    }}
-                    paginateAction={(from_comment_id, direction, parent_comment_id) => {
-                        let newComments = commentActions.paginateComments(
-                            comments,
-                            from_comment_id,
-                            direction,
-                            parent_comment_id
-                        );
-
-                        setComments(newComments);
-                        setTimeout(function () {
-                            if (direction == "up") {
-                                scrollViewRef.current.scrollTo({
-                                    x: 0,
-                                    y: 500,
-                                    animated: true,
-                                });
-                            } else {
-                                scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
-                            }
-                        }, 3000);
-                    }}
-                />
-            ) : null}
         </ScrollView>
     );
 
@@ -363,7 +394,14 @@ const styles = StyleSheet.create({
         borderColor: "silver",
         borderRadius: 5,
         margin: 10
-
-    }
-
+    },
+    backIcon: {
+        marginLeft: 10,
+        marginTop: 10,
+    },
+    iconRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 16,
+    },
 })
