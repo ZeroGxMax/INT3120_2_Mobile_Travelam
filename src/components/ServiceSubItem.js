@@ -2,11 +2,14 @@ import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import React, { useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
-import { addToCart, decrementQuantity, incrementQuantity, removeFromCart } from "../redux/CartReducer";
+import { addToCart, removeFromCart } from "../redux/CartReducer";
+import { useSelector } from "react-redux";
+
 const ServiceSubItem = ({ service, baseId }) => {
+  const cart = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
-  const [additems, setAddItems] = useState(0);
   const [selected, setSelected] = useState(false);
+
   return (
     <View style={{ padding: 10, margin: 10, borderColor: "gray", borderRadius: 5, backgroundColor: "#DDDDDD" }}>
       <Pressable
@@ -18,8 +21,8 @@ const ServiceSubItem = ({ service, baseId }) => {
         <View>
           <Text style={{ fontSize: 18, fontWeight: "600" }}>{
             service.name
-            ? service.name.substr(0, 20)
-            : service.type}</Text
+              ? service.name.substr(0, 20)
+              : service.type}</Text
           >
           <Text style={{ fontWeight: "600" }}>{"70$"}</Text>
           <Text
@@ -30,7 +33,7 @@ const ServiceSubItem = ({ service, baseId }) => {
           >
             {[0, 0, 0, 0, 0].map((en, i) => (
               <FontAwesome
-                 key={`${service.id}-${i}`}
+                key={`${service.id}-${i}`}
                 style={{ paddingHorizontal: 3 }}
                 name={i < Math.floor(4.5) ? "star" : "star-o"}
                 size={15}
@@ -57,8 +60,7 @@ const ServiceSubItem = ({ service, baseId }) => {
               style={{
                 position: "absolute",
                 top: 105,
-                left: 21,
-
+                left: 15,
                 flexDirection: "row",
                 paddingHorizontal: 12,
                 paddingVertical: 5,
@@ -68,51 +70,18 @@ const ServiceSubItem = ({ service, baseId }) => {
               }}
             >
               <Pressable onPress={() => {
-                if(additems === 1){
-                  dispatch(removeFromCart(service))
-                  setSelected(false)
-                  setAddItems(0);
-                }else{
-                  setAddItems((c) => c - 1);
-                  dispatch(decrementQuantity(service))
-
-                }
+                dispatch(removeFromCart(service))
+                setSelected(false)
               }}>
                 <Text
                   style={{
                     fontSize: 14,
-                    color: "green",
+                    color: "red",
                     paddingHorizontal: 6,
+                    fontWeight: "600",
                   }}
                 >
-                  -
-                </Text>
-              </Pressable>
-
-              <Pressable>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: "green",
-                    paddingHorizontal: 6,
-                  }}
-                >
-                  {additems}
-                </Text>
-              </Pressable>
-
-              <Pressable onPress={() => {
-                setAddItems((c) => c + 1);
-                dispatch(incrementQuantity(service))
-              }}>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: "green",
-                    paddingHorizontal: 6,
-                  }}
-                >
-                  +
+                  REMOVE
                 </Text>
               </Pressable>
             </Pressable>
@@ -120,9 +89,6 @@ const ServiceSubItem = ({ service, baseId }) => {
             <Pressable
               onPress={() => {
                 setSelected(true);
-                if (additems == 0) {
-                  setAddItems((c) => c + 1);
-                }
                 dispatch(addToCart(service));
               }}
               style={{
@@ -158,13 +124,13 @@ const ServiceSubItem = ({ service, baseId }) => {
 export default ServiceSubItem;
 
 const styles = StyleSheet.create({
-    image: {
-        width: 120,
-        height: 120,
-        borderRadius: 8,
-        shadowColor: '#000',
-        shadowOffset: { width: 2, height: 2 },
-        shadowOpacity: 0.9,
-        shadowRadius: 5,
-    }
+  image: {
+    width: 120,
+    height: 120,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.9,
+    shadowRadius: 5,
+  }
 });

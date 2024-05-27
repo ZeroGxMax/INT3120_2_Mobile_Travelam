@@ -7,7 +7,7 @@ import {
     initializeAuth,
     getReactNativePersistence
 } from "firebase/auth";
-import { getStorage } from "firebase/storage";
+import { getStorage, ref, listAll, getDownloadURL, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDvUMG51AH0c5IL-zWhDp_uC5N0Wky94ZY",

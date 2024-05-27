@@ -21,6 +21,8 @@ import OptionsScreen from "../screens/OptionsScreen"
 import ProfileScreen from "../screens/ProfileScreen";
 import TourHistoryScreen from "../screens/TourHistoryScreen";
 import PaidTourDetailScreen from "../screens/PaidTourDetailScreen";
+import CommentScreen from "../screens/CommentScreen";
+
 
 const Stack = createStackNavigator();
 export const AppStack = () => {
@@ -36,7 +38,7 @@ export const AppStack = () => {
       <Stack.Screen name="Item" component={ItemScreen} />
       <Stack.Screen name="Package" component={PackageScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Detail" component={DetailScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Activity" component={ActivityScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Accommodation" component={AccommodationScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Options" component={OptionsScreen} options={{ headerShown: true }} />
@@ -50,7 +52,8 @@ export const AppStack = () => {
       <Stack.Screen name="TransDetail" component={TransDetailScreen} options={{ headerShown: false }} />
 
 
-    </Stack.Navigator>
+      <Stack.Screen name="Comment" component={CommentScreen} options={{ headerShown: false }} />
 
+    </Stack.Navigator>
   );
 };

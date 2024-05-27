@@ -1,13 +1,11 @@
 import { StyleSheet, Text, View, ScrollView, Pressable, Alert } from "react-native";
-import React from "react";
+import React, { useContext, createContextj } from "react";
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import {
     addToCart,
     cleanCart,
-    decrementQuantity,
-    incrementQuantity,
     removeFromCart,
 } from "../redux/CartReducer";
 import { db } from "../services/firebaseService";
@@ -17,11 +15,21 @@ const CartScreen = () => {
     const cart = useSelector((state) => state.cart.cart);
     const sortedCart = [...cart].sort((a, b) => a.baseId - b.baseId);
     const total = cart
-        .map((item) => 70 * item.quantity)
+        .map((item) => 70)
         .reduce((curr, prev) => curr + prev, 0);
+
+    let cost_ = [0, 0, 0, 0]
+
+    for (let i = 0; i < 4; i++) {
+        cost_[i] = cart
+            .map((item) => (item.baseId == i * 200) ? 70 : 0)
+            .reduce((curr, prev) => curr + prev, 0);
+    }
+
     const dispatch = useDispatch();
     var startBaseId = -1
     const label_ = ['Accommodation', 'Restaurant', 'Transportation', 'Activity']
+
     const color_ = ['#007200', '#25a18e', '#004e64', '#00a5cf']
 
     return (
@@ -29,31 +37,7 @@ const CartScreen = () => {
             <ScrollView>
                 {total > 0 ? (
                     <>
-                        <View
-                            style={{
-                                padding: 10,
-                                flexDirection: "row",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Ionicons
-                                onPress={() => navigation.goBack()}
-                                name="arrow-back"
-                                size={35}
-                                color="black"
-                            />
-                            <Text
-                                style={{
-                                    fontSize: 22,
-                                    fontWeight: "600",
-                                    marginLeft: 3,
-                                }}
-                            >
-                                {route.params.name}
-                            </Text>
-                        </View>
-
-                        <View style={{ marginHorizontal: 10 }} >
+                        <View style={{ marginHorizontal: 10, marginTop: 10 }} >
                             <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                                 Services List
                             </Text>
@@ -115,52 +99,18 @@ const CartScreen = () => {
                                         >
                                             <Pressable
                                                 onPress={() => {
-                                                    dispatch(
-                                                        decrementQuantity(item)
-                                                    );
+                                                    dispatch(removeFromCart(item))
                                                 }}
                                             >
                                                 <Text
                                                     style={{
-                                                        fontSize: 20,
+                                                        fontSize: 16,
                                                         color: "green",
                                                         paddingHorizontal: 6,
                                                         fontWeight: "600",
                                                     }}
                                                 >
-                                                    -
-                                                </Text>
-                                            </Pressable>
-
-                                            <Pressable>
-                                                <Text
-                                                    style={{
-                                                        fontSize: 19,
-                                                        color: "green",
-                                                        paddingHorizontal: 8,
-                                                        fontWeight: "600",
-                                                    }}
-                                                >
-                                                    {item.quantity}
-                                                </Text>
-                                            </Pressable>
-
-                                            <Pressable
-                                                onPress={() => {
-                                                    dispatch(
-                                                        incrementQuantity(item)
-                                                    );
-                                                }}
-                                            >
-                                                <Text
-                                                    style={{
-                                                        fontSize: 20,
-                                                        color: "green",
-                                                        paddingHorizontal: 6,
-                                                        fontWeight: "600",
-                                                    }}
-                                                >
-                                                    +
+                                                    REMOVE
                                                 </Text>
                                             </Pressable>
                                         </Pressable>
@@ -171,7 +121,7 @@ const CartScreen = () => {
                                                 fontWeight: "bold",
                                             }}
                                         >
-                                            ${70 * item.quantity}
+                                            ${70}
                                         </Text>
                                     </View>
                                 </View>
@@ -231,7 +181,7 @@ const CartScreen = () => {
                                             color: "gray",
                                         }}
                                     >
-                                        Delivery Fee | 1.2KM
+                                        Accommodation
                                     </Text>
                                     <Text
                                         style={{
@@ -240,7 +190,7 @@ const CartScreen = () => {
                                             color: "green",
                                         }}
                                     >
-                                        FREE
+                                        ${cost_[0]}
                                     </Text>
                                 </View>
 
@@ -248,16 +198,83 @@ const CartScreen = () => {
                                     style={{
                                         flexDirection: "row",
                                         alignItems: "center",
+                                        justifyContent: "space-between",
+                                        marginVertical: 8,
                                     }}
                                 >
                                     <Text
                                         style={{
                                             fontSize: 18,
-                                            fontWeight: "500",
+                                            fontWeight: "400",
                                             color: "gray",
                                         }}
                                     >
-                                        Free Delivery on Your order
+                                        Restaurant
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            fontSize: 18,
+                                            fontWeight: "400",
+                                            color: "green",
+                                        }}
+                                    >
+                                        ${cost_[1]}
+                                    </Text>
+                                </View>
+
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        marginVertical: 8,
+                                    }}
+                                >
+                                    <Text
+                                        style={{
+                                            fontSize: 18,
+                                            fontWeight: "400",
+                                            color: "gray",
+                                        }}
+                                    >
+                                        Transportation
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            fontSize: 18,
+                                            fontWeight: "400",
+                                            color: "green",
+                                        }}
+                                    >
+                                        ${cost_[2]}
+                                    </Text>
+                                </View>
+
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        marginVertical: 8,
+                                    }}
+                                >
+                                    <Text
+                                        style={{
+                                            fontSize: 18,
+                                            fontWeight: "400",
+                                            color: "gray",
+                                        }}
+                                    >
+                                        Activity
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            fontSize: 18,
+                                            fontWeight: "400",
+                                            color: "green",
+                                        }}
+                                    >
+                                        ${cost_[3]}
                                     </Text>
                                 </View>
 
@@ -267,36 +284,9 @@ const CartScreen = () => {
                                         height: 1,
                                         borderWidth: 0.5,
                                         marginTop: 10,
+                                        marginBottom: 10
                                     }}
                                 />
-
-                                <View
-                                    style={{
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        marginVertical: 10,
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            fontSize: 18,
-                                            fontWeight: "500",
-                                            color: "gray",
-                                        }}
-                                    >
-                                        Delivery Tip
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: 18,
-                                            fontWeight: "400",
-                                            color: "green",
-                                        }}
-                                    >
-                                        ADD TIP
-                                    </Text>
-                                </View>
 
                                 <View
                                     style={{
@@ -322,7 +312,7 @@ const CartScreen = () => {
                                             color: "green",
                                         }}
                                     >
-                                        95
+                                        ${0.05 * total}
                                     </Text>
                                 </View>
 
@@ -340,7 +330,7 @@ const CartScreen = () => {
                                         flexDirection: "row",
                                         alignItems: "center",
                                         justifyContent: "space-between",
-                                        marginVertical: 8,
+                                        marginVertical: 10,
                                     }}
                                 >
                                     <Text
@@ -357,7 +347,7 @@ const CartScreen = () => {
                                             fontWeight: "bold",
                                         }}
                                     >
-                                        {total + 95}
+                                        ${total + 0.05 * total}
                                     </Text>
                                 </View>
                             </View>
@@ -397,7 +387,7 @@ const CartScreen = () => {
                 >
                     <View>
                         <Text style={{ fontSize: 18, fontWeight: "600" }}>
-                            ${total + 95}
+                            ${total + 0.05 * total}
                         </Text>
                         <Text style={{ color: "#00A877", fontSize: 17 }}>
                             View Detailed Bill
