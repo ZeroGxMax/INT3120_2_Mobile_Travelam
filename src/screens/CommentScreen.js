@@ -29,7 +29,6 @@ const CommentScreen = ({ route, navigation }) => {
                 setSampleComments(processedComments)
                 // console.log(sampleComments)
                 setComments(processedComments.slice(-5));
-                // setComments(c);
                 setLoadingComments(false);
                 setLastCommentUpdate(new Date().getTime());
                 setLoading(false);
@@ -188,7 +187,7 @@ const CommentScreen = ({ route, navigation }) => {
                         animated: true,
                     });
                 }}
-                saveAction={(text, parentCommentId) => {
+                saveAction={(text, uploadImageUrl, parentCommentId) => {
                     let date = moment().format("YYYY-MM-DD H:mm:ss");
                     let newComments = commentActions.save(
                         comments,
@@ -197,6 +196,7 @@ const CommentScreen = ({ route, navigation }) => {
                         date,
                         "testUser",
                         tour.id,
+                        uploadImageUrl,
                         sampleComments
                     );
                     setComments(newComments);

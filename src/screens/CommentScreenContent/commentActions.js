@@ -165,7 +165,7 @@ export function deleteComment(comments, cmnt) {
     return comments;
 }
 
-export function save(comments, text, parentCommentId, date, username, tourId, sampleComments) {
+export function save(comments, text, parentCommentId, date, username, tourId, uploadImageUrl, sampleComments) {
     try {
         // find last comment id
         let lastCommentId = 0;
@@ -191,12 +191,13 @@ export function save(comments, text, parentCommentId, date, username, tourId, sa
             reported: false,
             email: username,
             body: text,
-            likes: []
+            likes: [],
+            uploadImageUrl: uploadImageUrl,
         };
 
         if (!parentCommentId) {
             comments.push(com);
-            addNewComment(tourId, text, date, username, "noUserIdYet");
+            addNewComment(tourId, text, date, username, "noUserIdYet", uploadImageUrl);
         } else {
             comments.find(c => {
                 if (c.commentId === parentCommentId) {
