@@ -39,7 +39,7 @@ const OptionsScreen = () => {
         "icon": "switcher",
     }, {
         "title": "Contact Supports",
-        "navigation": "Contact Supports",
+        "navigation": "Contact Support",
         "icon": "customerservice",
     }]
 

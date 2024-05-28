@@ -18,6 +18,7 @@ import AccomDetailScreen from "../screens/ServiceScreen/ServiceScreenContent/Acc
 import ActivityDetailScreen from "../screens/ServiceScreen/ServiceScreenContent/ActivityDetailScreen";
 import TransDetailScreen from "../screens/ServiceScreen/ServiceScreenContent/TransDetailScreen";
 import OptionsScreen from "../screens/OptionsScreen"
+import SupportScreen from "../screens/SupportScreen"
 import ProfileScreen from "../screens/ProfileScreen";
 import TourHistoryScreen from "../screens/TourHistoryScreen";
 import PaidTourDetailScreen from "../screens/PaidTourDetailScreen";
@@ -42,6 +43,7 @@ export const AppStack = () => {
       <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Activity" component={ActivityScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Accommodation" component={AccommodationScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Contact Support" component={SupportScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Options" component={OptionsScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Paid Tours" component={TourHistoryScreen} options={{ headerShown: true }} />

@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useState } from "react";
 import {
     View,
     Text,
@@ -9,14 +9,17 @@ import {
     ActivityIndicator,
     Keyboard,
     TextInput,
-    TouchableHighlight
+    TouchableHighlight,
+    Alert
+
 } from "react-native";
 import moment from "moment";
-import PropTypes from "prop-types";
+import PropTypes, { any } from "prop-types";
 import IconFa from "react-native-vector-icons/FontAwesome";
 import styles from "./styles";
 import Collapsible from "react-native-collapsible";
 import Comment from "./Comment";
+import { pickImage, uploadImageToStorage } from "../../utils/imageUtils";
 
 const screen = Dimensions.get("screen");
 
@@ -35,7 +38,12 @@ export default class Comments extends PureComponent {
             likesModalData: null,
             editModalVisible: false,
             expanded: [],
-            pagination: []
+            pagination: [],
+            internalImageUrl: null,
+            firebaseImageUrl: null,
+            isUploading: false,
+            imagePicked: false,
+            isSubmitting: false,
         };
 
         this.textInputs = [];
@@ -54,6 +62,41 @@ export default class Comments extends PureComponent {
 
     getStyle = name =>
         this.props.styles && this.props.styles[name] ? this.props.styles[name] : {};
+
+    pickImage = async () => {
+        const source = await pickImage(uri => this.setState({ internalImageUrl: uri, imagePicked: true }));
+    };
+
+    pushImageToStorage = async () => {
+        const { internalImageUrl } = this.state;
+        if (internalImageUrl) {
+            const imageUrl = await uploadImageToStorage(
+                internalImageUrl.uri,
+                isUploading => this.setState({ isUploading }),
+                imageUrl => this.setState({ firebaseImageUrl: { uri: imageUrl } }),
+                pick => this.setState({ imagePicked: false })
+            );
+        }
+    };
+
+    handleCommentSubmit = async () => {
+        const { newCommentText, imagePicked } = this.state;
+
+        this.setState({isSubmitting: true})
+
+        if (imagePicked) {
+            await this.pushImageToStorage();
+        }
+        if (this.state.firebaseImageUrl) {
+            this.props.saveAction(newCommentText, this.state.firebaseImageUrl.uri, false);
+        } else {
+            this.props.saveAction(newCommentText, null, false);
+        }
+
+        this.setState({ newCommentText: null, internalImageUrl: null, isSubmitting: false });
+        this.textInputs["inputMain"].clear();
+        Keyboard.dismiss();
+    };
 
     setLikesModalVisible(visible) {
         this.setState({ likesModalVisible: visible });
@@ -82,7 +125,7 @@ export default class Comments extends PureComponent {
 
     toggleExpand(c, focus) {
         const id = this.props.keyExtractor(c);
-        
+
         let expanded = this.state.expanded;
 
         let index = expanded.indexOf(id);
@@ -190,6 +233,7 @@ export default class Comments extends PureComponent {
                 editComment={this.handleEdit}
                 likesTapAction={this.props.likeAction ? this.handleLikesTap : null}
                 isChild={this.props.isChild(c)}
+                // firebaseImageUrl={this.state.firebaseImageUrl ? this.state.firebaseImageUrl.uri : null}
             />
         );
     }
@@ -263,7 +307,7 @@ export default class Comments extends PureComponent {
                     this.setLikesModalVisible(false), like.tap(like.name);
                 }}
                 style={styles.likeButton}
-                key={like.userId + ""}
+                key={like.userId + "" + Math.random()}
             >
                 <View style={[styles.likeContainer]}>
                     <Image style={[styles.likeImage]} source={{ uri: "https://cdn.pixabay.com/photo/2021/05/30/06/34/like-6295005_640.png" }} />
@@ -283,15 +327,16 @@ export default class Comments extends PureComponent {
                 {this.generateComment(item)}
                 <View style={{ marginLeft: 40 }}>
                     {item.childrenCount && this.props.childPropName ? (
+
                         <TouchableHighlight onPress={() => this.toggleExpand(item)}>
                             <View style={styles.repliedSection}>
                                 <Image
                                     style={styles.repliedImg}
-                                    // source={{
-                                    //     uri: this.props.imageExtractor(
-                                    //         item[this.props.childPropName][0]
-                                    //     )
-                                    // }}
+                                // source={{
+                                //     uri: this.props.imageExtractor(
+                                //         item[this.props.childPropName][0]
+                                //     )
+                                // }}
                                 />
                                 <Text style={styles.repliedUsername}>
                                     {" "}
@@ -412,6 +457,22 @@ export default class Comments extends PureComponent {
         return (
             <View style={{ flex: 1 }}>
                 <View style={styles.inputSection}>
+                    {/* Input image  */}
+                    <TouchableHighlight onPress={this.pickImage}>
+                        {this.state.internalImageUrl ? (
+                            <Image
+                                source={{ uri: this.state.internalImageUrl.uri }}
+                                style={{ width: 50, height: 50 }}
+                            />
+                        ) : (
+                            this.renderIcon({
+                                style: styles.submit,
+                                name: "upload",
+                                size: 25,
+                                color: "gray"
+                            })
+                        )}
+                    </TouchableHighlight>
                     <TextInput
                         style={styles.input}
                         ref={input => (this.textInputs["inputMain"] = input)}
@@ -421,19 +482,25 @@ export default class Comments extends PureComponent {
                         numberOfLines={3}
                     />
                     <TouchableHighlight
-                        onPress={() => {
-                            this.props.saveAction(this.state.newCommentText, false);
-                            this.setState({ newCommentText: null });
-                            this.textInputs["inputMain"].clear();
-                            Keyboard.dismiss();
+                        onPress={async () => {
+                            const { newCommentText } = this.state;
+                            if (!newCommentText) {
+                                Alert.alert(
+                                    "Comment Text Required",
+                                    "Please write a comment text before submitting.",
+                                    [{ text: "OK", style: "default" }],
+                                    { cancelable: true }
+                                );
+                                return;
+                            }
+                            await this.handleCommentSubmit(); 
                         }}
                     >
-                        {this.renderIcon({
-                            style: styles.submit,
-                            name: "caret-right",
-                            size: 40,
-                            color: "gray"
-                        })}
+                        {this.state.isSubmitting ? (
+                            <ActivityIndicator size="small" color="gray" /> // Show activity indicator while submitting
+                        ) : (
+                            this.renderIcon({ style: styles.submit, name: "caret-right", size: 40, color: "gray" }) // Render submit button icon
+                        )}
                     </TouchableHighlight>
                 </View>
                 {!this.state.loadingComments && !this.props.data ? (
