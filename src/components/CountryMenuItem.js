@@ -50,11 +50,7 @@ const CountryMenuItem = ({ item, countryName }) => {
           >
             <MaterialIcons name="stars" size={24} color="green" />
             <Text style={{ marginLeft: 3, fontSize: 15, fontWeight: "400" }}>
-              {5.0}
-            </Text>
-            <Text style={{ marginLeft: 3 }}>•</Text>
-            <Text style={{ marginLeft: 3, fontSize: 15, fontWeight: "400" }}>
-              {"30-40"}mins
+              {5.0} - Excellent
             </Text>
           </View>
           <View>

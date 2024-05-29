@@ -20,7 +20,8 @@ import TransDetailScreen from "../screens/ServiceScreen/ServiceScreenContent/Tra
 import OptionsScreen from "../screens/OptionsScreen"
 import ProfileScreen from "../screens/ProfileScreen";
 import TourHistoryScreen from "../screens/TourHistoryScreen";
-import PaidTourDetailScreen from "../screens/PaidTourDetailScreen";import CommentScreen from "../screens/CommentScreen";
+import PaidTourDetailScreen from "../screens/PaidTourDetailScreen";
+import CommentScreen from "../screens/CommentScreen";
 import PaymentScreen from "../screens/PaymentScreen";
 
 
@@ -50,12 +51,16 @@ export const AppStack = () => {
       <Stack.Screen name="AccomDetail" component={AccomDetailScreen} options={{ headerShown: false }} />
       <Stack.Screen name="ActivityDetail" component={ActivityDetailScreen} options={{ headerShown: false }} />
       <Stack.Screen name="TransDetail" component={TransDetailScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Comment" component={CommentScreen} options={{ headerShown: false }} />
 
-          <Stack.Screen name="Comment" component={CommentScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="Payment" component={PaymentScreen} options={{ headerShown: false }} />
-
+      <Stack.Screen name="Payment" component={PaymentScreen} options={{ headerShown: false }} />
 
     </Stack.Navigator>
+
+
+
+
+
 
   );
 };

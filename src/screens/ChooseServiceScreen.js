@@ -8,7 +8,7 @@ import {
     Image,
     ImageBackground,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
@@ -23,14 +23,14 @@ import { getRestFromDestId } from "../services/firebase/rest";
 import { getTransFromDestId } from "../services/firebase/trans";
 import { getActFromDestId } from "../services/firebase/activity";
 
-const ChooseServiceScreen = () => {
+export default ChooseServiceScreen = () => {
+    const [value, setValue] = useState('');
     const cart = useSelector((state) => state.cart.cart);
     const total = cart
-        .map((item) => 70 * item.quantity)
+        .map((item) => item.price)
         .reduce((curr, prev) => curr + prev, 0);
-    console.log(total);
-    console.log(cart);
     const route = useRoute();
+    console.log("Time: ", route.params.time)
     const navigation = useNavigation();
     const [menu, setMenu] = useState([]);
     const [accom, setAccom] = useState([])
@@ -49,6 +49,7 @@ const ChooseServiceScreen = () => {
     };
 
     const [loading, setLoading] = useState(true);
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -171,7 +172,7 @@ const ChooseServiceScreen = () => {
                                     color: "white"
                                 }}
                             >
-                                {route.params.time}mins
+                                {route.params.time} days
                             </Text>
                         </View>
 
@@ -202,7 +203,7 @@ const ChooseServiceScreen = () => {
                                 marginTop: 10,
                             }}
                         >
-                            <Text style={{ color: "white" }}>22 mins</Text>
+                            <Text style={{ color: "white" }}>{route.params.timeFromHome} mins</Text>
                             <Text
                                 style={{
                                     marginLeft: 15,
@@ -245,33 +246,24 @@ const ChooseServiceScreen = () => {
                                     color: "white"
                                 }}
                             >
-                                0-3 Kms |
+                                {route.params.distance} Km from your home
                             </Text>
-                            <Text
-                                style={{
-                                    marginLeft: 7,
-                                    color: "gray",
-                                    fontSize: 16,
-                                    color: "white"
-                                }}
-                            >
-                                35 Delivery Fee will Apply
-                            </Text>
+                            
                         </View>
                     </View>
                 </View>
                 {(accom && trans && rest && activity) ? (
-                [{ id: 0, name: "Accommodation", items: accom },
-                { id: 200, name: "Restaurant", items: rest },
-                { id: 400, name: "Transportation", items: trans },
-                { id: 600, name: "Activity", items: activity }].map((item, index) => (
-                    <ServiceItem item={item} key={index} />
+                    [{ id: 0, name: "Accommodation", items: accom },
+                    { id: 200, name: "Restaurant", items: rest },
+                    { id: 400, name: "Transportation", items: trans },
+                    { id: 600, name: "Activity", items: activity }].map((item, index) => (
+                        <ServiceItem item={item} key={index} />
                     ))
                 ) : (
                     <Text>No menu data available</Text>
                 )}
 
-                {total === 0 ? null : <View style={{ marginBottom: 120 }}></View> }
+                {total === 0 ? null : <View style={{ marginBottom: 120 }}></View>}
 
             </ScrollView>
 
@@ -305,7 +297,7 @@ const ChooseServiceScreen = () => {
                                     color: "white",
                                 }}
                             >
-                                {cart.length} items | {total}
+                                {cart.length} items | ${total}
                             </Text>
                             <Text
                                 style={{
@@ -320,29 +312,29 @@ const ChooseServiceScreen = () => {
                         </View>
 
                         <Pressable
-                            onPress={() =>
+                            onPress={() => {
                                 navigation.navigate("Cart", {
                                     name: route.params.name,
+                                    distance: route.params.distance
                                 })
                             }
+                            }
                         >
-                            <Text
-                                style={{
-                                    fontSize: 18,
-                                    fontWeight: "600",
-                                    color: "white",
-                                }}
-                            >
-                                View Cart
-                            </Text>
-                        </Pressable>
-                    </View>
+                        <Text
+                            style={{
+                                fontSize: 18,
+                                fontWeight: "600",
+                                color: "white",
+                            }}
+                        >
+                            View Cart
+                        </Text>
                 </Pressable>
+                    </View>
+                </Pressable >
             )}
         </>
     );
 };
-
-export default ChooseServiceScreen;
 
 const styles = StyleSheet.create({});

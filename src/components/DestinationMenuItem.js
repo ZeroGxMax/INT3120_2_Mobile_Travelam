@@ -15,6 +15,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 const DestinationMenuItem = ({ item, countryName }) => {
   const navigation = useNavigation();
+  const startTime = Math.floor(Math.random() * 2) + 1
+  const endTime = Math.floor(Math.random() * 3) + (startTime + 1)
+  const timeFromHome = Math.floor(Math.random() * 60) + 1
+  const distance = Math.floor(Math.random() * timeFromHome / 2) + 1
   return (
     <View style={{ margin: 10 }}>
       <Pressable
@@ -25,7 +29,7 @@ const DestinationMenuItem = ({ item, countryName }) => {
             name:item.name,
             image:item.demoImage,
             rating:5.0,
-            time:"30-40",
+            time:`${startTime}-${endTime}`,
             address:countryName,
           })
         }
@@ -57,7 +61,7 @@ const DestinationMenuItem = ({ item, countryName }) => {
             </Text>
             <Text style={{ marginLeft: 3 }}>•</Text>
             <Text style={{ marginLeft: 3, fontSize: 15, fontWeight: "400" }}>
-              {"30-40"}mins
+              {`${startTime}-${endTime}`} days
             </Text>
           </View>
           {item.additionInfo.split(",").slice(0, 3).map((info) => (
@@ -88,8 +92,10 @@ const DestinationMenuItem = ({ item, countryName }) => {
                         name:item.name,
                         image:item.demoImage,
                         rating:5.0,
-                        time:"30-40",
+                        time:`${startTime}-${endTime}`,
                         address:countryName,
+                        timeFromHome: timeFromHome,
+                        distance: distance
                     })
                 }
             >
