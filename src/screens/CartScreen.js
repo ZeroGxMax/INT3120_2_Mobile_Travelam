@@ -432,6 +432,7 @@ const CartScreen = () => {
                     <TouchableOpacity
                         onPress={async () => {
                             // console.log("cart: ", sortedCart)
+                            // console.log(auth.currentUser.email)
                             const amount = total + 0.05 * total
                             if (selectedCardData && amount > 0 && sortedCart) {
                                 await addNewPayment(auth.currentUser.uid, selectedCardData, amount, sortedCart);

@@ -93,7 +93,7 @@ export default class Comments extends PureComponent {
             this.props.saveAction(newCommentText, null, false);
         }
 
-        this.setState({ newCommentText: null, internalImageUrl: null, isSubmitting: false });
+        this.setState({ newCommentText: null, internalImageUrl: null, firebaseImageUrl: null, isSubmitting: false });
         this.textInputs["inputMain"].clear();
         Keyboard.dismiss();
     };
