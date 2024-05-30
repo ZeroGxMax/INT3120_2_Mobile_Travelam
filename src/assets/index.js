@@ -32,3 +32,4 @@ export { default as BluePinSmall} from "./pin-blue-small.png";
 export { default as BluePinNavi} from "./pin-blue-navi.png";
 export { default as Logo} from "./splash_ver_2.png"
 export { default as Logo2} from "./splash_ver_2.png"
+export { default as Support} from "./support.png"

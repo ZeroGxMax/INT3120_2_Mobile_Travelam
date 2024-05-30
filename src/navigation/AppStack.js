@@ -18,11 +18,14 @@ import AccomDetailScreen from "../screens/ServiceScreen/ServiceScreenContent/Acc
 import ActivityDetailScreen from "../screens/ServiceScreen/ServiceScreenContent/ActivityDetailScreen";
 import TransDetailScreen from "../screens/ServiceScreen/ServiceScreenContent/TransDetailScreen";
 import OptionsScreen from "../screens/OptionsScreen"
+import SupportScreen from "../screens/SupportScreen"
 import ProfileScreen from "../screens/ProfileScreen";
 import TourHistoryScreen from "../screens/TourHistoryScreen";
 import PaidTourDetailScreen from "../screens/PaidTourDetailScreen";
 import CommentScreen from "../screens/CommentScreen";
 import PaymentScreen from "../screens/PaymentScreen";
+import AdminScreen from "../screens/AdminScreenContent/AdminScreen";
+import ManagementScreen from "../screens/AdminScreenContent/ManagementScreen"
 
 
 const Stack = createStackNavigator();
@@ -42,6 +45,7 @@ export const AppStack = () => {
       <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Activity" component={ActivityScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Accommodation" component={AccommodationScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Contact Support" component={SupportScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Options" component={OptionsScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Paid Tours" component={TourHistoryScreen} options={{ headerShown: true }} />
@@ -54,6 +58,8 @@ export const AppStack = () => {
       <Stack.Screen name="Comment" component={CommentScreen} options={{ headerShown: false }} />
 
       <Stack.Screen name="Payment" component={PaymentScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Admin" component={AdminScreen} />
+      <Stack.Screen name="Manage" component={ManagementScreen} options={{ headerShown: true }} />
 
     </Stack.Navigator>
 

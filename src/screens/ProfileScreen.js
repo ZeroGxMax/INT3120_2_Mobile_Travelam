@@ -9,14 +9,22 @@ import {
 } from 'react-native';
 import { Link } from 'react-router-native';
 import MenuItem from '../components/MenuItem';
-import { auth } from '../services/firebaseService'
+import { auth, firebaseApp } from '../services/firebaseService'
 import { getCustomerFromId } from "../services/firebase/user"
+import { ref, getDatabase, update } from "firebase/database";
+
+import { pickImage, uploadImageToStorage } from "../utils/imageUtils";
 
 const MyContext = createContext();
 
 export default ProfileScreen = () => {
   const [user, setUser] = useState({})
   const [value, setValue] = useState('');
+  const [internalImageUrl, setInternalImageUrl] = useState(null)
+  const [firebaseImageUrl, setFirebaseImageUrl] = useState(null)
+  const [imagePicked, setImagePicked] = useState(null)
+  const [isUploading, setIsUploading] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const menus = [
     {
       title: 'Name',
@@ -48,7 +56,54 @@ export default ProfileScreen = () => {
     },
   ];
 
+  internalPickImage = async () => {
+    const source = await pickImage(uri => {
+      setInternalImageUrl(uri)
+      setImagePicked(true)
+      pushImageToStorage();
+    });
+
+  };
+
+  pushImageToStorage = async () => {
+    if (internalImageUrl) {
+      const imageUrl = await uploadImageToStorage(
+        internalImageUrl.uri,
+        isUploading => setIsUploading(isUploading),
+        imageUrl => (
+          setFirebaseImageUrl(imageUrl),
+          submitEditProfile('avatar', imageUrl)
+        ),
+        pick => setImagePicked(false)
+      );
+
+    }
+
+  };
+
+  submitEditProfile = async (prop, text) => {
+    // console.log("Prop: " + prop, "Text: ", text)
+    try {
+      console.log(prop, text)
+      const userAuth = auth.currentUser;
+      let newUser = user
+      newUser[prop] = text
+      const db = getDatabase(firebaseApp);
+      const userRef = ref(db, `customer/data/` + userAuth['uid']);
+
+      // Update user profile data in the Realtime Database
+      await update(userRef, newUser);
+      setValue('Update Parent ' + text)
+
+      console.log("User profile updated successfully");
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+      setError("Error updating user profile: " + error.message);
+    }
+  }
+
   useEffect(() => {
+    console.log(internalImageUrl);
     const fetchData = async () => {
       try {
         // Fetch all countries
@@ -70,7 +125,7 @@ export default ProfileScreen = () => {
     <MyContext.Provider value={{ value, setValue }}>
       <ScrollView style={styles.container}>
         <View style={styles.headerTitle}>
-          
+
         </View>
         <View style={styles.content}>
           <View>
@@ -79,7 +134,9 @@ export default ProfileScreen = () => {
                 source={{ uri: user.avatar }}
                 style={styles.profileImage}
               />
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={internalPickImage}
+              >
                 <View style={styles.smallIconContainer}>
                   <Image
                     source={require('../assets/edit_small.png')}
