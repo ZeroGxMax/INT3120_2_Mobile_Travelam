@@ -16,7 +16,7 @@ const getLastPaymentId = async (paymentSnapshot) => {
     return lastPaymentId;
 };
 
-const addNewPayment = async (userId, creditCard, amount, paymentDetail) => {
+const addNewPayment = async (userId, creditCard, amount, tourName, startDate, paymentDetail) => {
     try {
         const paymentRef = ref(db, 'payment/data');
         const newPaymentRef = push(paymentRef);
@@ -26,6 +26,8 @@ const addNewPayment = async (userId, creditCard, amount, paymentDetail) => {
         const newPayment = {
             paymentId: lastPaymentId,
             userId: userId,
+            tourName: tourName,
+            startDate: startDate,
             creditCard: creditCard,
             payDate: new Date().toISOString(),
             amount: amount,
