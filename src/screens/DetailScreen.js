@@ -43,7 +43,11 @@ const DetailScreen = ({ route, navigation }) => {
     };
 
     const handleCustomize = () => {
-        navigation.navigate("Destination", { id: countryData.id, name: countryData.countryName });
+        navigation.navigate("Destination", { 
+            id: countryData.id, 
+            name: countryData.countryName,
+            tour: item.title 
+        });
     };
 
     return (

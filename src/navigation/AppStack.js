@@ -24,6 +24,8 @@ import TourHistoryScreen from "../screens/TourHistoryScreen";
 import PaidTourDetailScreen from "../screens/PaidTourDetailScreen";
 import CommentScreen from "../screens/CommentScreen";
 import PaymentScreen from "../screens/PaymentScreen";
+import AdminScreen from "../screens/AdminScreenContent/AdminScreen";
+import ManagementScreen from "../screens/AdminScreenContent/ManagementScreen"
 
 
 const Stack = createStackNavigator();
@@ -56,6 +58,8 @@ export const AppStack = () => {
       <Stack.Screen name="Comment" component={CommentScreen} options={{ headerShown: false }} />
 
       <Stack.Screen name="Payment" component={PaymentScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Admin" component={AdminScreen} />
+      <Stack.Screen name="Manage" component={ManagementScreen} options={{ headerShown: true }} />
 
     </Stack.Navigator>
 

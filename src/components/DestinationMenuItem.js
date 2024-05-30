@@ -13,7 +13,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-const DestinationMenuItem = ({ item, countryName }) => {
+const DestinationMenuItem = ({ item, tourName, countryName }) => {
   const navigation = useNavigation();
   const startTime = Math.floor(Math.random() * 2) + 1
   const endTime = Math.floor(Math.random() * 3) + (startTime + 1)
@@ -26,11 +26,15 @@ const DestinationMenuItem = ({ item, countryName }) => {
           navigation.navigate("Choose Service", {
             countryName: countryName,
             id: item.id,
-            name:item.name,
-            image:item.demoImage,
-            rating:5.0,
-            time:`${startTime}-${endTime}`,
-            address:countryName,
+            name: item.name,
+            image: item.demoImage,
+            rating: 5.0,
+            time: `${startTime}-${endTime}`,
+            address: countryName,
+            timeFromHome: timeFromHome,
+            distance: distance,
+            destination: item.name,
+            tour: tourName
           })
         }
         style={{ flexDirection: "row" }}
@@ -66,13 +70,13 @@ const DestinationMenuItem = ({ item, countryName }) => {
           </View>
           {item.additionInfo.split(",").slice(0, 3).map((info) => (
             <Text>
-                <AntDesign
-                    name="star"
-                    size={24}
-                    color="#0EEBBE"
-                />
+              <AntDesign
+                name="star"
+                size={24}
+                color="#0EEBBE"
+              />
 
-                {info}
+              {info}
 
             </Text>
           ))}
@@ -84,22 +88,24 @@ const DestinationMenuItem = ({ item, countryName }) => {
             }}
           >
             <TouchableOpacity
-                style={styles.buttonWrapper}
-                onPress={() =>
-                    navigation.navigate("Choose Service", {
-                        countryName: countryName,
-                        id: item.id,
-                        name:item.name,
-                        image:item.demoImage,
-                        rating:5.0,
-                        time:`${startTime}-${endTime}`,
-                        address:countryName,
-                        timeFromHome: timeFromHome,
-                        distance: distance
-                    })
-                }
+              style={styles.buttonWrapper}
+              onPress={() =>
+                navigation.navigate("Choose Service", {
+                  countryName: countryName,
+                  id: item.id,
+                  name: item.name,
+                  image: item.demoImage,
+                  rating: 5.0,
+                  time: `${startTime}-${endTime}`,
+                  address: countryName,
+                  timeFromHome: timeFromHome,
+                  distance: distance,
+                  destination: item.name,
+                  tour: tourName
+                })
+              }
             >
-                <Text style={{ color: "white", fontWeight: 600, fontSize: 14 }}>Customize New Tour</Text>
+              <Text style={{ color: "white", fontWeight: 600, fontSize: 14 }}>Customize New Tour</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -111,24 +117,24 @@ const DestinationMenuItem = ({ item, countryName }) => {
 export default DestinationMenuItem;
 
 const styles = StyleSheet.create({
-    countryItem: {
-        margin: 10,
-        borderRadius: 6,
-        backgroundColor: "#DDD",
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 2,
-        elevation: 5,
-    },
-    buttonWrapper: {
-        marginBottom: 10,
-        backgroundColor: "#13ED77",
-        alignItems: 'center',
-        paddingVertical: 10,
-        paddingHorizontal: 10,
-        borderRadius: 10,
-        color: "white"
-    },
+  countryItem: {
+    margin: 10,
+    borderRadius: 6,
+    backgroundColor: "#DDD",
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  buttonWrapper: {
+    marginBottom: 10,
+    backgroundColor: "#13ED77",
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    color: "white"
+  },
 });
 

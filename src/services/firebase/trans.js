@@ -137,4 +137,37 @@ const getTransFromDestId = async (destId) => {
     }
 };
 
-export { getTransFromId, getTransListFromId, getTransFromName, getTransFromDestId, getAllTransportation }
+const getTransFromDestIdAddData = async (destId, country, dest) => {
+    try {
+        const transRef = ref(db, "transportation/data")
+        const transDestRef = ref(db, "dest_trans/data")
+
+        const transSnapshot = await get(transRef)
+        const transDestSnapshot = await get(transDestRef)
+        let foundTransList = [];
+
+        transDestSnapshot.forEach((transDestChild) => {
+            const transDestData = transDestChild.val();
+            if (transDestData && transDestData.destId == destId) {
+                const transId = transDestData.transId;
+                transSnapshot.forEach((transChild) => {
+                    const transData = transChild.val();
+                    if (transData && transData.id == transId) {
+                        foundTrans = transData
+                        foundTrans.baseId = 400
+                        foundTrans.countryName = country,
+                        foundTrans.destinationName = dest,
+                        foundTransList.push(foundTrans)
+                    }
+                });
+            }
+        });
+
+        return foundTransList;
+    } catch (error) {
+        console.error("Error finding trans from country ID:", error);
+        throw error;
+    }
+};
+
+export { getTransFromId, getTransListFromId, getTransFromName, getTransFromDestId, getAllTransportation, getTransFromDestIdAddData }

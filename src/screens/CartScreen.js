@@ -1,8 +1,10 @@
-import { StyleSheet, Text, View, ScrollView, Pressable, Alert } from "react-native";
-import React, { useContext, createContextj } from "react";
+import { StyleSheet, Text, View, ScrollView, Pressable, Alert, TextInput, Button } from "react-native";
+import React, { useContext, createContext, useState, useEffect } from "react";
 import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { AntDesign } from "@expo/vector-icons";
 import {
     addToCart,
     cleanCart,
@@ -13,11 +15,25 @@ const CartScreen = () => {
     const navigation = useNavigation();
     const route = useRoute();
     const cart = useSelector((state) => state.cart.cart);
-    const sortedCart = [...cart].sort((a, b) => a.baseId - b.baseId);
+    const sortedCart = [...cart].sort((a, b) => {
+        if (a.countryName === b.countryName) {
+            if (a.destinationName === b.destinationName) {
+                return a.baseId - b.baseId
+            } else {
+                return a.destinationName.localeCompare(b.destinationName)
+            }
+        } else {
+            return a.countryName.localeCompare(b.countryName)
+        }
+    });
     const total = cart
         .map((item) => item.price)
         .reduce((curr, prev) => curr + prev, 0);
 
+    const [text, setText] = useState((route.params.tour ? route.params.tour : ""))
+    const [date, setDate] = useState(new Date());
+    const [show, setShow] = useState(false);
+    const [mode, setMode] = useState('date');
     let service = [{
         label: 'Accommodation',
         cost: 0
@@ -40,10 +56,27 @@ const CartScreen = () => {
 
     const dispatch = useDispatch();
     var startBaseId = -1
+    var startCountry = ""
+    var startDestination = ""
 
 
-    const color_ = ['#007200', '#25a18e', '#004e64', '#00a5cf']
+    const color_ = ['#FFBF00', '#25a18e', '#004e64', '#00a5cf']
     // console.log("cart: ", cart[0])
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(false);
+        setDate(currentDate);
+    };
+
+    const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+    };
+
+    useEffect(() => {
+
+    }, [show])
 
     return (
         <>
@@ -67,13 +100,79 @@ const CartScreen = () => {
                         marginLeft: 20,
                     }}
                 >
-                    {route.params.name}
+                    Billing
                 </Text>
             </View>
             <ScrollView>
                 {total > 0 ? (
                     <>
-                        <View style={{ marginHorizontal: 10, marginTop: 10 }} >
+                        <View>
+                            <View style={{ marginHorizontal: 10, marginTop: 10 }} >
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                                    Tour name
+                                </Text>
+                            </View>
+                            <TextInput
+                                placeholder="Enter tour name                          "
+                                style={{
+                                    color: "black",
+                                    marginVertical: 10,
+                                    marginHorizontal: 20,
+                                    backgroundColor: "#FFF",
+                                    padding: 10,
+                                    borderRadius: 10,
+                                    fontSize: 18
+                                }}
+                                value={text}
+                                onChangeText={setText}
+                            />
+                        </View>
+                        <View>
+                            <View style={{ marginHorizontal: 10 }} >
+                                <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                                    Start date
+                                </Text>
+                            </View>
+                            <View style={{
+                                flexDirection: "row",
+                                flex: 1,
+                                // justifyContent: 'space-between', 
+                                alignItems: 'center',
+                                marginHorizontal: 20,
+                                marginVertical: 10
+                            }}>
+                                <Text style={{
+                                    fontSize: 18,
+                                    padding: 5,
+                                    paddingHorizontal: 10,
+                                    borderRadius: 10,
+                                    backgroundColor: "white",
+                                    marginRight: 10
+                                }}>
+                                    {date.toLocaleDateString()}
+                                </Text>
+                                <Button
+                                    onPress={() => showMode('date')}
+                                    title="Set date"
+                                    color="green"
+                                    type="outline"
+                                />
+                                {show ? (
+                                    <DateTimePicker
+                                        testID="dateTimePicker"
+                                        value={date}
+                                        mode={mode}
+                                        is24Hour={true}
+                                        display="default"
+                                        onChange={onChange}
+                                    />
+                                ) : (
+                                    null
+                                )}
+                            </View>
+                        </View>
+
+                        <View style={{ marginHorizontal: 10, }} >
                             <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                                 Services List
                             </Text>
@@ -92,14 +191,60 @@ const CartScreen = () => {
                         >
                             {sortedCart.map((item, index) => (
                                 <View key={index}>
+                                    {  startCountry !== item.countryName ? <View style={{
+                                        // backgroundColor: color_[item.baseId / 200],
+                                        // alignItems: 'center',
+                                        paddingVertical: 10,
+                                        borderRadius: 10,
+                                        borderTopWidth: ((startCountry === "") ? 0 : 1),
+                                        borderTopColor: "#DDD",
+                                        marginTop: ((startCountry === "") ? 0 : 10),
+                                        paddingTop: ((startCountry === "") ? 0 : 20)
+                                    }}>
+                                        {(startDestination = "") ? null : null}
+                                        <Text style={{
+                                            fontSize: 24,
+                                            fontWeight: "600",
+                                            color: 'green'
+                                        }}>
+                                            {(startCountry = item.countryName) ? item.countryName : 'Accommodation'}
+                                        </Text>
+                                        {/* {setStartCountry(item.countryName)} */}
+                                    </View> : null}
+
+                                    {  startDestination !== item.destinationName ? <View style={{
+                                        // backgroundColor: color_[item.baseId / 200],
+                                        // alignItems: 'center',
+                                        paddingVertical: 10,
+                                        borderRadius: 10,
+                                        borderTopWidth: ((startDestination === "") ? 0 : 1),
+                                        borderTopColor: "#DDD",
+                                        marginTop: ((startDestination === "") ? 0 : 10),
+                                        paddingTop: ((startDestination === "") ? 0 : 20)
+                                    }}>
+                                        {(startBaseId = -1) ? null : null}
+                                        <Text style={{
+                                            fontSize: 20,
+                                            fontWeight: "600",
+                                            color: '#808836'
+                                        }}>
+                                            {(startDestination = item.destinationName) ? item.destinationName : 'Accommodation'}
+                                        </Text>
+                                    </View> : null}
+
+
                                     {startBaseId < item.baseId ? <View style={{
-                                        backgroundColor: color_[item.baseId / 200],
-                                        alignItems: 'center',
+                                        // backgroundColor: color_[item.baseId / 200],
+                                        // alignItems: 'center',
                                         paddingVertical: 10,
                                         borderRadius: 10
 
                                     }}>
-                                        <Text style={styles.label}>
+                                        <Text style={{
+                                            fontSize: 16,
+                                            fontWeight: "600",
+                                            color: color_[item.baseId / 200]
+                                        }}>
                                             {(startBaseId = item.baseId) ? service[item.baseId / 200].label : 'Accommodation'}
                                         </Text>
                                     </View> : null}
@@ -118,7 +263,7 @@ const CartScreen = () => {
                                             style={{
                                                 width: 280,
                                                 fontSize: 16,
-                                                fontWeight: "600",
+                                                // fontWeight: "600",
                                                 borderRightWidth: 1,
                                                 borderRightColor: "#CCC",
                                                 paddingHorizontal: 15,
@@ -370,6 +515,6 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 16,
         fontWeight: "600",
-        color: 'white'
+        color: 'black'
     }
 });

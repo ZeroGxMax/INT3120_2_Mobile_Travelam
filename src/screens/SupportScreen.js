@@ -18,6 +18,7 @@ import LoadingView from '../components/utils/LoadingView';
 import { auth, firebaseApp } from "../services/firebaseService";
 import { ref, getDatabase, update } from "firebase/database";
 import { getFeedbackId } from "../services/firebase/feedback";
+import { getCustomerFromId } from "../services/firebase/user"
 import call from 'react-native-phone-call';
 
 const db = getDatabase(firebaseApp);
@@ -25,6 +26,7 @@ const db = getDatabase(firebaseApp);
 
 const SupportScreen = () => {
     const [loading, setLoading] = useState(false);
+    const [user, setUser] = useState({})
     const [text, setText] = useState("")
     const navigation = useNavigation();
     const admin_phone = '03966565646'
@@ -39,7 +41,8 @@ const SupportScreen = () => {
         const newFeedback = {
             "id": `${id}`,
             "user": userAuth['email'],
-            "request": text
+            "phoneNumber": user['phoneNumber'],
+            "request": text,
         }
 
         await update(feedbackRef, newFeedback);
@@ -52,12 +55,29 @@ const SupportScreen = () => {
 
     const makeCall = () => {
         const args = {
-          number: admin_phone,
-          prompt: true, 
+            number: admin_phone,
+            prompt: true,
         };
-    
+
         call(args).catch(console.error);
-      };
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Fetch all countries
+                const userAuth = auth.currentUser;
+                const userData = await getCustomerFromId(userAuth['uid']);
+                setUser(userData);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
 
     if (loading) {
         return <LoadingView />;
@@ -188,7 +208,7 @@ const SupportScreen = () => {
                         fontWeight: "bold",
                     }}>{admin_phone}</Text>
                 </View>
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={{
                         borderWidth: 1,
                         flexDirection: "column",

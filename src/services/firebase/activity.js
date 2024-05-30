@@ -137,4 +137,37 @@ const getActFromDestId = async (destId) => {
     }
 };
 
-export { getActFromId, getActListFromId, getActFromName, getActFromDestId, getAllActivity }
+const getActFromDestIdAddData = async (destId, country, dest) => {
+    try {
+        const actRef = ref(db, "activity/data")
+        const actDestRef = ref(db, "dest_activity/data")
+
+        const actSnapshot = await get(actRef)
+        const actDestSnapshot = await get(actDestRef)
+        let foundActList = [];
+
+        actDestSnapshot.forEach((actDestChild) => {
+            const actDestData = actDestChild.val();
+            if (actDestData && actDestData.destId == destId) {
+                const actId = actDestData.activityId;
+                actSnapshot.forEach((actChild) => {
+                    const actData = actChild.val();
+                    if (actData && actData.id == actId) {
+                        foundAct = actData
+                        foundAct.baseId = 600
+                        foundAct.countryName = country,
+                        foundAct.destinationName = dest,
+                        foundActList.push(foundAct)
+                    }
+                });
+            }
+        });
+
+        return foundActList;
+    } catch (error) {
+        console.error("Error finding act from country ID:", error);
+        throw error;
+    }
+};
+
+export { getActFromId, getActListFromId, getActFromName, getActFromDestId, getAllActivity, getActFromDestIdAddData }

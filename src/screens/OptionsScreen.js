@@ -41,6 +41,10 @@ const OptionsScreen = () => {
         "title": "Contact Supports",
         "navigation": "Contact Support",
         "icon": "customerservice",
+    }, {
+        "title": "Administrator",
+        "navigation": "Admin",
+        "icon": "customerservice",
     }]
 
     const handleLogout = () => {

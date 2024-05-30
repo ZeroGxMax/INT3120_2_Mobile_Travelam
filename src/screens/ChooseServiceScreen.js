@@ -18,10 +18,10 @@ import Modal from "react-native-modal";
 import { useSelector } from "react-redux";
 import LoadingView from '../components/utils/LoadingView';
 import ServiceItem from "../components/ServiceItem";
-import { getAccomFromDestId } from "../services/firebase/accom";
-import { getRestFromDestId } from "../services/firebase/rest";
-import { getTransFromDestId } from "../services/firebase/trans";
-import { getActFromDestId } from "../services/firebase/activity";
+import { getAccomFromDestIdAddData } from "../services/firebase/accom";
+import { getRestFromDestIdAddData } from "../services/firebase/rest";
+import { getTransFromDestIdAddData } from "../services/firebase/trans";
+import { getActFromDestIdAddData } from "../services/firebase/activity";
 
 export default ChooseServiceScreen = () => {
     const [value, setValue] = useState('');
@@ -55,16 +55,32 @@ export default ChooseServiceScreen = () => {
         const fetchData = async () => {
             try {
                 // Fetch all countries
-                const allAccomData = await getAccomFromDestId(route.params.id);
+                const allAccomData = await getAccomFromDestIdAddData(
+                    route.params.id, 
+                    route.params.countryName, 
+                    route.params.destination
+                );
                 setAccom(allAccomData);
 
-                const allRestData = await getRestFromDestId(route.params.id);
+                const allRestData = await getRestFromDestIdAddData(
+                    route.params.id, 
+                    route.params.countryName, 
+                    route.params.destination
+                );
                 setRest(allRestData);
 
-                const allTransData = await getTransFromDestId(route.params.id);
+                const allTransData = await getTransFromDestIdAddData(
+                    route.params.id, 
+                    route.params.countryName, 
+                    route.params.destination
+                );
                 setTrans(allTransData);
 
-                const allActData = await getActFromDestId(route.params.id);
+                const allActData = await getActFromDestIdAddData(
+                    route.params.id, 
+                    route.params.countryName, 
+                    route.params.destination
+                );
                 setActivity(allActData);
 
                 setLoading(false);
@@ -310,12 +326,13 @@ export default ChooseServiceScreen = () => {
                                 Extra Charges may Apply!
                             </Text>
                         </View>
-
+ 
                         <Pressable
                             onPress={() => {
                                 navigation.navigate("Cart", {
                                     name: route.params.name,
-                                    distance: route.params.distance
+                                    distance: route.params.distance,
+                                    tour: route.params.tour
                                 })
                             }
                             }
