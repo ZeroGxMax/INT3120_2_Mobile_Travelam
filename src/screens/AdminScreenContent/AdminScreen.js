@@ -26,50 +26,50 @@ const AdminScreen = () => {
 
     const managementList = [{
         title: "Accounts",
-        image: "https://sascotravel.com/wp-content/uploads/2020/03/vietnamfood.jpg",
+        image: "https://i0.wp.com/crmviet.vn/wp-content/uploads/2019/09/Account-executive-la-gi.jpeg?ssl=1",
         color: "#6FDCE3",
-        props: ["Name", "Email"]
+        props: ["avatar", "name", "email", "phoneNumber"]
     }, {
         title: "Tours",
         image: "https://sascotravel.com/wp-content/uploads/2020/03/vietnamfood.jpg",
-        color: "#FDE49E",
-        props: ["Title", "Description"]
-    }, {
-        title: "Destinations",
-        image: "https://sascotravel.com/wp-content/uploads/2020/03/vietnamfood.jpg",
-        color: "#FFCBCB",
-        props: ["Name", "Description"]
-    }, {
-        title: "Accommodations",
-        image: "https://sascotravel.com/wp-content/uploads/2020/03/vietnamfood.jpg",
-        color: "#FC4100",
-        props: ["Name", "Description"]
-    }, {
-        title: "Restaurants",
-        image: "https://sascotravel.com/wp-content/uploads/2020/03/vietnamfood.jpg",
-        color: "#74E291",
-        props: ["Name", "Description"]
-    }, {
-        title: "Transportations",
-        image: "https://sascotravel.com/wp-content/uploads/2020/03/vietnamfood.jpg",
-        color: "#387ADF",
-        props: ["Type", "AdditionInfo"]
+        color: "#799351",
+        props: ["demoImage", "title", "description", "startDate"]
 
     }, {
+        title: "Destinations",
+        image: "https://static.independent.co.uk/2023/08/02/10/iStock-1185953092.jpg",
+        color: "#FFCBCB",
+        props: ["demoImage", "name", "description", "additionInfo"]
+    }, {
+        title: "Accommodations",
+        image: "https://media.edinburgh.org/wp-content/uploads/2023/04/23154056/The-Balmoral-Executive-View-Room-e1682260891619.jpg",
+        color: "#A67B5B",
+        props: ["demoImage", "name", "description", "additionInfo"]
+    }, {
+        title: "Restaurants",
+        image: "https://assets.bonappetit.com/photos/610aa6ddc50e2f9f7c42f7f8/master/pass/Savage-2019-top-50-busy-restaurant.jpg",
+        color: "#7469B6",
+        props: ["demoImage", "name", "description", "additionInfo"]
+    }, {
+        title: "Transportations",
+        image: "https://media.licdn.com/dms/image/C4D12AQEPXQ5xqNO6AQ/article-cover_image-shrink_720_1280/0/1520226744294?e=2147483647&v=beta&t=HN1j9g7gDTgPlcffpmRzSZI-H2WE6V1UTgRawQlVeRA",
+        color: "#387ADF",
+        props: ["demoImage", "type", "additionInfo", "type"]
+    }, {
         title: "Activities",
-        image: "https://sascotravel.com/wp-content/uploads/2020/03/vietnamfood.jpg",
-        color: "#A2C579",
-        props: ["Name", "Description"]
+        image: "https://etimg.etb2bimg.com/photo/78330532.cms",
+        color: "#EADBC8",
+        props: ["demoImage", "name", "description", "additionInfo"]
     }, {
         title: "Transactions",
-        image: "https://sascotravel.com/wp-content/uploads/2020/03/vietnamfood.jpg",
+        image: "https://vietnaminsider.vn/wp-content/uploads/2023/11/hnmo_visa_tourism_26.jpeg",
         color: "#192655",
         props: ["Tour", "Username"]
     }, {
         title: "Feedbacks",
-        image: "https://sascotravel.com/wp-content/uploads/2020/03/vietnamfood.jpg",
-        color: "#192655",
-        props: ["User", "Description"]
+        image: "https://media.licdn.com/dms/image/D5612AQG-74Wtpgb5DQ/article-cover_image-shrink_720_1280/0/1694745417786?e=2147483647&v=beta&t=uBbLo74tazUF41tHLxz724R9HO_H8AbNMiwh6fBYoPE",
+        color: "#A34343",
+        props: ["avatar", "request", "user", "addtitionInfo"]
     }]
 
     useLayoutEffect(() => {

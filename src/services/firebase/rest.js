@@ -157,11 +157,8 @@ const getRestFromDestIdAddData = async (destId, country, dest) => {
 
 const getAllRestaurants = async () => {
     try {
-        const restaurantsRef = ref(db, 'restaurant/data');
-        const snapshot = await get(restaurantsRef); 
-
-        // console.log("Reference:", restaurantsRef.toString());
-        // console.log("Restaurant data:", snapshot.val());
+        const restRef = ref(db, 'restaurant/data');
+        const snapshot = await get(restRef); 
 
         return snapshot.val();
     } catch (error) {

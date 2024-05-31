@@ -33,7 +33,7 @@ const ManagementContent = ({ item }) => {
                     flexDirection: 'row', 
                     alignItems: 'flex-end', 
                     backgroundColor: item.color, 
-                    opacity: 0.5 
+                    opacity: 0.7
                 }}>
                     {/* <View style={{ flexDirection: 'row' }}>
                         <Icon name="place" size={20} color={colors.white} />
@@ -49,7 +49,7 @@ const ManagementContent = ({ item }) => {
                 marginBottom: 5, 
                 textAlign: "center",
                 position: "absolute",
-                top: 150,
+                top: 100,
                 left: 15,
                 elevation: 20
             }}>

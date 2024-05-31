@@ -12,26 +12,33 @@ import React, { useState, useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import CountryMenuItem from "../../components/CountryMenuItem";
+import ManagementItem from "./ManagementItem";
 import LoadingView from '../../components/utils/LoadingView';
-import { getCountryFromId, getCountryFromName, getAllCountry } from "../../services/firebase/country";
+import { getAllCustomerData } from "../../services/firebase/user";
+import { getAllTours } from "../../services/firebase/tours";
+import { getAllDest } from "../../services/firebase/destination"
+import { getAllAccommodation } from "../../services/firebase/accom"
+import { getAllRestaurants } from "../../services/firebase/rest"
+import { getAllTransportation } from "../../services/firebase/trans"
+import { getAllActivity } from "../../services/firebase/activity"
+import { getAllFeedback } from "../../services/firebase/feedback";
 
 const ManagementScreen = () => {
-    const [country, setCountry] = useState([])
     const [loading, setLoading] = useState(true);
+    const [data, setData] = useState([])
     const navigation = useNavigation();
     const route = useRoute();
 
-    const [queryData, setQueryData] = useState(country)
+    const [queryData, setQueryData] = useState(data)
 
     const handleSearch = (text) => {
         if (text) {
-            const filteredData = country.filter((coun) =>
-                coun.countryName.toLowerCase().includes(text.toLowerCase())
+            const filteredData = data.filter((item_) =>
+                (item_.name ? item_.name.toLowerCase().includes(text.toLowerCase()) : item_.title.toLowerCase().includes(text.toLowerCase()))
             );
             setQueryData(filteredData);
         } else {
-            setQueryData(country)
+            setQueryData(data)
         }
     }
 
@@ -39,9 +46,41 @@ const ManagementScreen = () => {
         const fetchData = async () => {
             try {
                 // Fetch all countries
-                const allCountryData = await getAllCountry();
-                setCountry(allCountryData);
-                setQueryData(allCountryData)
+                let allData = []
+                if (route.params.title === "Tours") {
+                    allData = await getAllTours();
+                }
+
+                if (route.params.title === "Accounts") {
+                    allData = await getAllCustomerData();
+                }
+
+                if (route.params.title === "Destinations") {
+                    allData = await getAllDest();
+                }
+
+                if (route.params.title === "Accommodations") {
+                    allData = await getAllAccommodation();
+                }
+
+                if (route.params.title === "Restaurants") {
+                    allData = await getAllRestaurants();
+                }
+
+                if (route.params.title === "Transportations") {
+                    allData = await getAllTransportation();
+                }
+
+                if (route.params.title === "Activities") {
+                    allData = await getAllActivity();
+                }
+
+                if (route.params.title === "Feedbacks") {
+                    allData = await getAllFeedback();
+                }
+
+                setData(allData);
+                setQueryData(allData)
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -95,30 +134,18 @@ const ManagementScreen = () => {
                         <AntDesign name="search1" size={20} color="#FF724C" />
                         <TextInput
                             style={{ fontSize: 17, marginLeft: 5 }}
-                            placeholder="Search     "
+                            placeholder="Search                "
                             onChangeText={(text) => handleSearch(text)}
                         />
                     </View>
                 </View>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        paddingVertical: 10,
-                        borderBottomWidth: 1,
-                        borderBottomColor: "#DDD"
-                    }}
-                >
-                    <View style={{ borderRightWidth: 1, borderRightColor: "#DDD", paddingHorizontal: 45}}>
-                        <Text style={{ fontSize: 16, color: "grey" }}>{route.params.props[0]}</Text>
-                    </View>
-                    <View style={{ borderRightWidth: 1, borderRightColor: "#DDD", paddingHorizontal: 45 }}>
-                        <Text style={{ fontSize: 16, color: "grey" }}>{route.params.props[1]}</Text>
-                    </View>
-                    <View style={{ paddingHorizontal: 35 }}>
-                        <Text style={{ fontSize: 16, color: "grey" }}>Action</Text>
-                    </View>
-                </View>
+                {queryData.map((item, index) => (
+                    <ManagementItem item={item} key={index} props={route.params.props}/>
+                ))}
+                
             </View>
+
+            <View style={{marginBottom: 30}}></View>
         </ScrollView>
     );
 };

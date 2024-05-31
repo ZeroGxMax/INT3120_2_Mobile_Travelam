@@ -30,4 +30,28 @@ const getCustomerFromId = async (userId) => {
     }
 };
 
-export { getCustomerFromId }
+const getAllCustomerData = async () => {
+    try {
+        const cusRef = ref(db, 'customer/data');
+        const snapshot = await get(cusRef);
+
+        let foundList = [];
+
+        snapshot.forEach((childSnapshot) => {
+            const childData = childSnapshot.val();
+            const foundData = childData;
+            foundList.push(foundData);
+        });
+
+        if (!foundList) {
+            console.log("Cannot get all customers data");
+        }
+
+        return foundList;
+    } catch (error) {
+        console.error("Error finding user:", error);
+        throw error;
+    }
+}
+
+export { getCustomerFromId, getAllCustomerData }
