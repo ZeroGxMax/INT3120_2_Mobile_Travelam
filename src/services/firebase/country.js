@@ -111,6 +111,17 @@ const getCountryIdFromTourId = async (tourId) => {
     }
 };
 
+// const getCountryIdsFromDestData = (destData) => {
+//     try {
+//         destData.forEach(
+
+//         )
+//     } catch (error) {
+//         console.error("Error finding country ids from dest data:", error);
+//         throw error;
+//     }
+// }
+
 const getCountryIdFromRestaurantId = async (restaurantId) => {
     try {
         const restaurantRef = ref(db, "restaurant/data");

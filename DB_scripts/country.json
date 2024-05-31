@@ -1,0 +1,112 @@
+[
+  {
+    "additionInfo": "Diverse landscapes, vibrant cities, iconic landmarks, cultural festivals, outdoor adventures, diverse cuisine, historical significance, world-class entertainment, technological innovation, entrepreneurial spirit, national parks",
+    "countryName": "United States",
+    "demoImage": "https://www.agoda.com/wp-content/uploads/2020/07/Statue-of-Liberty-things-to-do-in-new-york-USA.jpg",
+    "description": "The United States of America, often referred to as the USA, is a vast and dynamic nation encompassing 50 states, each with its own distinct character. From the towering skyscrapers of Manhattan to the sun-drenched beaches of California, the USA is a land of contrasts and opportunities. Immerse yourself in the cultural diversity of cities like Los Angeles, experience the historical significance of Washington, D.C., and explore the natural wonders of Yellowstone National Park. Whether you are drawn to the glamour of Hollywood, the tech innovation of Silicon Valley, or the jazz-filled streets of New Orleans, the USA has something to offer every traveler.",
+    "id": "1",
+    "location": {
+      "latitude": 39.0997681509026,
+      "longitude": -96.17399500661907
+    }
+  },
+  {
+    "additionInfo": "Zen gardens, traditional arts, futuristic technology, efficient public transportation, cherry blossom festivals, anime culture, onsens, capsule hotels, polite etiquette, Shinto shrines, karaoke culture",
+    "countryName": "Japan",
+    "demoImage": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/26/97/39/7f/caption.jpg?w=1200&h=-1&s=1&cx=1920&cy=1080&chk=v1_f31158e4bb953d28a308",
+    "description": "Japan, an archipelago in East Asia, is a captivating blend of ancient traditions and cutting-edge modernity. From the historic shrines of Kyoto to the neon-lit streets of Tokyo, Japan invites you on a journey through time. Indulge in the artistry of traditional tea ceremonies, witness the breathtaking beauty of Mount Fuji, and navigate the bustling markets of Osaka. With a deep appreciation for nature and a commitment to technological advancement, Japan offers a unique and harmonious travel experience.",
+    "id": "2",
+    "location": {
+      "latitude": 36.2048,
+      "longitude": 138.2529
+    }
+  },
+  {
+    "additionInfo": "Aboriginal culture, surfing paradise, unique wildlife encounters, multicultural communities, Indigenous art, outdoor barbecue culture, sports enthusiasm, Great Ocean Road, eco-friendly initiatives, adventurous activities, wine regions",
+    "countryName": "Australia",
+    "demoImage": "https://images7.alphacoders.com/716/716104.jpg",
+    "description": "Australia, the land Down Under, is a continent of diverse landscapes and vibrant culture. From the otherworldly beauty of the Outback to the pristine beaches of the Gold Coast, Australia is a playground for nature lovers and adventure seekers alike. Dive into the Great Barrier Reefs mesmerizing underwater world, explore the ancient Indigenous heritage, and savor the multicultural flavors of Melbournes culinary scene. Australias laid-back lifestyle, friendly locals, and commitment to environmental conservation make it a destination that leaves a lasting impact.",
+    "id": "3",
+    "location": {
+      "latitude": -25.2744,
+      "longitude": 133.7751
+    }
+  },
+  {
+    "additionInfo": "Carnival spirit, Amazon river cruises, caipirinha cocktails, football passion, diverse music genres, colorful street art, tropical rainforest adventures, diverse ecosystems, traditional churrasco, vibrant street markets, Capoeira",
+    "countryName": "Brazil",
+    "demoImage": "https://i.ytimg.com/vi/vlxqterQMhs/maxresdefault.jpg",
+    "description": "Brazil, the largest country in South America, is a kaleidoscope of colors, rhythms, and natural wonders. From the pulsating energy of Rio de Janeiros Carnival to the tranquility of the Amazon rainforest, Brazil offers a sensory journey like no other. Engage in the lively samba dance, taste the diverse flavors of Brazilian cuisine, and witness the awe-inspiring Iguazu Falls. With a melting pot of cultures and a passion for celebration, Brazil invites you to experience its warmth, vitality, and breathtaking landscapes.",
+    "id": "4",
+    "location": {
+      "latitude": -14.2350,
+      "longitude": -51.9253
+    }
+  },
+  {
+    "additionInfo": "Township experiences, Big Five safaris, Nelson Mandelas legacy, diverse languages, Cape Winelands, apartheid history tours, Garden Route exploration, rugby culture, Biltong snacks, stunning coastal drives, Zulu traditions",
+    "countryName": "South Africa",
+    "demoImage": "https://www.planetware.com/photos-large/SAF/south-africa-cape-town.jpg",
+    "description": "South Africa, a rainbow nation at the southern tip of Africa, is a treasure trove of natural beauty and cultural heritage. From the majestic Table Mountain overlooking Cape Town to the wild savannas of Kruger National Park, South Africa boasts a diverse tapestry of landscapes. Embark on thrilling wildlife safaris, delve into the history of apartheid in Johannesburg, and relax on the golden beaches of Durban. The warmth and friendliness of the locals add an extra layer of charm to the rich, multicultural experience awaiting you in South Africa.",
+    "id": "5",
+    "location": {
+      "latitude": -30.5595,
+      "longitude": 22.9375
+    }
+  },
+  {
+    "additionInfo": "Fashion capital, culinary excellence, vineyard tours, French Riviera glamour, literary history, artistic inspiration, canal cruises, high-speed trains, charming cafes, historic chateaux, sophisticated shopping",
+    "countryName": "France",
+    "demoImage": "https://www.wallpaperflare.com/static/615/284/1019/city-paris-france-tower-wallpaper.jpg",
+    "description": "France, the epitome of sophistication and romance, is a country that invites you to savor the finer things in life. From the enchanting boulevards of Paris to the rolling vineyards of Bordeaux, France is a celebration of art, culture, and culinary excellence. Indulge in the exquisite flavors of French cuisine, admire the masterpieces at the Louvre, and stroll through charming villages in Provence. With a legacy of artistic brilliance, architectural marvels, and a culinary heritage that tantalizes the taste buds, France is a destination that promises an unforgettable journey.",
+    "id": "6",
+    "location": {
+      "latitude": 46.6034,
+      "longitude": 1.8883
+    }
+  },
+  {
+    "additionInfo": "Explore the vibrant festivals, diverse cuisine, and architectural wonders.",
+    "countryName": "India",
+    "demoImage": "https://media.istockphoto.com/id/1146517111/photo/taj-mahal-mausoleum-in-agra.jpg?b=1&s=612x612&w=0&k=20&c=3PEobOthDnogYweVRbKoRqf7-p1aB6UQvKXSyYdDmVY=",
+    "description": "India, a captivating mosaic of ancient traditions and vibrant cultures, invites intrepid souls to embark on a journey woven with the threads of history, spirituality, and breathtaking landscapes. From the bustling markets of Delhi to the grandeur of the Taj Mahal and the mystical allure of the Himalayas, every step in India is a voyage into a realm where tradition meets modernity.",
+    "id": "7",
+    "location": {
+      "latitude": 20.5937,
+      "longitude": 78.9629
+    }
+  },
+  {
+    "additionInfo": "Enjoy outdoor activities, maple syrup, and the beauty of the northern lights.",
+    "countryName": "Canada",
+    "demoImage": "https://media.timeout.com/images/105239979/750/422/image.jpg",
+    "description": "Canada, a vast and diverse land, invites adventurers to embark on a journey that unfolds the untamed beauty of its wilderness and the rich tapestry of its cultural landscapes. From the rugged peaks of the Rocky Mountains to the serene lakes of Banff, Canada is a symphony of natural wonders waiting to be explored.",
+    "id": "8",
+    "location": {
+      "latitude": 56.1304,
+      "longitude": -106.3468
+    }
+  },
+  {
+    "additionInfo": "Explore the Great Wall, traditional Chinese medicine, and delicious cuisine.",
+    "countryName": "China",
+    "demoImage": "https://images2.alphacoders.com/707/707504.jpg",
+    "description": "China, a land of ancient wonders and modern marvels, beckons adventurers to embark on a journey that transcends time and culture. From the iconic Great Wall to the bustling streets of Shanghai, China is a fusion of history, innovation, and breathtaking landscapes that promise an unforgettable adventure.",
+    "id": "9",
+    "location": {
+      "latitude": 35.8617,
+      "longitude": 104.1954
+    }
+  },
+  {
+    "additionInfo": "Discover the vibrant traditions, mariachi music, and delicious street food.",
+    "countryName": "Mexico",
+    "demoImage": "https://static.toiimg.com/photo/msid-44970723,width-96,height-65.cms",
+    "description": "Mexico, a vibrant tapestry of history, culture, and natural wonders, extends a warm invitation to adventurers seeking an extraordinary journey. From the ancient pyramids of Teotihuacan to the pristine beaches of the Riviera Maya, Mexico is a captivating blend of ancient traditions and modern allure that promises an immersive adventure.",
+    "id": "10",
+    "location": {
+      "latitude": 23.6345,
+      "longitude": -102.5528
+    }
+  }
+]

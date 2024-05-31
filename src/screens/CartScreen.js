@@ -421,7 +421,7 @@ const CartScreen = () => {
                                 color: "green",
                             }}
                         >
-                            ${0.05 * total}
+                            ${ (0.05 * total).toFixed(2) }
                         </Text>
                     </View>
 
