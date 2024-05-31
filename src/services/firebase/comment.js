@@ -192,8 +192,7 @@ const getRefFromId = async (commentId) => {
             }
         });
         await Promise.all(promises);
-
-        // console.log(commentRefFound);
+        
         return commentRefFound;
     } catch (error) {
         console.error("Error getting comment reference:", error);

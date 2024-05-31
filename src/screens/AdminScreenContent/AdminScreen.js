@@ -64,7 +64,7 @@ const AdminScreen = () => {
         title: "Transactions",
         image: "https://vietnaminsider.vn/wp-content/uploads/2023/11/hnmo_visa_tourism_26.jpeg",
         color: "#192655",
-        props: ["Tour", "Username"]
+        props: ["avatar", "tourName", "userName", "amount"]
     }, {
         title: "Feedbacks",
         image: "https://media.licdn.com/dms/image/D5612AQG-74Wtpgb5DQ/article-cover_image-shrink_720_1280/0/1694745417786?e=2147483647&v=beta&t=uBbLo74tazUF41tHLxz724R9HO_H8AbNMiwh6fBYoPE",

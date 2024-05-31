@@ -7,6 +7,7 @@ import Comments from "./CommentScreenContent/Comments"
 import * as commentActions from "./CommentScreenContent/commentActions";
 import moment from "moment";
 import { colors } from "../assets/colors/colors";
+import { auth } from "../services/firebaseService";
 
 const CommentScreen = ({ route, navigation }) => {
     const { tour } = route.params;
@@ -194,7 +195,7 @@ const CommentScreen = ({ route, navigation }) => {
                         text,
                         parentCommentId,
                         date,
-                        "testUser",
+                        auth.currentUser.email,
                         tour.id,
                         uploadImageUrl,
                         sampleComments

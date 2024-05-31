@@ -1,23 +1,105 @@
-import { StyleSheet, View, ScrollView, TextInput } from "react-native";
+import { StyleSheet, View, ScrollView, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import React, { useState, useEffect } from "react";
-import BouncyCheckbox from "react-native-bouncy-checkbox";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import CreditCard from "./PaymentScreenContent/CreditCard";
 import AppText from "./PaymentScreenContent/AppText";
 import Screen from "./PaymentScreenContent/Screen";
 import AppHeader from "./PaymentScreenContent/AppHeader";
-// import Input from "./PaymentScreenContent/Input";
-import Button from "./PaymentScreenContent/Button";
 import { colors } from "../assets/colors/colors";
+import { isValidCardNumber, isValidCardHolder, isValidCVC, isValidExpiryDate } from "../utils/cardUtils";
+import { auth } from "../services/firebaseService";
+import { addNewCreditCard } from "../services/firebase/user";
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const PaymentScreen = () => {
+    const navigation = useNavigation();
+    const route = useRoute();
+    const { onCardAdded } = route.params;
     const [cardHolder, setCardHolder] = useState("");
-    const [cardNumber, setCardNumber] = useState("");
+    const [isCardHolderValid, setIsCardHolderValid] = useState(false);
+
     const [expiryDate, setExpiryDate] = useState("");
+    const [isExpiryDateValid, setIsExpiryDateValid] = useState(false);
+
     const [cvc, setCvc] = useState("");
+    const [isCvcValid, setIsCvcValid] = useState(false);
+
+    const [cardNumber, setCardNumber] = useState("");
+    const [isCardNumberValid, setIsCardNumberValid] = useState(false);
+
+    useEffect(() => {
+        const loadCardDetails = async () => {
+            try {
+                const savedCardHolder = await AsyncStorage.getItem('cardHolder');
+                const savedCardNumber = await AsyncStorage.getItem('cardNumber');
+                const savedExpiryDate = await AsyncStorage.getItem('expiryDate');
+                const savedCvc = await AsyncStorage.getItem('cvc');
+
+                if (savedCardHolder) {
+                    setCardHolder(savedCardHolder);
+                    setIsCardNumberValid(isValidCardHolder(savedCardHolder));
+                }
+                if (savedCardNumber) {
+                    setCardNumber(savedCardNumber);
+                    setIsCardNumberValid(isValidCardNumber(savedCardNumber));
+                }
+                if (savedExpiryDate) {
+                    setExpiryDate(savedExpiryDate);
+                    setIsExpiryDateValid(isValidExpiryDate(savedExpiryDate));
+                }
+                if (savedCvc) {
+                    setCvc(savedCvc);
+                    setIsCvcValid(isValidCVC(savedCvc));
+                }
+
+
+            } catch (error) {
+                console.error("Failed to load card details", error);
+            }
+        };
+
+        loadCardDetails();
+    }, []);
+
+    const saveCardDetails = async () => {
+        try {
+            await AsyncStorage.setItem('cardHolder', cardHolder);
+            await AsyncStorage.setItem('cardNumber', cardNumber);
+            await AsyncStorage.setItem('expiryDate', expiryDate);
+            await AsyncStorage.setItem('cvc', cvc);
+        } catch (error) {
+            console.error("Failed to save card details", error);
+        }
+    };
+
+    const handleCardNumberChange = (value) => {
+        const formattedCardNumber = value.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
+        setCardNumber(formattedCardNumber);
+        setIsCardNumberValid(isValidCardNumber(formattedCardNumber));
+        saveCardDetails();
+    };
+
+    const handleCardHolderChange = (value) => {
+        setCardHolder(value);
+        setIsCardHolderValid(isValidCardHolder(value));
+        saveCardDetails();
+    };
+
+    const handleCvcChange = (value) => {
+        setCvc(value);
+        setIsCvcValid(isValidCVC(value));
+        saveCardDetails();
+    };
+
+    const handleExpiryDateChange = (value) => {
+        setExpiryDate(value);
+        setIsExpiryDateValid(isValidExpiryDate(value));
+        saveCardDetails();
+    };
 
     return (
         <Screen customStyles={styles.container}>
-            <AppHeader title={"Credit card info"} customTitleStyles={{}} />
+            <AppHeader title={"Add Credit Card"} customTitleStyles={{}} />
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <View style={styles.contentContainer}>
                     <CreditCard
@@ -30,58 +112,92 @@ const PaymentScreen = () => {
                         <View style={styles.formItem}>
                             <AppText text="Card Holder" customStyles={styles.formLabel} />
                             <TextInput
-                                style = {styles.input}
+                                style={[styles.input, !isCardHolderValid && styles.inputError,
+                                isCardHolderValid && styles.inputValid]}
                                 placeholder={"Christian Bale"}
                                 value={cardHolder}
-                                onChangeText={(text) => {
-                                    setCardHolder(text);
-                                }}
+                                onChangeText={handleCardHolderChange}
                             />
                         </View>
+
                         <View style={styles.formItem}>
                             <AppText text="Card Number" customStyles={styles.formLabel} />
+
                             <TextInput
-                                style = {styles.input}
+                                style={[styles.input, !isCardNumberValid && styles.inputError,
+                                isCardNumberValid && styles.inputValid]}
                                 placeholder={"5444 4444 5555 5555"}
-                                customStyles={styles.formInput}
                                 keyboardType="numeric"
                                 value={cardNumber}
-                                onChangeText={(text) => setCardNumber(text)}
+                                onChangeText={handleCardNumberChange}
                             />
+
                         </View>
+
                         <View style={styles.formItemRow}>
                             <View style={[styles.formItemHalf, { marginRight: 10 }]}>
                                 <AppText text="Expiry Date" customStyles={styles.formLabel} />
                                 <TextInput
-                                    style = {styles.input}
+                                    style={[styles.input, !isExpiryDateValid && styles.inputError,
+                                    isExpiryDateValid && styles.inputValid
+                                    ]}
                                     placeholder={"12/25"}
-                                    customStyles={styles.formInput}
                                     keyboardType="numeric"
                                     value={expiryDate}
-                                    onChangeText={(text) => setExpiryDate(text)}
+                                    onChangeText={handleExpiryDateChange}
                                 />
                             </View>
                             <View style={styles.formItemHalf}>
                                 <AppText text="CVC" customStyles={styles.formLabel} />
                                 <TextInput
-                                    style = {styles.input}
+                                    style={[styles.input, !isCvcValid && styles.inputError,
+                                    isCvcValid && styles.inputValid
+                                    ]}
                                     placeholder={"123"}
-                                    customStyles={styles.formInput}
                                     keyboardType="numeric"
                                     value={cvc}
-                                    onChangeText={(text) => setCvc(text)}
+                                    onChangeText={handleCvcChange}
                                 />
                             </View>
                         </View>
                     </View>
-                    
+
                     <View style={styles.buttonContainer}>
-                        <Button label={"Pay"} customStyles={styles.button} />
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={async () => {
+                                if (isCardHolderValid && isCardNumberValid && isExpiryDateValid && isCvcValid) {
+                                    await addNewCreditCard(auth.currentUser.uid, cardHolder, cardNumber, expiryDate, cvc);
+                                    Alert.alert(
+                                        "Success",
+                                        "Your credit card has been successfully added. Click OK to return to billing details",
+                                        [{
+                                            text: "OK", style: "default", onPress: () => {
+                                                onCardAdded();
+                                                navigation.goBack()
+                                                // navigation.navigate('Cart', { nonUpdatedInfo });
+                                            }
+                                        }],
+                                        { cancelable: true }
+                                    );
+                                } else {
+                                    Alert.alert(
+                                        "Incomplete Information",
+                                        "Please make sure all fields are filled correctly before adding the card.",
+                                        [{ text: "OK", style: "default" }],
+                                        { cancelable: true }
+                                    );
+                                }
+                            }}
+                        >
+                            <Text style={styles.buttonText}>Add Card</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </ScrollView>
         </Screen>
     );
+
 };
 
 export default PaymentScreen;
@@ -165,5 +281,15 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         borderWidth: 1,
         paddingHorizontal: 10,
+    },
+    inputError: {
+        borderColor: colors.error,
+    },
+    inputValid: {
+        borderColor: colors.success,
+    },
+    errorMessage: {
+        color: colors.error,
+        fontSize: 12,
     },
 });

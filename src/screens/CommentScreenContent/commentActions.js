@@ -1,6 +1,7 @@
 import moment from "moment";
 import { getAllComments, getCommentsFromTourId, addNewComment, addNewReply, likeComment } 
 from "../../services/firebase/comment";
+import { auth } from "../../services/firebaseService";
 
 
 // let sampleComments = []; 
@@ -197,7 +198,7 @@ export function save(comments, text, parentCommentId, date, username, tourId, up
 
         if (!parentCommentId) {
             comments.push(com);
-            addNewComment(tourId, text, date, username, "noUserIdYet", uploadImageUrl);
+            addNewComment(tourId, text, date, username, auth.currentUser.uid, uploadImageUrl);
         } else {
             comments.find(c => {
                 if (c.commentId === parentCommentId) {
@@ -215,7 +216,7 @@ export function save(comments, text, parentCommentId, date, username, tourId, up
                     return true;
                 }
             }, this);
-            addNewReply(parentCommentId, text, date, username, "noUserIdYet");
+            addNewReply(parentCommentId, text, date, username, auth.currentUser.uid);
         }
         return comments;
     } catch (error) {

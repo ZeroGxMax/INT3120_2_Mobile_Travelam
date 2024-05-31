@@ -35,6 +35,7 @@ const ManagementContent = ({ item }) => {
                     backgroundColor: item.color, 
                     opacity: 0.7
                 }}>
+                
                     {/* <View style={{ flexDirection: 'row' }}>
                         <Icon name="place" size={20} color={colors.white} />
                         <Text style={{ marginLeft: 5, color: colors.white }}>{item.countryName}</Text>

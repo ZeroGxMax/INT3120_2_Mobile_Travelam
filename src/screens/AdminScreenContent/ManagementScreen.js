@@ -22,6 +22,7 @@ import { getAllRestaurants } from "../../services/firebase/rest"
 import { getAllTransportation } from "../../services/firebase/trans"
 import { getAllActivity } from "../../services/firebase/activity"
 import { getAllFeedback } from "../../services/firebase/feedback";
+import { getAllPayment } from "../../services/firebase/payment";
 
 const ManagementScreen = () => {
     const [loading, setLoading] = useState(true);
@@ -73,6 +74,10 @@ const ManagementScreen = () => {
 
                 if (route.params.title === "Activities") {
                     allData = await getAllActivity();
+                }
+
+                if (route.params.title === "Transactions") {
+                    allData = await getAllPayment();
                 }
 
                 if (route.params.title === "Feedbacks") {
@@ -140,7 +145,7 @@ const ManagementScreen = () => {
                     </View>
                 </View>
                 {queryData.map((item, index) => (
-                    <ManagementItem item={item} key={index} props={route.params.props}/>
+                    <ManagementItem item={item} key={index} props={route.params.props} title={route.params.title}/>
                 ))}
                 
             </View>
