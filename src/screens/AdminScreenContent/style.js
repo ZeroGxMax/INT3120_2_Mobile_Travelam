@@ -187,7 +187,7 @@ export const styles = StyleSheet.create({
         fontSize: 20,
     },
     cardImage: {
-        height: width / 2 - 25,
+        height: width / 2 - 70,
         width: width / 2 - 25,
         marginRight: 14,
         marginBottom: 15,

@@ -30,7 +30,7 @@ const CartScreen = () => {
     const total = cart
         .map((item) => item.price)
         .reduce((curr, prev) => curr + prev, 0);
-    const [creditCardData, setCreditCardData] = useState(null);
+    const [creditCardData, setCreditCardData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedCard, setSelectedCard] = useState(null)
     const [selectedCardData, setSelectedCardData] = useState(null)

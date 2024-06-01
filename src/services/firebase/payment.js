@@ -3,6 +3,41 @@ import { ref, get, getDatabase, set, push } from "firebase/database";
 
 const db = getDatabase(firebaseApp)
 
+const getAllPayment = async () => {
+    try {
+        const paymentRef = ref(db, 'payment/data');
+        const paySnapshot = await get(paymentRef);
+
+        const cusRef = ref(db, 'customer/data')
+        const cusSnapshot = await get(cusRef)
+
+        let foundList = []
+
+        paySnapshot.forEach((payment) => {
+            let paydata = payment.val();
+            if (paydata) {
+                cusSnapshot.forEach((cus) => {
+                    const cusdata = cus.val();
+                    if (cusdata && cusdata.userId === paydata.userId) {
+                        paydata.userName = cusdata.name
+                        paydata.avatar = cusdata.avatar
+                        paydata.amount = paydata.amount.toString();
+                        paydata.cardNumber = paydata.creditCard.cardNumber
+                        paydata.cardHolder = paydata.creditCard.cardHolder
+                    }
+                })
+
+                foundList.push(paydata);
+            }
+        })
+
+        return foundList;
+    } catch (error) {
+        console.error("Error finding user:", error);
+        throw error;
+    }
+};
+
 const getLastPaymentId = async (paymentSnapshot) => {
     let lastPaymentId = 0;
 
@@ -42,4 +77,4 @@ const addNewPayment = async (userId, creditCard, amount, tourName, startDate, pa
     }
 }
 
-export {addNewPayment}
+export {addNewPayment, getAllPayment}

@@ -30,6 +30,31 @@ const getAllDestFromCountry = async (countryId) => {
     }
 };
 
+const getAllDest = async () => {
+    try {
+        const destRef = ref(db, "destination/data");
+
+        const destSnapshot = await get(destRef);
+
+        let foundDests = [];
+
+        destSnapshot.forEach((destChild) => {
+            const destData = destChild.val();
+            const foundDest = destData
+            foundDests.push(foundDest)
+        });
+
+        if (foundDests.length === 0) {
+            console.log("No destination found!");
+        }
+
+        return foundDests;
+    } catch (error) {
+        console.error("Error finding specific destination by country:", error);
+        throw error;
+    }
+};
+
 
 const getDestIdsFromTourId = async (tourId) => {
     try {
@@ -79,4 +104,4 @@ const getDestFromId = async (destId) => {
     }
 };
 
-export { getAllDestFromCountry, getDestIdsFromTourId, getDestFromId }
+export { getAllDestFromCountry, getDestIdsFromTourId, getDestFromId, getAllDest }
