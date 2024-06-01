@@ -72,21 +72,23 @@ const MapScreen = ({ route, navigation }) => {
 
     const handleMoveToNextMarker = () => {
         if (markerIndex < destinations.length - 1) {
-            setMarkerIndex(markerIndex + 1);
+            const curIndex = markerIndex
+            setMarkerIndex(curIndex + 1);
             setRegion({
                 ...region,
-                latitude: destinations[markerIndex + 1].location.latitude,
-                longitude: destinations[markerIndex + 1].location.longitude,
+                latitude: destinations[curIndex + 1].location.latitude,
+                longitude: destinations[curIndex + 1].location.longitude,
             });
         }
     };
 
     const handleMoveToPreviousMarker = () => {
         if (markerIndex > 0) {
-            setMarkerIndex(markerIndex - 1);
+            const curIndex = markerIndex
+            setMarkerIndex(curIndex - 1);
             setRegion({
                 ...region,
-                latitude: destinations[markerIndex - 1].location.latitude,
+                latitude: destinations[curIndex - 1].location.latitude,
                 longitude: destinations[markerIndex - 1].location.longitude,
             });
         }
