@@ -11,6 +11,8 @@ import CardItem from "./CartScreenContent/CardItem";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import AddCardItem from "./CartScreenContent/AddCardItem";
 import { addNewPayment } from "../services/firebase/payment";
+import { getToken, addNotification, addScheduleNotification } from "../services/firebase/notification";
+import { sendPushNotification } from "../utils/notificationUtils";
 
 const CartScreen = () => {
     const navigation = useNavigation();
@@ -39,6 +41,7 @@ const CartScreen = () => {
     const [date, setDate] = useState(new Date());
     const [show, setShow] = useState(false);
     const [mode, setMode] = useState('date');
+    const [token, setToken] = useState(null);
     let service = [{
         label: 'Accommodation',
         cost: 0
@@ -59,6 +62,9 @@ const CartScreen = () => {
                 const creditCard = await getCustomerCreditCard(auth.currentUser.uid)
                 setCreditCardData(creditCard)
                 // console.log(creditCardData)
+                const fetchToken = getToken(auth.currentUser.uid)
+                setToken(fetchToken)
+                // setToken(fetchToken.push_token)
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -78,6 +84,36 @@ const CartScreen = () => {
             setLoading(false);
         }
     };
+
+    const handlePayment = async () => {
+        const amount = total + 0.05 * total
+        if (selectedCardData && amount > 0 && sortedCart) {
+            // await addNewPayment(auth.currentUser.uid, selectedCardData, amount, text, date, sortedCart);
+
+            Alert.alert(
+                "Payment Success",
+                "Your payment was added successfully.",
+                [{ text: "OK", style: "default" }],
+                { cancelable: true }
+            )
+            if (token) {
+                const title = "New transaction"
+                const body = `Thank you for booking the "${text}" tour! Your payment of ${amount} has been successfully processed using the card ending in ${selectedCardData.cardNumber.slice(-4)}, registered under the name of ${selectedCardData.cardHolder}.`;
+
+                sendPushNotification(token._j, title, body)
+                // addNotification(auth.currentUser.uid, title, body, token._j, 0)
+                
+            }
+            
+        } else {
+            Alert.alert(
+                "Incomplete Details",
+                "Please select a card and ensure the cart is not empty.",
+                [{ text: "OK", style: "default" }],
+                { cancelable: true }
+            );
+        }
+    }
 
     for (let i = 0; i < 4; i++) {
         service[i].cost = cart
@@ -421,7 +457,7 @@ const CartScreen = () => {
                                 color: "green",
                             }}
                         >
-                            ${ (0.05 * total).toFixed(2) }
+                            ${(0.05 * total).toFixed(2)}
                         </Text>
                     </View>
 
@@ -476,7 +512,7 @@ const CartScreen = () => {
                         marginTop: 15,
                     }}
                 >
-                    {creditCardData.map((card, index) => (
+                    {creditCardData && creditCardData.map((card, index) => (
                         <CardItem
                             key={`MyCard-${index}`}
                             card={card}
@@ -581,14 +617,7 @@ const CartScreen = () => {
 
                     <TouchableOpacity
                         onPress={async () => {
-                            // console.log(date)
-                            // console.log("cart: ", sortedCart)
-                            // console.log(auth.currentUser.email)
-                            const amount = total + 0.05 * total
-                            if (selectedCardData && amount > 0 && sortedCart) {
-                                await addNewPayment(auth.currentUser.uid, selectedCardData, amount, text, date, sortedCart);
-                                Alert.alert("Payment add successfully")
-                            }
+                            handlePayment()
                         }}
                         style={{
                             backgroundColor: "#00A877",

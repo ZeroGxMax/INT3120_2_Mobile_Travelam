@@ -58,11 +58,13 @@ const addNewPayment = async (userId, creditCard, amount, tourName, startDate, pa
         const snapshot = await get(paymentRef);
         const lastPaymentId = await getLastPaymentId(snapshot);
 
+        console.log(startDate)
+
         const newPayment = {
-            paymentId: lastPaymentId,
+            paymentId: lastPaymentId + 1,
             userId: userId,
             tourName: tourName,
-            startDate: startDate,
+            startDate: new Date(startDate).toISOString(),
             creditCard: creditCard,
             payDate: new Date().toISOString(),
             amount: amount,

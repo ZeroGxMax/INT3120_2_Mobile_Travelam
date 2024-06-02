@@ -27,6 +27,7 @@ import PaymentScreen from "../screens/PaymentScreen";
 import AdminScreen from "../screens/AdminScreenContent/AdminScreen";
 import ManagementScreen from "../screens/AdminScreenContent/ManagementScreen"
 import MapScreen from "../screens/MapScreen";
+import NotificationsScreen from "../screens/NotificationsScreen";
 
 
 const Stack = createStackNavigator();
@@ -62,6 +63,7 @@ export const AppStack = () => {
       <Stack.Screen name="Admin" component={AdminScreen} />
       <Stack.Screen name="Manage" component={ManagementScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Map" component={MapScreen} options={{ headerShown: true }} />
+      <Stack.Screen name="Notifications" component={NotificationsScreen} options={{ headerShown: true }} />
     </Stack.Navigator>
   );
 };

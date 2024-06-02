@@ -1,11 +1,14 @@
 {
   "expo": {
-    "name": "travelam",
-    "slug": "travelam",
+    "name": "Travelam",
+    "slug": "Travelam",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/splash.png",
     "userInterfaceStyle": "light",
+    "notification": {
+      "color": "#fff"
+    },
     "splash": {
       "image": "./src/assets/splash.png",
       "resizeMode": "contain",
@@ -28,7 +31,8 @@
       "favicon": "./src/assets/favicon.png"
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      "expo-notifications"
     ],
     "extra": {
       "eas": {

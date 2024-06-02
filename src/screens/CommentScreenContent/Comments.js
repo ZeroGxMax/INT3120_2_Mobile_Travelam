@@ -486,12 +486,19 @@ export default class Comments extends PureComponent {
                             const { newCommentText } = this.state;
                             if (!newCommentText) {
                                 Alert.alert(
-                                    "Comment Text Required",
-                                    "Please write a comment text before submitting.",
+                                    "Payment Success",
+                                    "Your payment was added successfully.",
+                                    [{ text: "OK", style: "default" }],
+                                    { cancelable: true }
+                                ) 
+                                return;
+                            } else {
+                                Alert.alert(
+                                    "Incomplete Details",
+                                    "Please select a card and ensure the cart is not empty.",
                                     [{ text: "OK", style: "default" }],
                                     { cancelable: true }
                                 );
-                                return;
                             }
                             await this.handleCommentSubmit(); 
                         }}

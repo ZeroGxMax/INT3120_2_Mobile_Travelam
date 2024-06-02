@@ -17,7 +17,8 @@ import LoadingView from '../components/utils/LoadingView';
 import { firebaseApp } from '../services/firebaseService';
 import { ref, get, getDatabase, set } from "firebase/database";
 import * as Notifications from 'expo-notifications';
-import * as Permissions from 'expo-permissions';
+import { sendPushNotification } from '../utils/notificationUtils';
+import { getUserNotification } from '../services/firebase/notification';
 
 const Discover = () => {
 
@@ -27,6 +28,7 @@ const Discover = () => {
     const [bestTours, setBestTours] = useState([]);
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState(null);
+    const [notification, setNotification] = useState(null);
 
     const { width } = Dimensions.get('screen');
 
@@ -67,10 +69,6 @@ const Discover = () => {
         const fetchData = async () => {
             try {
                 // Fetch all countries
-                const subscription = Notifications.addNotificationReceivedListener(notification => {
-                    console.log(notification);
-                });
-
                 const allCountryData = await getAllCountry();
                 setCountry(allCountryData);
 
@@ -78,9 +76,9 @@ const Discover = () => {
                 const bestTours = await getBestTours();
                 setBestTours(bestTours)
                 await registerForPushNotificationsAsync();
-                // await sendPushNotification(token)
+                const fetchNotifications = await getUserNotification(auth.currentUser.uid);
+                setNotification(fetchNotifications)
                 setLoading(false);
-                // return () => subscription.remove();
             } catch (error) {
                 console.error("Error fetching data:", error);
                 setLoading(false);
@@ -89,36 +87,6 @@ const Discover = () => {
 
         fetchData();
     }, []);
-
-    const sendPushNotification = async (token) => {
-        try {
-            console.log("Hello")
-            let response = await fetch('https://exp.host/--/api/v2/push/send', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    to: token,
-                    sound: 'default',
-                    title: 'Demo',
-                    body: 'Demo notification',
-                })
-            });
-    
-            let json = await response.json();
-            console.log(json); // Log the response to inspect it
-    
-            if (json.data && json.data.status == 'ok') {
-                console.log("Push notification sent successfully!");
-            } else {
-                console.error("Failed to send push notification:", json);
-            }
-        } catch (error) {
-            console.error("Error sending push notification:", error);
-        }
-    };
 
     const handleLogout = () => {
         signOut(auth).catch((error) => console.log("Error logging out: ", error));
@@ -137,11 +105,16 @@ const Discover = () => {
                     size={28}
                     color={colors.white}
                     onPress={() => navigation.navigate("Options")} />
-                <Icon name="notifications-none" size={28} color={colors.white} />
+                <Icon 
+                    name="notifications-none" size={28} color={colors.white} 
+                    onPress={() => navigation.navigate("Notifications")}
+                />
             </View>
-            <TouchableOpacity onPress={async () => {sendPushNotification(token)}}>
+            {/* <TouchableOpacity onPress={async () => {
+                sendPushNotification(token, "Demo", "Demo notifications")
+            }}>
                 <Text>Push notification</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <ScrollView style={styles.container}>
                 <View
                     style={{
@@ -193,7 +166,6 @@ const Discover = () => {
 
             </ScrollView>
         </SafeAreaView>
-
     )
 }
 

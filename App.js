@@ -27,12 +27,20 @@ export default function App() {
     console.log("Firebase is already initialized.");
   }
 
-  useEffect(() => {
-    const subscription = Notifications.addNotificationReceivedListener(notification => {
-      console.log(notification);
-    });
-    return () => subscription.remove();
-  }, []);
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+    }),
+  });
+
+  // useEffect(() => {
+  //   const subscription = Notifications.addNotificationReceivedListener(notification => {
+  //     console.log(notification);
+  //   });
+  //   return () => subscription.remove();
+  // }, []);
 
   return (
     <>
