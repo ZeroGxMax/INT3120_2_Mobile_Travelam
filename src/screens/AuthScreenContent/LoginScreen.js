@@ -20,12 +20,12 @@ export const LoginScreen = ({ navigation }) => {
 
 
   const handleLogin = (values) => {
-     const { email, password } = values;
-     signInWithEmailAndPassword(auth, email, password).catch((error) =>
-       setErrorState(error.message)
-     );
+    const { email, password } = values;
+    signInWithEmailAndPassword(auth, email, password).catch((error) =>
+      setErrorState(error.message)
+    );
 
-//    console.log("Laugh my ass out")
+    //    console.log("Laugh my ass out")
 
   };
   return (

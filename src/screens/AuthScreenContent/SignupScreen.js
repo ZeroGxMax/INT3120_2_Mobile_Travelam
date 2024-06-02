@@ -30,8 +30,10 @@ export const SignupScreen = ({ navigation }) => {
     const { email, password } = values;
 
     try {
+      
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+      
 
       console.log("User Registered: ", user);
 

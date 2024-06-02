@@ -8,6 +8,7 @@ import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { default as customTheme } from "./customTheme.json";
 import { MainNavigator } from "./src/navigation/MainNavigator";
 import { AuthenticatedUserProvider } from "./src/providers";
+import * as Notifications from 'expo-notifications';
 // import firebase from "firebase"
 // import {Permissions, Notifications} from "expo"
 
@@ -25,6 +26,13 @@ export default function App() {
   } else {
     console.log("Firebase is already initialized.");
   }
+
+  useEffect(() => {
+    const subscription = Notifications.addNotificationReceivedListener(notification => {
+      console.log(notification);
+    });
+    return () => subscription.remove();
+  }, []);
 
   return (
     <>
