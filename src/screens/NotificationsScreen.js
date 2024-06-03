@@ -14,13 +14,26 @@ const NotificationsScreen = ({ navigation }) => {
     const [selectedNotification, setSelectedNotification] = useState(null);
 
     const sortNotificationsByDate = (notifications) => {
-        return notifications.sort((a, b) => new Date(a.notification_date) - new Date(b.notification_date));
+        return notifications.sort((a, b) => new Date(b.notification_date) - new Date(a.notification_date));
     };
+
+    // const extractValidNotification = (notifications) => {
+    //     const now = new Date();
+    //     const extractedNotification = []
+    //     for (const noti of notifications) {
+    //         const notificationDate = new Date(noti.notification_date);
+    //         if (!noti.pushed && notificationDate < now) {
+    //             extractedNotification.push(noti)
+    //         }
+    //     }
+    //     return extractedNotification
+    // }
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const fetchNotifications = await getUserNotification(auth.currentUser.uid);
+                // const extractedNotification = extractValidNotification(fetchNotifications)
                 const sortedNotifications = sortNotificationsByDate(fetchNotifications);
                 setNotifications(sortedNotifications);
                 setLoading(false);

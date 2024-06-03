@@ -27,18 +27,24 @@ const getToken = async (userId) => {
 
 const getUserNotification = async (userId) => {
     try {
+        const now = new Date();
         const notificationRef = ref(db, 'notification/data');
         const snapshot = await get(notificationRef);
 
         let foundNotifications = [];
         snapshot.forEach((notification) => {
             const data = notification.val();
+            const noti_date = new Date(data.notification_date)
 
-            if (data.userId && data.userId == userId) {
+            if (data.userId && data.userId == userId && noti_date < now) {         
+                // console.log("Notification date: ", noti_date)
+                // console.log("Now: ", now)
+                // console.log(noti_date < now)
                 foundNotifications.push(data)
                 // console.log(data)
             }
         });
+        // console.log(foundNotifications)
 
         return foundNotifications
     } catch {

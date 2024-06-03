@@ -23,6 +23,8 @@ const DestinationScreen = () => {
     const navigation = useNavigation();
     const route = useRoute();
 
+    const { id, name, tour, destinations, type } = route.params;
+
     const [queryData, setQueryData] = useState(dest)
 
     const handleSearch = (text) => {
@@ -40,10 +42,16 @@ const DestinationScreen = () => {
         const fetchData = async () => {
             try {
                 // Fetch all countries
-                const allDestData = await getAllDestFromCountry(route.params.id);
-                setDest(allDestData);
-                setLoading(false);
-                setQueryData(allDestData)
+                if (type == "tour") {
+                    setDest(destinations);
+                    setLoading(false)
+                    setQueryData(destinations)
+                } else {
+                    const allDestData = await getAllDestFromCountry(route.params.id);
+                    setDest(allDestData);
+                    setLoading(false);
+                    setQueryData(allDestData)
+                }
             } catch (error) {
                 console.error("Error fetching data:", error);
                 setLoading(false);
@@ -69,7 +77,7 @@ const DestinationScreen = () => {
                     padding: 10,
                 }}
             >
-                <Text style={{ fontSize: 40, fontWeight: 600, paddingBottom: 20 }}>{route.params.name}</Text>
+                <Text style={{ fontSize: 40, fontWeight: 600, paddingBottom: 20, textAlign: "center" }}>{route.params.name}</Text>
                 <Text style={{ fontSize: 25, fontWeight: 600 }}>Destination</Text>
             </View>
 
@@ -90,7 +98,7 @@ const DestinationScreen = () => {
                     placeholder="Search for Destinations                                       "
                     onChangeText={(text) => handleSearch(text)}
                 />
-                <AntDesign name="search1" size={24} color="#FF724C" />
+                <AntDesign name="search1" style={styles.search} size={24} color="#FF724C" />
             </View>
             {queryData.map((item, index) => (
                 <DestinationMenuItem 
@@ -107,4 +115,9 @@ const DestinationScreen = () => {
 
 export default DestinationScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    search: {
+        position: "absolute",
+        right: 10
+    }
+});

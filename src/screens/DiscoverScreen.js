@@ -171,7 +171,8 @@ const Discover = ({route}) => {
                             <Icon name="search" size={28} />
                             <TextInput
                                 placeholder="Search place                                             "
-                                style={{ color: colors.grey }}
+                                style={{ color: colors.grey, marginLeft: 10 }}
+                                onPress={() => navigation.navigate("Search Tours")}
                             />
                         </TouchableOpacity>
                     </View>

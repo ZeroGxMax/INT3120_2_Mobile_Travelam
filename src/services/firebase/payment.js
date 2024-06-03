@@ -38,6 +38,26 @@ const getAllPayment = async () => {
     }
 };
 
+const getUserPayment = async (userId) => {
+    try {
+        const paymentRef = ref(db, 'payment/data');
+        const snapshot = await get(paymentRef);
+
+        const foundPayments = []
+        snapshot.forEach((child) => {
+            const data = child.val()
+            if (data.userId == userId) {
+                foundPayments.push(data)
+            }
+        })
+        console.log("Retrieve user payment successfully");
+        return foundPayments
+    } catch (error) {
+        console.error("Error retrieve user payment:", error);
+        throw error;
+    }
+}
+
 const getLastPaymentId = async (paymentSnapshot) => {
     let lastPaymentId = 0;
 
@@ -79,4 +99,4 @@ const addNewPayment = async (userId, creditCard, amount, tourName, startDate, pa
     }
 }
 
-export {addNewPayment, getAllPayment}
+export {addNewPayment, getAllPayment, getUserPayment}

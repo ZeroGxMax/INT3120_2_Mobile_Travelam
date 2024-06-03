@@ -15,7 +15,8 @@ import hotels from "../data/hotels";
 import PaidTourItem from "../components/PaidTourItem";
 import { useNavigation } from "@react-navigation/native";
 import LoadingView from '../components/utils/LoadingView';
-import { getAllPayment } from "../services/firebase/payment"
+import { getAllPayment, getUserPayment } from "../services/firebase/payment"
+import { auth } from "../services/firebaseService";
 
 const TourHistoryScreen = () => {
     const [payment, setPayment] = useState([])
@@ -38,10 +39,18 @@ const TourHistoryScreen = () => {
         const fetchData = async () => {
             try {
                 // Fetch all countries
-                const allPayment = await getAllPayment();
-                setPayment(allPayment);
-                setQueryData(allPayment)
-                setLoading(false);
+                if (true) {
+                    const userPayment = await getUserPayment(auth.currentUser.uid)
+                    setPayment(userPayment);
+                    setQueryData(userPayment)
+                    setLoading(false);
+                } else {
+                    const allPayment = await getAllPayment();
+                    setPayment(allPayment);
+                    setQueryData(allPayment)
+                    setLoading(false);
+                }
+                
             } catch (error) {
                 console.error("Error fetching data:", error);
                 setLoading(false);

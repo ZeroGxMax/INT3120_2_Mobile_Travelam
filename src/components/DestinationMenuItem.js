@@ -105,7 +105,7 @@ const DestinationMenuItem = ({ item, tourName, countryName }) => {
                 })
               }
             >
-              <Text style={{ color: "white", fontWeight: 600, fontSize: 14 }}>Customize New Tour</Text>
+              <Text style={{ color: "white", fontWeight: 600, fontSize: 14 }}>Customize Destination</Text>
             </TouchableOpacity>
           </View>
         </View>

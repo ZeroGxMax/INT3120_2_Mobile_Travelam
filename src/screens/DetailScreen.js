@@ -66,8 +66,10 @@ const DetailScreen = ({ route, navigation }) => {
     const handleCustomize = () => {
         navigation.navigate("Destination", {
             id: countryData[0].id,
-            name: countryData[0].countryName,
-            tour: item.title
+            name: item.title,
+            tour: item.title,
+            destinations: destsData,
+            type: "tour"
         });
     };
 
@@ -126,8 +128,6 @@ const DetailScreen = ({ route, navigation }) => {
                                     country: countryData,
                                     destinations: destsData
                                 });
-                                // console.log(item.id)
-                                // console.log(countryData.location.latitude)
                             }}
                         >
                             <Entypo
@@ -144,11 +144,9 @@ const DetailScreen = ({ route, navigation }) => {
                 <DescriptionSection title="Description" content={item.description} />
                 <InfoSection title="Special" content={item.additionInfo} />
                 {renderDestList()}
-                {/* <PriceSection price={item.price} /> */}
                 <View>
                     <CustomButton label="Customize" onPress={handleCustomize} />
                 </View>
-                {/* <View style={{height: 100}}></View> */}
             </View>
         </ScrollView>
     );

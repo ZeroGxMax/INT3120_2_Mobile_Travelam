@@ -14,6 +14,7 @@ import { addNewPayment } from "../services/firebase/payment";
 import { getToken, addNotification, addScheduleNotification } from "../services/firebase/notification";
 import { sendPushNotification } from "../utils/notificationUtils";
 import { cleanCart } from "../redux/CartReducer";
+import { colors } from "../assets/colors/colors";
 
 const CartScreen = () => {
     const navigation = useNavigation();
@@ -94,8 +95,10 @@ const CartScreen = () => {
 
             Alert.alert(
                 "Payment Success",
-                "Your payment was added successfully.",
-                [{ text: "OK", style: "default" }],
+                "Your payment was added successfully. Now, move to Home Screen",
+                [{ text: "OK", style: "default", onPress: () => {
+                    navigation.navigate("Discover")
+                } }],
                 { cancelable: true }
             )
             if (token) {
@@ -108,10 +111,8 @@ const CartScreen = () => {
                 await addScheduleNotification(auth.currentUser.uid, token._j, text, date, 3)
                 // Add 1 day before startDate notifications
                 await addScheduleNotification(auth.currentUser.uid, token._j, text, date, 1)
-
-                dispatch(cleanCart());
-                navigation.navigate("Discover")
             }
+            dispatch(cleanCart());
 
         } else {
             Alert.alert(
@@ -270,7 +271,10 @@ const CartScreen = () => {
                                 <Text style={{
                                     fontSize: 24,
                                     fontWeight: "600",
-                                    color: 'green'
+                                    color: 'green',
+                                    borderBottomWidth: 2,
+                                    borderColor: colors.lightGray,
+                                    padding: 5
                                 }}>
                                     {(startCountry = item.countryName) ? item.countryName : 'Accommodation'}
                                 </Text>

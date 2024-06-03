@@ -45,7 +45,7 @@ export const AppStack = () => {
       <Stack.Screen name="Restaurant" component={RestaurantScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Customize" component={CustomizeScreen} />
       <Stack.Screen name="Choose Service" component={ChooseServiceScreen} />
-      <Stack.Screen name="Destination" component={DestinationScreen} />
+      <Stack.Screen name="Destination" component={DestinationScreen} options={{ headerShown: true }}/>
       <Stack.Screen name="Item" component={ItemScreen} />
       <Stack.Screen name="Package" component={PackageScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Detail" component={DetailScreen} options={{ headerShown: false }} />
