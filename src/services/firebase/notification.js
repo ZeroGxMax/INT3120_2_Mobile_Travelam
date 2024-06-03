@@ -1,5 +1,6 @@
 import { firebaseApp } from "../firebaseService"
-import { ref, get, getDatabase, set, child, push } from "firebase/database";
+import { ref, get, getDatabase, set, child, push, update } from "firebase/database";
+import { formatDate } from "../../utils/dateUtils";
 
 const db = getDatabase(firebaseApp)
 
@@ -35,7 +36,7 @@ const getUserNotification = async (userId) => {
 
             if (data.userId && data.userId == userId) {
                 foundNotifications.push(data)
-                console.log(data)
+                // console.log(data)
             }
         });
 
@@ -69,13 +70,17 @@ const addScheduleNotification = async (userId, push_token, tourName, startDate, 
         let notificationDate = new Date(startDate);
         notificationDate.setDate(notificationDate.getDate() - daysBefore);
 
+        const formattedStartDate = formatDate(startDate);
+
         const newNotification = {
             id: lastNotiId + 1,
             userId: userId,
             push_token: push_token,
             title: "Tour Reminder",
-            body: `Your tour ${tourName} is starting soon in ${daysBefore} days, please prepare.`,
+            body: `Your tour "${tourName}" is starting on ${formattedStartDate}. Only ${daysBefore} days left! Please prepare.`,
+            startDate: new Date(startDate).toISOString(),
             notification_date: notificationDate.toISOString(), 
+            pushed: false,
             read: false,
         };
 
@@ -104,6 +109,7 @@ const addNotification = async (userId, title, body, push_token, secondAfter) => 
             title: title,
             body: body,
             notification_date: notificationDate.toISOString(), 
+            pushed: true,
             read: false,
         };
 
@@ -115,4 +121,67 @@ const addNotification = async (userId, title, body, push_token, secondAfter) => 
     }
 }
 
-export {getToken, addScheduleNotification, addNotification, getUserNotification}
+const getRefFromId = async (notificationId) => {
+    try {
+        const notiRef = ref(db, 'notification/data');
+        const snapshot = await get(notiRef);
+
+        let notificationRefFound;
+
+        snapshot.forEach((child) => {
+            const data = child.val();
+            if (data && data.id == notificationId) {
+                notificationRefFound = child.ref;
+            }
+        });
+
+        if (!notificationRefFound) {
+            throw new Error(`Notification with ID ${notificationId} not found.`);
+        }
+
+        return notificationRefFound;
+    } catch (error) {
+        console.error("Error getting notification reference:", error);
+        throw error;
+    }
+};
+
+const markPushedNotifications = async (notificationId) => {
+    try {
+        let ref = await getRefFromId(notificationId)
+        const snapshot = await get(ref)
+        const notiData = snapshot.val();
+
+        if (!notiData.pushed) {
+            notiData.pushed = true
+        }
+
+        await update(ref, notiData);
+        
+        console.log("Mark pushed notification successfully");
+    } catch (error) {
+        console.error("Error mark pushed notification:", error);
+        throw error;
+    }
+}
+
+const markReadNotifications = async (notificationId) => {
+    try {
+        let ref = await getRefFromId(notificationId)
+        const snapshot = await get(ref)
+        const notiData = snapshot.val();
+
+        if (!notiData.read) {
+            notiData.read = true
+        }
+
+        await update(ref, notiData);
+        
+        console.log("Mark read notification successfully");
+    } catch (error) {
+        console.error("Error mark read notification:", error);
+        throw error;
+    }
+}
+
+export {getToken, addScheduleNotification, addNotification, getUserNotification, markPushedNotifications, markReadNotifications}

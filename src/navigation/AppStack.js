@@ -1,4 +1,5 @@
 import * as React from "react";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from '../screens/HomeScreen';
 import DiscoverScreen from '../screens/DiscoverScreen';
@@ -28,10 +29,13 @@ import AdminScreen from "../screens/AdminScreenContent/AdminScreen";
 import ManagementScreen from "../screens/AdminScreenContent/ManagementScreen"
 import MapScreen from "../screens/MapScreen";
 import NotificationsScreen from "../screens/NotificationsScreen";
+import { useNavigation } from "react-router-native";
+import { icons } from "../assets/icons/icons";
 
 
 const Stack = createStackNavigator();
 export const AppStack = () => {
+  // const navigation = useNavigation()
   return (
     <Stack.Navigator>
       <Stack.Screen name="Home" component={HomeScreen} />
@@ -63,7 +67,18 @@ export const AppStack = () => {
       <Stack.Screen name="Admin" component={AdminScreen} />
       <Stack.Screen name="Manage" component={ManagementScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Map" component={MapScreen} options={{ headerShown: true }} />
-      <Stack.Screen name="Notifications" component={NotificationsScreen} options={{ headerShown: true }} />
+      <Stack.Screen 
+        name="Notifications" component={NotificationsScreen} 
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => {
+              navigation.navigate("Discover", { refresh: true })
+            }}>
+              <Image source={icons.arrowLeft} style={{width: 20, height: 20, marginLeft: 15}} />
+            </TouchableOpacity>
+          ),
+        })} 
+      />
     </Stack.Navigator>
   );
 };
