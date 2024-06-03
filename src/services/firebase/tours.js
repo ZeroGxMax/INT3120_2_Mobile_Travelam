@@ -8,8 +8,8 @@ const getAllTours = async (tourId) => {
         const toursRef = ref(db, 'tour/data');
         const snapshot = await get(toursRef);
 
-        console.log("Reference:", toursRef.toString());
-        console.log("Data inside '10' node:", snapshot.val());
+        // console.log("Reference:", toursRef.toString());
+        // console.log("Data inside '10' node:", snapshot.val());
 
         return snapshot.val();
     } catch (error) {

@@ -124,7 +124,7 @@ const PaidTourItem = ({ item }) => {
                 <AntDesign name="enviroment" size={20} color="green" />
               </View>
               <Text style={{ marginLeft: 3, fontSize: 16, fontWeight: "400" }}>
-                Paris & London
+                {paidTour.countryList[1].name}
               </Text>
             </View>
 

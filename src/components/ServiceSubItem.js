@@ -12,9 +12,16 @@ const ServiceSubItem = ({ service, baseId }) => {
   
 
   useEffect(() => {
-    const itemPresent = cart.find(
-      (item) => item.id  === service.id
-    );
+    let itemPresent = false;
+    if (service.name) {
+      itemPresent = cart.find(
+        (item) => item.name  === service.name
+      );
+    } else {
+      itemPresent = cart.find(
+        (item) => item.type  === service.type
+      );
+    }
 
     if (itemPresent) {
       setSelected(true)

@@ -31,6 +31,7 @@ import MapScreen from "../screens/MapScreen";
 import NotificationsScreen from "../screens/NotificationsScreen";
 import { useNavigation } from "react-router-native";
 import { icons } from "../assets/icons/icons";
+import SearchScreen from "../screens/SearchScreen";
 
 
 const Stack = createStackNavigator();
@@ -62,6 +63,7 @@ export const AppStack = () => {
       <Stack.Screen name="ActivityDetail" component={ActivityDetailScreen} options={{ headerShown: false }} />
       <Stack.Screen name="TransDetail" component={TransDetailScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Comment" component={CommentScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Search Tours" component={SearchScreen} options={{ headerShown: true }} />
 
       <Stack.Screen name="Payment" component={PaymentScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Admin" component={AdminScreen} />

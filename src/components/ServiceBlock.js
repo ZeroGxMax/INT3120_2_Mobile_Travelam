@@ -48,7 +48,7 @@ const ServiceBlock = ({ title, data, color, navigationTarget }) => {
                         key={1300 + index}
                     >
                         <Text style={{ fontSize: 16 }}>
-                            {item.name ? item.name : item.type}
+                            {item.name ? item.name.substring(0, 40) : item.type}
                         </Text>
                         <View style={{ width: 30, alignItems: "center" }}>
                             <AntDesign name='right' size={20} color="black" />

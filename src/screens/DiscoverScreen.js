@@ -11,7 +11,7 @@ import RecommendedCard from './DiscoverScreenContent/RecommendedCard';
 import ListCategories from './DiscoverScreenContent/ListCategories';
 import { signOut } from "firebase/auth";
 import { auth } from "../services/firebaseService"
-import { getBestTours } from '../services/firebase/tours';
+import { getBestTours, getAllTours } from '../services/firebase/tours';
 import { getAllCountry } from "../services/firebase/country";
 import LoadingView from '../components/utils/LoadingView';
 import { firebaseApp } from '../services/firebaseService';
@@ -119,6 +119,7 @@ const Discover = ({route}) => {
         }
     };
 
+
     if (loading) {
         return <LoadingView />;
     }
@@ -163,13 +164,16 @@ const Discover = ({route}) => {
                     <View style={{ flex: 1 }}>
                         <Text style={styles.headerTitle}>Explore the</Text>
                         <Text style={styles.headerTitle}>beautiful places</Text>
-                        <View style={styles.inputContainer}>
+                        <TouchableOpacity 
+                            style={styles.inputContainer}
+                            onPress={() => navigation.navigate("Search Tours")}
+                        >
                             <Icon name="search" size={28} />
                             <TextInput
-                                placeholder="Search place"
+                                placeholder="Search place                                             "
                                 style={{ color: colors.grey }}
                             />
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <ListCategories />
