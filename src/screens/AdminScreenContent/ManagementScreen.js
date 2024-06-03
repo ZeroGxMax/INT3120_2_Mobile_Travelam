@@ -145,7 +145,7 @@ const ManagementScreen = () => {
                     </View>
                 </View>
                 {queryData.map((item, index) => (
-                    <ManagementItem item={item} key={index} props={route.params.props} title={route.params.title}/>
+                    <ManagementItem item={item} key={2600 + index} props={route.params.props} title={route.params.title}/>
                 ))}
                 
             </View>

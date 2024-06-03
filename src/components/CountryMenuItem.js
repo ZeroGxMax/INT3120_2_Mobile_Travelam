@@ -54,8 +54,8 @@ const CountryMenuItem = ({ item, countryName }) => {
             </Text>
           </View>
           <View>
-              {item.additionInfo.split(",").slice(0, 3).map((info) => (
-                <View>
+              {item.additionInfo.split(",").slice(0, 3).map((info, index) => (
+                <View key={1000 + index}>
                     <Text>
                         <AntDesign
                             name="star"

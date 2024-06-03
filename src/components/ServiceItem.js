@@ -17,12 +17,12 @@ const ServiceItem = ({ item }) => {
   }
   return (
     <View>
-      {data.map((item, i) => (
-        <>
+      {data.map((item, index) => (
+        <View key={1400 + index}>
           <Pressable
           onPress={() => handleItemSelect(item.name)}
             style={styles.serviceItem}
-            key={i}
+
           >
             <Text style={{ fontSize: 20, fontWeight: "bold", color: "white" }}>
               {item.name} ({item.items.length})
@@ -37,13 +37,13 @@ const ServiceItem = ({ item }) => {
 
         {selected.includes(item.name) ? (
             item.items.map((service,index) => (
-                <ServiceSubItem service={service} key={index} baseId={item.id}/>
+                <ServiceSubItem service={service} key={1500 + index} baseId={item.id}/>
             ))
         ) : (
             null
         )}
           
-        </>
+        </View>
       ))}
     </View>
   );

@@ -68,8 +68,8 @@ const DestinationMenuItem = ({ item, tourName, countryName }) => {
               {`${startTime}-${endTime}`} days
             </Text>
           </View>
-          {item.additionInfo.split(",").slice(0, 3).map((info) => (
-            <Text>
+          {item.additionInfo.split(",").slice(0, 3).map((info, index) => (
+            <Text key={1100 + index}>
               <AntDesign
                 name="star"
                 size={24}

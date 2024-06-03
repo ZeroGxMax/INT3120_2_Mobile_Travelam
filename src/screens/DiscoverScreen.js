@@ -19,6 +19,7 @@ import { ref, get, getDatabase, set } from "firebase/database";
 import * as Notifications from 'expo-notifications';
 import { sendPushNotification } from '../utils/notificationUtils';
 import { getUserNotification } from '../services/firebase/notification';
+import { registerForPushNotificationsAsync, schedulePushNotification } from '../services/notificationService';
 
 const Discover = () => {
 
@@ -160,6 +161,7 @@ const Discover = () => {
                 <TouchableOpacity
                     style={sty.buttonWrapper}
                     onPress={() => navigation.navigate("Customize")}
+                    // onPress={() => schedulePushNotification("Explore new island", "It's available for customizing new tour")}
                 >
                     <Text style={{ color: "white", fontWeight: 600, fontSize: 18 }}>Customize New Tour</Text>
                 </TouchableOpacity>

@@ -98,8 +98,8 @@ const AdminScreen = () => {
                     justifyContent: "center",
                     marginLeft: 15
                 }}>
-                    {managementList.map((item) => (
-                        <ManagementContent item={item} />
+                    {managementList.map((item, index) => (
+                        <ManagementContent item={item} key={2400 + index}/>
                     ))}
                 </View>
             </ScrollView>

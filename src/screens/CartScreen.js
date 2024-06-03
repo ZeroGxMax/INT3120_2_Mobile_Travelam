@@ -245,7 +245,7 @@ const CartScreen = () => {
                     }}
                 >
                     {sortedCart.map((item, index) => (
-                        <View key={index}>
+                        <View key={1600 + index}>
                             {startCountry !== item.countryName ? <View style={{
                                 // backgroundColor: color_[item.baseId / 200],
                                 // alignItems: 'center',
@@ -386,7 +386,7 @@ const CartScreen = () => {
                     </View>
 
                     {service.map((item, index) => (
-                        <>
+                        <View key={1700 + index}>
                             {item.cost ? (
                                 <View
                                     style={{
@@ -396,7 +396,7 @@ const CartScreen = () => {
                                         marginVertical: 8,
                                     }}
 
-                                    key={index}
+                                    key={1800 + index}
                                 >
                                     <Text
                                         style={{
@@ -420,7 +420,7 @@ const CartScreen = () => {
                             ) : (
                                 null
                             )}
-                        </>
+                        </View>
                     ))}
 
                     <View

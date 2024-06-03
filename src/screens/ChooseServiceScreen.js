@@ -273,7 +273,7 @@ export default ChooseServiceScreen = () => {
                     { id: 200, name: "Restaurant", items: rest },
                     { id: 400, name: "Transportation", items: trans },
                     { id: 600, name: "Activity", items: activity }].map((item, index) => (
-                        <ServiceItem item={item} key={index} />
+                        <ServiceItem item={item} key={1900 + index} />
                     ))
                 ) : (
                     <Text>No menu data available</Text>

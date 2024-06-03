@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getApps, initializeApp } from "firebase/app";
@@ -9,12 +9,20 @@ import { default as customTheme } from "./customTheme.json";
 import { MainNavigator } from "./src/navigation/MainNavigator";
 import { AuthenticatedUserProvider } from "./src/providers";
 import * as Notifications from 'expo-notifications';
+import { registerForPushNotificationsAsync, schedulePushNotification } from './src/services/notificationService';
+
 // import firebase from "firebase"
 // import {Permissions, Notifications} from "expo"
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
   const isFirebaseInitialized = () => {
     const firebaseApps = getApps();
     return firebaseApps.length > 0;
@@ -34,6 +42,23 @@ export default function App() {
       shouldSetBadge: true,
     }),
   });
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   // useEffect(() => {
   //   const subscription = Notifications.addNotificationReceivedListener(notification => {

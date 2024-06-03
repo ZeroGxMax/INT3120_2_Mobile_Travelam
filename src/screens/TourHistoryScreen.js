@@ -81,7 +81,7 @@ const TourHistoryScreen = () => {
                 <AntDesign name="search1" size={24} color="#FF724C" />
             </View>
             {queryData.map((item, index) => (
-                <PaidTourItem key={index} item={item} />
+                <PaidTourItem key={2300 + index} item={item} />
             ))}
         </ScrollView>
     );

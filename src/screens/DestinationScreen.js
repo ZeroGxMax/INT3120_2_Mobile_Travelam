@@ -94,7 +94,7 @@ const DestinationScreen = () => {
             </View>
             {queryData.map((item, index) => (
                 <DestinationMenuItem 
-                    key={index} 
+                    key={2000 + index} 
                     item={item} 
                     tourName={route.params.tour}
                     countryName={route.params.name} 

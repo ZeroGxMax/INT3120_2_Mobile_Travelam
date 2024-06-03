@@ -152,7 +152,7 @@ export default ProfileScreen = () => {
                 {menus.map((menu, key) => (
                   <MenuItem
                     title={menu.title}
-                    key={key}
+                    key={2100 + key}
                     firstItem={key === 0 ? true : false}
                     property={menu.prop}
                     context={MyContext}

@@ -133,8 +133,8 @@ const ManagementItem = ({ item, props, title }) => {
                                 }}>{title} Editing</Text>
                             </View>
                             <View>
-                                {menus.map((menu, key) => (
-                                    <ManagementSubDetail key={key} item={item} menu={menu} />
+                                {menus.map((menu, index) => (
+                                    <ManagementSubDetail key={2500 + index} item={item} menu={menu} />
                                 ))}
                             </View>
                             <View style={{

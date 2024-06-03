@@ -96,7 +96,7 @@ const OptionsScreen = () => {
                     <TouchableOpacity
                         style={styles.labelWrapper}
                         onPress={() => navigation.navigate(item.navigation)}
-                        key={index}
+                        key={2000 + index}
                     >
                         <View style={{ width: 30, alignItems: "center", marginRight: 10 }}>
                             <AntDesign name={item.icon} size={20} color="black" />

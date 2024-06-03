@@ -66,7 +66,7 @@ const PaidTourItem = ({ item, countryName }) => {
           </View>
           <View>
             {item.additionInfo.split(",").slice(0, 4).map((info, index) => (
-              <View style={{ marginVertical: 2 }} key={index}>
+              <View style={{ marginVertical: 2 }} key={1200 + index}>
                 <Text style={{ fontSize: 12 }}>
                   <AntDesign
                     name="star"

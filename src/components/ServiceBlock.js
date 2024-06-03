@@ -42,7 +42,7 @@ const ServiceBlock = ({ title, data, color, navigationTarget }) => {
                     onPress={() => navigation.navigate(navigationTarget, {
                         item: item
                     })}
-                    key={index}
+                    key={1300 + index}
                 >
                     <Text style={{ fontSize: 16 }}>
                         {item.name ? item.name : item.type}
