@@ -11,9 +11,6 @@ import { AuthenticatedUserProvider } from "./src/providers";
 import * as Notifications from 'expo-notifications';
 import { registerForPushNotificationsAsync, schedulePushNotification } from './src/services/notificationService';
 
-// import firebase from "firebase"
-// import {Permissions, Notifications} from "expo"
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -59,14 +56,7 @@ export default function App() {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-
-  // useEffect(() => {
-  //   const subscription = Notifications.addNotificationReceivedListener(notification => {
-  //     console.log(notification);
-  //   });
-  //   return () => subscription.remove();
-  // }, []);
-
+  
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />

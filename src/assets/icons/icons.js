@@ -11,5 +11,6 @@ export const icons = {
     zoomIn: require("./zoom_in.png"),
     zoomOut: require("./zoom_out.png"),
     prevLoc: require("./previous_loc.png"),
-    nextLoc: require("./next_loc.png")
+    nextLoc: require("./next_loc.png"),
+    arrowLeft: require("./arrow_left.png")
 };

@@ -38,13 +38,13 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     notificationTitle: {
-        fontSize: 18,
+        fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 10,
-        color: colors.black,
+        color: colors.primary,
     },
     notificationBody: {
-        fontSize: 16,
+        fontSize: 20,
         color: colors.darkGray,
     },
     closeButton: {

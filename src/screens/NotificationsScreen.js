@@ -1,21 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, TouchableOpacity, StyleSheet, Text } from 'react-native';
-import { getUserNotification } from '../services/firebase/notification';
+import { getUserNotification, markReadNotifications } from '../services/firebase/notification';
 import { auth } from '../services/firebaseService';
 import LoadingView from '../components/utils/LoadingView';
 import NotificationPanel from './NotificationScreenContent/NotificationPanel';
 import { colors } from '../assets/colors/colors';
+import { formatDateTime } from '../utils/dateUtils';
+import CustomHeader from '../components/utils/Header';
 
 const NotificationsScreen = ({ navigation }) => {
     const [notifications, setNotifications] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedNotification, setSelectedNotification] = useState(null);
 
+    const sortNotificationsByDate = (notifications) => {
+        return notifications.sort((a, b) => new Date(a.notification_date) - new Date(b.notification_date));
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const fetchNotifications = await getUserNotification(auth.currentUser.uid);
-                setNotifications(fetchNotifications)
+                const sortedNotifications = sortNotificationsByDate(fetchNotifications);
+                setNotifications(sortedNotifications);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -26,8 +33,15 @@ const NotificationsScreen = ({ navigation }) => {
         fetchData();
     }, []);
 
-    const handleNotificationPress = (notification) => {
+    const handleNotificationPress = async (notification) => {
         setSelectedNotification(notification);
+        await markReadNotifications(notification.id)
+
+        setNotifications((prevNotifications) =>
+            prevNotifications.map((notif) =>
+                notif.id == notification.id ? { ...notif, read: true } : notif
+            )
+        );
     };
 
     if (loading) {
@@ -36,13 +50,19 @@ const NotificationsScreen = ({ navigation }) => {
 
     const renderItem = ({ item }) => (
         <TouchableOpacity style={styles.notificationItem} onPress={() => handleNotificationPress(item)}>
-            <Text style={styles.notificationTitle}>{item.title}</Text>
+            <View style={{flexDirection: "row"}}>
+                <Text style={styles.notificationTitle}>{item.title}</Text>
+                {!item.read && <Text style={{color: "red"}}>*New</Text>}
+                {item.read && <Text style={{color: colors.darkGray}}>*Seen</Text>}
+            </View>
+            <Text>{formatDateTime(item.notification_date)}</Text>
             <Text style={styles.notificationBody}>{item.body}</Text>
         </TouchableOpacity>
     );
 
     return (
         <View style={styles.container}>
+            {/* <CustomHeader></CustomHeader> */}
             <FlatList
                 data={notifications}
                 renderItem={renderItem}

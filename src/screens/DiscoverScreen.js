@@ -18,10 +18,10 @@ import { firebaseApp } from '../services/firebaseService';
 import { ref, get, getDatabase, set } from "firebase/database";
 import * as Notifications from 'expo-notifications';
 import { sendPushNotification } from '../utils/notificationUtils';
-import { getUserNotification } from '../services/firebase/notification';
+import { getUserNotification, markPushedNotifications } from '../services/firebase/notification';
 import { registerForPushNotificationsAsync, schedulePushNotification } from '../services/notificationService';
 
-const Discover = () => {
+const Discover = ({route}) => {
 
     const navigation = useNavigation();
 
@@ -30,6 +30,7 @@ const Discover = () => {
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState(null);
     const [notification, setNotification] = useState(null);
+    const [unreadsCount, setUnreadsCount] = useState(0);
 
     const { width } = Dimensions.get('screen');
 
@@ -59,7 +60,6 @@ const Discover = () => {
         }
     };
 
-
     useLayoutEffect(() => {
         navigation.setOptions({
             headerShown: false,
@@ -79,6 +79,14 @@ const Discover = () => {
                 await registerForPushNotificationsAsync();
                 const fetchNotifications = await getUserNotification(auth.currentUser.uid);
                 setNotification(fetchNotifications)
+                await handleNotification(fetchNotifications)
+                let count = 0;
+                fetchNotifications.forEach((noti) => {
+                    if (!noti.read) {
+                        count++;
+                    }
+                })
+                setUnreadsCount(count)
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -87,10 +95,28 @@ const Discover = () => {
         };
 
         fetchData();
-    }, []);
+
+        if (route.params?.refresh) {
+            fetchData();
+        }
+    }, [route.params?.refresh]);
 
     const handleLogout = () => {
         signOut(auth).catch((error) => console.log("Error logging out: ", error));
+    };
+
+    const handleNotification = async (fetchNotifications) => {
+        const now = new Date();
+        // console.log(notification);
+
+        for (const noti of fetchNotifications) {
+            const notificationDate = new Date(noti.notification_date);
+
+            if (!noti.pushed && notificationDate < now) {
+                await sendPushNotification(token, noti.title, noti.body);
+                await markPushedNotifications(noti.id);
+            }
+        }
     };
 
     if (loading) {
@@ -106,10 +132,21 @@ const Discover = () => {
                     size={28}
                     color={colors.white}
                     onPress={() => navigation.navigate("Options")} />
-                <Icon 
-                    name="notifications-none" size={28} color={colors.white} 
-                    onPress={() => navigation.navigate("Notifications")}
-                />
+                <TouchableOpacity onPress={() => navigation.navigate("Notifications")}>
+                    <View style={{ position: "relative", "flexDirection": "row"}}>
+                        <Icon
+                            name={unreadsCount > 0 ? "notifications" : "notifications-none"}
+                            size={28}
+                            color={colors.white}
+                        />
+                        {unreadsCount > 0 && (
+                            <View style={sty.notificationBadge}>
+                                <Text style={sty.notificationBadgeText}>{unreadsCount}</Text>
+                            </View>
+                        )}
+                    </View>
+                </TouchableOpacity>
+
             </View>
             {/* <TouchableOpacity onPress={async () => {
                 sendPushNotification(token, "Demo", "Demo notifications")
@@ -161,7 +198,7 @@ const Discover = () => {
                 <TouchableOpacity
                     style={sty.buttonWrapper}
                     onPress={() => navigation.navigate("Customize")}
-                    // onPress={() => schedulePushNotification("Explore new island", "It's available for customizing new tour")}
+                // onPress={() => schedulePushNotification("Explore new island", "It's available for customizing new tour")}
                 >
                     <Text style={{ color: "white", fontWeight: 600, fontSize: 18 }}>Customize New Tour</Text>
                 </TouchableOpacity>
@@ -184,4 +221,22 @@ const sty = StyleSheet.create({
         borderRadius: 10,
         color: "white"
     },
+    notificationBadge: {
+        position: 'absolute',
+        top: -5,
+        right: 0,
+        backgroundColor: 'red',
+        borderRadius: 10,
+        minWidth: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    notificationBadgeText: {
+        color: colors.white,
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
+    notificationIcon: {
+        position: "absolute"
+    }
 })

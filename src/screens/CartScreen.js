@@ -98,10 +98,14 @@ const CartScreen = () => {
             )
             if (token) {
                 const title = "New transaction"
-                const body = `Thank you for booking the "${text}" tour! Your payment of ${amount} has been successfully processed using the card ending in ${selectedCardData.cardNumber.slice(-4)}, registered under the name of ${selectedCardData.cardHolder}.`;
+                const body = `Thank you for booking the "${text}" tour! Your payment of ${amount} USD has been successfully processed using the card ending in ${selectedCardData.cardNumber.slice(-4)}, registered under the name of ${selectedCardData.cardHolder}.`;
 
                 sendPushNotification(token._j, title, body)
-                // addNotification(auth.currentUser.uid, title, body, token._j, 0)
+                await addNotification(auth.currentUser.uid, title, body, token._j, 0)
+                // Add 3 days before startDate notifications
+                await addScheduleNotification(auth.currentUser.uid, token._j, text, date, 3)
+                // Add 1 day before startDate notifications
+                await addScheduleNotification(auth.currentUser.uid, token._j, text, date, 1)
                 
             }
             
