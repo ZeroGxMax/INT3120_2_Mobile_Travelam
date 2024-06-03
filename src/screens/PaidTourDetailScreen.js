@@ -137,7 +137,7 @@ const PaidTourDetailScreen = ({ navigation }) => {
                 ))}
 
             </View>
-            <View style={{ height: 10 }}></View>
+            <View style={{ height: 30 }}></View>
         </ScrollView>
     );
 };
@@ -157,13 +157,13 @@ const styles = StyleSheet.create({
     },
     descriptionWrapper: {
         flex: 1,
-        backgroundColor: "#EEE",
+        // backgroundColor: "#EEE",
         // marginTop: -20,
         borderRadius: 25,
-        margin: 10,
+        margin: 5,
         fontWeight: '600',
         paddingVertical: 10,
-        paddingHorizontal: 30
+        paddingHorizontal: 10
         // borderWidth: 1,
         // borderColor: ""
     },
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         marginTop: 20,
         position: 'absolute',
-        top: 170
+        top: 190
     },
     itemTitle: {
         // fontFamily: 'Lato-Bold',
@@ -221,8 +221,8 @@ const styles = StyleSheet.create({
     },
     descriptionTitle: {
         // fontFamily: 'Lato-Bold',
-        fontSize: 20,
-        color: colors.black,
+        fontSize: 22,
+        color: "#254336",
         fontWeight: "600",
     },
     descriptionText: {

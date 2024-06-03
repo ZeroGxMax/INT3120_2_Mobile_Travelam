@@ -13,6 +13,7 @@ import AddCardItem from "./CartScreenContent/AddCardItem";
 import { addNewPayment } from "../services/firebase/payment";
 import { getToken, addNotification, addScheduleNotification } from "../services/firebase/notification";
 import { sendPushNotification } from "../utils/notificationUtils";
+import { cleanCart } from "../redux/CartReducer";
 
 const CartScreen = () => {
     const navigation = useNavigation();
@@ -42,6 +43,7 @@ const CartScreen = () => {
     const [show, setShow] = useState(false);
     const [mode, setMode] = useState('date');
     const [token, setToken] = useState(null);
+    // const dispatch = useDispatch();
     let service = [{
         label: 'Accommodation',
         cost: 0
@@ -88,7 +90,7 @@ const CartScreen = () => {
     const handlePayment = async () => {
         const amount = total + 0.05 * total
         if (selectedCardData && amount > 0 && sortedCart) {
-            // await addNewPayment(auth.currentUser.uid, selectedCardData, amount, text, date, sortedCart);
+            await addNewPayment(auth.currentUser.uid, selectedCardData, amount, text, date, sortedCart);
 
             Alert.alert(
                 "Payment Success",
@@ -106,9 +108,11 @@ const CartScreen = () => {
                 await addScheduleNotification(auth.currentUser.uid, token._j, text, date, 3)
                 // Add 1 day before startDate notifications
                 await addScheduleNotification(auth.currentUser.uid, token._j, text, date, 1)
-                
+
+                dispatch(cleanCart());
+                navigation.navigate("Discover")
             }
-            
+
         } else {
             Alert.alert(
                 "Incomplete Details",
@@ -117,6 +121,8 @@ const CartScreen = () => {
                 { cancelable: true }
             );
         }
+
+
     }
 
     for (let i = 0; i < 4; i++) {

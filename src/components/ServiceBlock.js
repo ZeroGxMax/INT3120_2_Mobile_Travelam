@@ -68,7 +68,7 @@ export default ServiceBlock;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#EEE",
+        // backgroundColor: "#EEE",
         marginVertical: 20,
         borderRadius: 10
     },
