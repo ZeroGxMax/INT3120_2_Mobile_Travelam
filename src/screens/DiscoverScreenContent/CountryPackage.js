@@ -18,7 +18,7 @@ const CountryPackage = ({ item }) => {
 
     return (
         <TouchableOpacity
-            activeOpacity={0.8}
+            // activeOpacity={0.8}
             onPress={onPressHandler}
         >
             <ImageBackground style={styles.cardImage} source={{ uri: item.demoImage }}>

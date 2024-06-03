@@ -5,7 +5,8 @@ import {
     Image,
     TouchableHighlight,
     TouchableOpacity,
-    Alert
+    Alert,
+    StyleSheet
 } from "react-native";
 import PropTypes from "prop-types";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -68,7 +69,7 @@ class Comment extends PureComponent {
     );
 
     render() {
-        let{ menuVisible, liked } = this.state;
+        let { menuVisible, liked } = this.state;
         const {
             image,
             likesNr,
@@ -99,45 +100,48 @@ class Comment extends PureComponent {
                                         : { uri: image }
                                 }
                             />
-                            {/* {likesNr && likeAction ? (
-                                <TouchableHighlight
-                                    style={[styles.actionButton, { paddingTop: 5 }]}
-                                    onPress={this.handleAction(this.props.likesTapAction)}
-                                >
-                                    <View style={{ flexDirection: "row" }}>
-                                        <Icon name="heart" color="#df1740" size={15} />
-                                        <Text style={styles.likeNr}>{likesNr}</Text>
-                                    </View>
-                                </TouchableHighlight>
-                            ) : null} */}
                         </View>
                     </TouchableHighlight>
                 </View>
-                <TouchableOpacity
-                    onPress={() => this.setState({ menuVisible: false })}
-                    onLongPress={this.toggleMenuVisibility}
-                    style={styles.right}
-                >
-                    <View style={styles.rightContent}>
-                        <View style={styles.rightContentTop}>
-                            <TouchableHighlight onPress={this.handleAction(this.props.usernameTapAction)}>
-                                <Text style={[styles.name, this.getStyle("username")]}>{username}</Text>
-                            </TouchableHighlight>
+                <View style={{ width: "88%" }}>
+                    {this.props.data.uploadImageUrl &&
+                        <Image
+                            style={this.props.isChild ? localStyles.commentImageChild : localStyles.commentImage}
+                            source={{ uri: this.props.data.uploadImageUrl }}
+                        />
+                    }
+                    {/* {(!this.props.data.uploadImageUrl && this.props.firebaseImageUrl) &&
+                        <Image
+                            style={this.props.isChild ? localStyles.commentImageChild : localStyles.commentImage}
+                            source={{ uri: this.props.firebaseImageUrl }}
+                        />
+                    } */}
+                    <TouchableOpacity
+                        onPress={() => this.setState({ menuVisible: false })}
+                        onLongPress={this.toggleMenuVisibility}
+                        style={styles.right}
+                    >
+                        <View style={styles.rightContent}>
+                            <View style={styles.rightContentTop}>
+                                <TouchableHighlight onPress={this.handleAction(this.props.usernameTapAction)}>
+                                    <Text style={[styles.name, this.getStyle("username")]}>{username}</Text>
+                                </TouchableHighlight>
+                            </View>
+                            <Text style={[styles.body, this.getStyle("body")]}>{body}</Text>
                         </View>
-                        <Text style={[styles.body, this.getStyle("body")]}>{body}</Text>
-                    </View>
-                    <View style={styles.rightActionBar}>
-                        <TouchableHighlight style={styles.actionButton} onPress={() => {
-                            this.props.likeAction(this.props.data)
-                            this.toggleLike();
-                        }}>
-                            <Text style={[styles.actionText, liked ? { color: "#4DB2DF" } : null]}>
-                                Like
-                            </Text>
-                        </TouchableHighlight>
-                        {replyAction && this.renderActionButton(replyAction, "Reply")}
-                    </View>
-                </TouchableOpacity>
+                        <View style={styles.rightActionBar}>
+                            <TouchableHighlight style={styles.actionButton} onPress={() => {
+                                this.props.likeAction(this.props.data);
+                                this.toggleLike();
+                            }}>
+                                <Text style={[styles.actionText, liked ? { color: "#4DB2DF" } : null]}>
+                                    Like
+                                </Text>
+                            </TouchableHighlight>
+                            {replyAction && this.renderActionButton(replyAction, "Reply")}
+                        </View>
+                    </TouchableOpacity>
+                </View>
                 {menuVisible && (
                     <View style={[
                         styles.menu,
@@ -157,8 +161,23 @@ class Comment extends PureComponent {
                                     ]}>
                                         {reported ? "Reported" : "Report"}
                                     </Text>
+
                                 </TouchableOpacity>
                             )}
+                            <View
+                                style={{
+                                    flex: 0.5,
+                                    alignItems: "center",
+                                    justifyContent: "center"
+                                }}
+                            >
+                                <TouchableOpacity
+                                    style={styles.menuClose}
+                                    onPress={() => this.setState({ menuVisible: false })}
+                                >
+                                    <Text style={{ color: "silver" }}>X</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 )}
@@ -166,6 +185,22 @@ class Comment extends PureComponent {
         );
     }
 }
+
+const localStyles = StyleSheet.create({
+    commentImage: {
+        width: 340,
+        height: (340 / 4) * 3,
+        borderRadius: 10,
+        marginVertical: 10,
+        alignSelf: 'center',
+    },
+    commentImageChild: {
+        width: 305,
+        height: (305 / 4) * 3, // 4:3 aspect ratio
+        borderRadius: 10,
+        marginBottom: 10,
+    },
+});
 
 Comment.propTypes = {
     data: PropTypes.object.isRequired,
@@ -186,6 +221,7 @@ Comment.propTypes = {
     username: PropTypes.string.isRequired,
     usernameTapAction: PropTypes.func,
     isChild: PropTypes.bool,
+    // firebaseImageUrl: PropTypes.string
 };
 
 export default Comment;

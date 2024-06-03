@@ -9,10 +9,11 @@ import { LoadingIndicator } from "../components";
 import { auth } from "../services/firebaseService";
 import store from "../../store";
 
+
 export const MainNavigator = () => {
   const { user, setUser } = useContext(AuthenticatedUserContext);
   const [isLoading, setIsLoading] = useState(false);
-
+  // const [role, setRole] = useState("");
   useEffect(() => {
     // onAuthStateChanged returns an unsubscriber
     const unsubscribeAuthStateChanged = onAuthStateChanged(
@@ -22,7 +23,7 @@ export const MainNavigator = () => {
         setIsLoading(false);
       }
     );
-
+    // console.log(user)
     // unsubscribe auth listener on unmount
     return unsubscribeAuthStateChanged;
   }, [user]);

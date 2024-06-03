@@ -37,7 +37,7 @@ const ListCategories = () => {
     return (
         <View style={styles.categoryContainer}>
             {categoryIcons.map((icon, index) => (
-                <TouchableOpacity key={index} onPress={() => handlePress(icon.category)}>
+                <TouchableOpacity key={2700 + index} onPress={() => handlePress(icon.category)}>
                     <View style={styles.iconContainer}>
                         <MaterialIcon name={icon.name} size={25} color={colors.primary} />
                     </View>

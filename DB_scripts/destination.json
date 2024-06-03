@@ -1,0 +1,602 @@
+[
+  {
+    "additionInfo": "Best experience, Delicious food, Art museums, River Seine cruises, Champs-Élysées shopping, Literary history, Fashion districts, Romantic ambiance",
+    "countryId": "6",
+    "demoImage": "https://res.klook.com/image/upload/Mobile/City/swox6wjsl5ndvkv5jvum.jpg",
+    "description": "Paris, the capital of France, is an enchanting city that beckons with its timeless beauty and cultural richness. Beyond its iconic landmarks, Paris is a tapestry of art, history, and culinary delights. Stroll along the Seine River, immerse yourself in world-renowned museums, and savor the exquisite flavors of French cuisine in charming bistros. From the historic cobblestone streets of Le Marais to the grandeur of the Notre-Dame Cathedral, Paris is a city that captures the hearts of all who visit.",
+    "id": "1",
+    "name": "Paris",
+    "location": {
+      "latitude": 48.864716,
+      "longtitude": 2.349014
+    }
+  },
+  {
+    "additionInfo": "Art masterpiece collection, Historical significance, Guided tours, Interactive exhibits, Architectural marvels, Sculpture garden, Art workshops",
+    "countryId": "6",
+    "demoImage": "https://cdn.britannica.com/01/150801-050-3072D42F/Louvre-Museum-pyramid-Paris-Pei-IM.jpg",
+    "description": "The Louvre Museum, situated on the right bank of the Seine River in Paris, is a masterpiece in itself. As you step into the grand courtyard of the Louvre, you are transported into a world of artistic wonders spanning centuries. Housing over 35,000 works of art, including the enigmatic Mona Lisa, the Louvre invites you on a journey through human creativity. From the intricacies of ancient civilizations to the brushstrokes of the Renaissance, each gallery holds a story waiting to be discovered.",
+    "id": "2",
+    "name": "Louvre Museum",
+    "location": {
+      "latitude": 48.8606,
+      "longitude": 2.3376
+    }
+  },
+  {
+    "additionInfo": "Royal history, Ornate gardens, Musical fountain shows, Carriage museum, Private apartments tour, Nighttime events, Marie Antoinette's estate",
+    "countryId": "6",
+    "demoImage": "https://en.chateauversailles.fr/sites/default/files/c3_1.jpg",
+    "description": "The Palace of Versailles, a testament to opulence and royal grandeur, stands as an emblem of France's golden age. This architectural marvel, nestled in the picturesque suburbs of Paris, invites you to step back in time. Explore the grandeur of the palace, stunning gardens, and Hall of Mirrors. Step back in time to an era of royal extravagance and discover the stories behind this architectural masterpiece.",
+    "id": "3",
+    "name": "Versailles Palace",
+    "location": {
+      "latitude": 48.8047,
+      "longitude": 2.1203
+    }
+  },
+  {
+    "additionInfo": "Artistic atmosphere, Cafés, Street performers, Art studios, Bohemian markets, Moulin Rouge cabaret, Local galleries, Hidden gems",
+    "countryId": "6",
+    "demoImage": "https://blushrougette.com/wp-content/uploads/2021/07/sacre-coeur-basilica-paris.jpg",
+    "description": "Montmartre, the bohemian heart of Paris, is a neighborhood that resonates with artistic energy and romantic allure. As you ascend the cobblestone streets to the summit, you'll be greeted by the iconic Basilica of the Sacred Heart, offering panoramic views of the city below. Wander through narrow alleys adorned with vibrant street art, pause at bustling cafés where Picasso once sought inspiration, and feel the heartbeat of Parisian creativity. Montmartre is not merely a place; it's an artistic symphony that continues to captivate.",
+    "id": "4",
+    "name": "Montmartre",
+    "location": {
+      "latitude": 48.8867,
+      "longitude": 2.3431
+    }
+  },
+  {
+    "additionInfo": "Architectural beauty, Stained glass art, Guided tours, Classical music concerts, Spiritual retreat, Historical significance, Illuminated evenings",
+    "countryId": "6",
+    "demoImage": "https://loc-hall.fr/wp-content/uploads/2021/11/La-sainte-Chapelle-vue-exterieure-1.jpg.webp",
+    "description": "Sainte-Chapelle, a jewel of Gothic architecture nestled within the heart of Paris, is a testament to the divine beauty of stained glass. Commissioned by King Louis IX, this celestial sanctuary invites you into a realm of kaleidoscopic light and intricate craftsmanship. As sunlight dances through the vibrant panes, biblical stories come to life in a breathtaking display. Sainte-Chapelle is more than a religious edifice; it's a luminous testament to the intersection of faith and art, where the divine meets the mortal gaze.",
+    "id": "5",
+    "name": "Sainte-Chapelle",
+    "location": {
+      "latitude": 48.855,
+      "longitude": 2.3456
+    }
+  },
+  {
+    "additionInfo": "Historical landmark, Immigration symbol, Liberty Island ferry, Crown access tour, Ellis Island Museum, Statue of Liberty Museum, Nighttime illumination, Educational programs",
+    "countryId": "1",
+    "demoImage": "https://cloudfront-us-east-1.images.arcpublishing.com/advancelocal/VKFZOBUTVNFNVBUKSS77AKAKTI.JPEG",
+    "description": "The Statue of Liberty, standing tall on Liberty Island in New York Harbor, is a beacon of freedom and democracy. Gifted by France to the United States, Lady Liberty has become an enduring symbol of hope and resilience. As you approach her, marvel at the intricate details of her crown and torch. Embark on a journey to the crown for unparalleled views of the city skyline. The Statue of Liberty is not merely a monument; she is a guardian, watching over the dreams and aspirations of all who gaze upon her.",
+    "id": "6",
+    "name": "Statue of Liberty",
+    "location": {
+      "latitude": 40.6892,
+      "longitude": -74.0445
+    }
+  },
+  {
+    "additionInfo": "Spectacular views, Hiking trails, Colorado River rafting, Havasu Falls trek, Star-gazing programs, Grand Canyon Village, Wildlife photography, South Rim viewpoints",
+    "countryId": "1",
+    "demoImage": "https://npca.s3.amazonaws.com/images/8706/591ff182-b7f9-4da1-9c16-c29e0ace3dc4-banner.jpg?1445970338",
+    "description": "Grand Canyon National Park, a geological masterpiece carved by the mighty Colorado River, is a testament to the Earth's enduring beauty. As you stand on the rim, the vastness of the canyon unfolds before you, revealing a kaleidoscope of colors and rock formations that defy imagination. Whether you embark on a challenging hike down into the canyon or simply savor the views from the rim, the Grand Canyon is a journey through time, where each layer of rock tells a story millions of years in the making.",
+    "id": "7",
+    "name": "Grand Canyon National Park",
+    "location": {
+      "latitude": 36.1069,
+      "longitude": -112.1129
+    }
+  },
+  {
+    "additionInfo": "Family-friendly, Magical atmosphere, Character meet-and-greets, Parades, Nighttime spectaculars, Dining with Disney characters, Exclusive experiences, Thrilling rides",
+    "countryId": "1",
+    "demoImage": "https://wallpapers.com/images/hd/animated-disney-castle-has6vy47k75d0bzs.jpg",
+    "description": "Disneyland Resort in California, the magical kingdom where dreams come to life, is a celebration of joy and fantasy. As you step through the iconic gates, you're transported into a world of enchanting rides, captivating shows, and beloved Disney characters. From the whimsical spires of Sleeping Beauty Castle to the futuristic allure of Tomorrowland, Disneyland is a realm where imagination knows no bounds. It's not just an amusement park; it's a sanctuary of wonder and delight for the young and young at heart.",
+    "id": "8",
+    "name": "Disneyland Resort",
+    "location": {
+      "latitude": 33.8121,
+      "longitude": -117.9189
+    }
+  },
+  {
+    "additionInfo": "Scenic beauty, Wildlife spotting, Hiking trails, Geothermal features, Yellowstone River, Artist Point, Canyon Village, Photography opportunities",
+    "countryId": "1",
+    "demoImage": "https://c4.wallpaperflare.com/wallpaper/824/450/363/yellowstone-falls-wallpaper-preview.jpg",
+    "description": "Yellowstone Falls, a mesmerizing cascade within the heart of Yellowstone National Park, is nature's symphony of power and beauty. Whether you witness the thunderous roar of the Lower Falls or the delicate veil of the Upper Falls, each moment is a testament to the park's diverse and awe-inspiring ecosystem. Hike along the scenic trails, marvel at the geothermal wonders, and embrace the serenity of the wilderness. Yellowstone Falls is not just a waterfall; it's a poetic expression of nature's grandeur.",
+    "id": "9",
+    "name": "Yellowstone Falls",
+    "location": {
+      "latitude": 44.7179,
+      "longitude": -110.468
+    }
+  },
+  {
+    "additionInfo": "Beach paradise, Art Deco district, Water sports, Ocean Drive nightlife, Cuban cuisine, Wynwood Walls art district, Boat tours, Fashion boutiques",
+    "countryId": "1",
+    "demoImage": "https://images8.alphacoders.com/880/thumb-1920-880550.jpg",
+    "description": "Miami Beach, a vibrant coastal paradise on the shores of Florida, is a sensory delight of sun, sea, and style. As you sink your toes into the white sandy beaches, the vibrant energy of Miami comes alive. From the iconic pastel-hued Art Deco architecture to the lively nightlife of South Beach, Miami Beach is a fusion of relaxation and excitement. Indulge in the cultural mosaic of Cuban influences, savor exquisite cuisine, and let the rhythmic beats of the city guide your every step.",
+    "id": "10",
+    "name": "Miami Beach",
+    "location": {
+      "latitude": 25.7907,
+      "longitude": -80.130
+    }
+  },
+  {
+    "additionInfo": "Japanese Disney magic, Character meet-ups, Traditional snacks, Tokyo Disneyland Hotel, Nighttime spectaculars, Seasonal events, Disney merchandise, Parade viewing spots",
+    "countryId": "2",
+    "demoImage": "https://media2.tokyodisneyresort.jp/home/common/og_image.jpg",
+    "description": "Tokyo Disneyland, nestled in the bustling metropolis of Tokyo, is a spellbinding fusion of Japanese hospitality and Disney magic. As you explore the park, encounter unique attractions, parades, and the enchanting Cinderella Castle. Immerse yourself in the vibrant atmosphere of Japanese Disney culture, where tradition and fantasy harmoniously coexist. Tokyo Disneyland is not just an amusement park; it's a cultural crossroads where the East meets the enchantment of the West.",
+    "id": "11",
+    "name": "Tokyo Disneyland",
+    "location": {
+      "latitude": 35.6329,
+      "longitude": 139.8804
+    }
+  },
+  {
+    "additionInfo": "Cultural landmark, Hiking adventure, Fuji Five Lakes, Hot springs, Cherry blossom viewing, Cultural festivals, Fuji Subaru Line 5th Station, Mount Fuji museums",
+    "countryId": "2",
+    "demoImage": "https://c4.wallpaperflare.com/wallpaper/611/69/87/japan-mountains-mount-fuji-asian-architecture-wallpaper-preview.jpg",
+    "description": "Mount Fuji, Japan's iconic and sacred peak, stands as a silent sentinel against the horizon. As you venture closer, the symmetrical perfection of Mount Fuji unfolds, inviting you to explore its cultural significance and breathtaking landscapes. Whether you embark on a pilgrimage hike, witness the sunrise from the summit, or simply admire the mountain from afar, Mount Fuji is a spiritual journey and a testament to Japan's deep connection with nature.",
+    "id": "12",
+    "name": "Mount Fuji",
+    "location": {
+      "latitude": 35.3606,
+      "longitude": 138.7274
+    }
+  },
+  {
+    "additionInfo": "Historical temples, Zen gardens, Tea ceremonies, Gion district, Traditional crafts, Maiko and Geisha culture, Arashiyama Bamboo Grove, Kimono rental",
+    "countryId": "2",
+    "demoImage": "https://w0.peakpx.com/wallpaper/898/965/HD-wallpaper-kyoto-japan-temple-city-buildings-houses.jpg",
+    "description": "Kyoto Temples, scattered throughout the ancient city of Kyoto, are living testaments to Japan's rich cultural heritage. As you meander through the historic lanes, each temple unveils a chapter of Japanese history, adorned with serene Zen gardens and sacred rituals. Immerse yourself in the tranquility of these spiritual sanctuaries, where the echoes of prayer and the fragrance of incense create an atmosphere of timeless beauty and contemplation.",
+    "id": "13",
+    "name": "Kyoto Temples",
+    "location": {
+      "latitude": 35.0116,
+      "longitude": 135.7681
+    }
+  },
+  {
+    "additionInfo": "Historical landmark, Museum visit, Cherry blossom season, Nishinomaru Garden, Osaka Castle Park, Samurai and ninja experiences, Osaka Museum of History, Castle illumination",
+    "countryId": "2",
+    "demoImage": "https://images7.alphacoders.com/976/976737.jpg",
+    "description": "Osaka Castle, a formidable fortress rising in the heart of Osaka, is a testament to Japan's feudal past and architectural prowess. Traverse through time as you explore the castle's towering walls, visit the museum, and ascend to the observation deck for panoramic views of Osaka. Immerse yourself in the historical narrative of samurai legends and vibrant cultural traditions that make Osaka Castle an enduring symbol of Japan's resilience and grandeur.",
+    "id": "14",
+    "name": "Osaka Castle",
+    "location": {
+      "latitude": 34.6873,
+      "longitude": 135.5259
+    }
+  },
+  {
+    "additionInfo": "Historical significance, Peaceful reflection, Hiroshima Peace Memorial Museum, Hiroshima Castle, Shukkeien Garden, Okonomiyaki dining, Miyajima Island day trip, A-Bomb Dome illumination",
+    "countryId": "2",
+    "demoImage": "https://gaijinpot.scdn3.secure.raxcdn.com/app/uploads/sites/6/2016/08/A-Bomb-Dome-Hiroshima--1024x683.jpg",
+    "description": "Hiroshima Peace Memorial, also known as the Atomic Bomb Dome, stands as a poignant tribute to the resilience of the human spirit in the face of tragedy. As you stand before this UNESCO World Heritage Site, absorb the historical significance and the symbolic call for a world free from nuclear conflict. Explore the adjacent Peace Memorial Park, where each monument tells a story of remembrance and hope for a peaceful future.",
+    "id": "15",
+    "name": "Hiroshima Peace Memorial",
+    "location": {
+      "latitude": 34.3955,
+      "longitude": 132.4531
+    }
+  },
+  {
+    "additionInfo": "Marine biodiversity, Snorkeling paradise, Coral conservation efforts, Guided diving tours, Underwater photography, Coral bleaching awareness, Indigenous marine protection initiatives",
+    "countryId": "3",
+    "demoImage": "https://wallpaperaccess.com/full/1151171.jpg",
+    "description": "The Great Barrier Reef, a mesmerizing underwater realm off the coast of Australia, is a living kaleidoscope of vibrant coral formations and diverse marine life. Immerse yourself in the crystal-clear waters to witness the intricate dance of marine biodiversity. Snorkel or dive into this UNESCO World Heritage Site for an unforgettable encounter with the wonders beneath the waves.",
+    "id": "16",
+    "name": "Great Barrier Reef",
+    "location": {
+      "latitude": -18.2871,
+      "longitude": 147.6992
+    }
+  },
+  {
+    "additionInfo": "Architectural marvel, Cultural performances, Behind-the-scenes tours, Opera and ballet experiences, Indigenous art exhibitions, Waterfront dining, Sunset performances, Sydney Harbour Bridge views",
+    "countryId": "3",
+    "demoImage": "https://images4.alphacoders.com/743/743533.jpg",
+    "description": "The Sydney Opera House, an architectural masterpiece nestled along the harbor, is not just a cultural icon; its a symphony of design and cultural significance. Explore the sails that grace the skyline and attend a performance within its hallowed halls. Take a guided tour to unravel the stories behind this marvel, celebrating its role in shaping the artistic narrative of Sydney and the world.",
+    "id": "17",
+    "name": "Sydney Opera House",
+    "location": {
+      "latitude": -33.8568,
+      "longitude": 151.2153
+    }
+  },
+  {
+    "additionInfo": "Aboriginal heritage, Red desert landscapes, Indigenous storytelling, Guided cultural walks, Stargazing experiences, Indigenous art workshops, Cameldrive adventures, Tjukurpa teachings",
+    "countryId": "3",
+    "demoImage": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/59/0d/13/caption.jpg?w=600&h=400&s=1",
+    "description": "Uluru, also known as Ayers Rock, stands as a sacred monolith in the heart of Australia, surrounded by the awe-inspiring landscapes of Uluru-Kata Tjuta National Park. As you explore this red desert expanse, discover not only the geological marvel of Uluru but also the rich tapestry of Aboriginal heritage woven into the land. Engage in guided tours to gain insights into ancient stories and the spiritual significance of this UNESCO-listed site.",
+    "id": "18",
+    "name": "Uluru-Kata Tjuta National Park",
+    "location": {
+      "latitude": -25.3444,
+      "longitude": 131.0369
+    }
+  },
+  {
+    "additionInfo": "Coastal drive, Natural wonders, Twelve Apostles viewpoints, Shipwreck Coast history, Surfing hotspots, Rainforest walks, Local seafood experiences, Sunset vistas",
+    "countryId": "3",
+    "demoImage": "https://pixelz.cc/wp-content/uploads/2016/11/great-ocean-road-victoria-australia-4k-wallpaper.jpg",
+    "description": "The Great Ocean Road, a scenic coastal masterpiece in Australia, unfolds like a visual poem along the Southern Ocean. Embark on a journey where every twist and turn reveals breathtaking views of towering cliffs, golden beaches, and the iconic Twelve Apostles. Traverse this coastal drive to witness the raw beauty of Australia's coastline, capturing the essence of nature's grandeur.",
+    "id": "19",
+    "name": "Great Ocean Road",
+    "location": {
+      "latitude": -38.6806,
+      "longitude": 143.3910
+    }
+  },
+  {
+    "additionInfo": "Surfing paradise, Beach vibes, Coastal walks, Surfing competitions, Beach yoga sessions, Beachside dining, Local art markets, Bondi to Coogee coastal walk",
+    "countryId": "3",
+    "demoImage": "https://c0.wallpaperflare.com/preview/252/37/114/australia-bondi-beach-bondi-icebergs-pool-pool.jpg",
+    "description": "Bondi Beach, a haven for surfers and sun-seekers, epitomizes the laid-back coastal vibe of Australia. The golden sands stretch as far as the eye can see, inviting you to relax, take a surf lesson, and soak up the vibrant atmosphere. Dive into the beachside cafes, where the scent of saltwater mingles with the aromas of world-class cuisine, creating an irresistible blend of surf culture and beach vibes.",
+    "id": "20",
+    "name": "Bondi Beach",
+    "location": {
+      "latitude": -33.8915,
+      "longitude": 151.2767
+    }
+  },
+  {
+    "additionInfo": "Spiritual landmark, City views, Sunset visits, Helicopter tours, Cultural significance, Christ the Redeemer history, Nighttime illumination, Photography excursions",
+    "countryId": "4",
+    "demoImage": "https://images7.alphacoders.com/359/359867.jpg",
+    "description": "Christ the Redeemer, the iconic statue atop Corcovado Mountain in Rio de Janeiro, transcends its role as a spiritual landmark; it is a beacon of serenity and panoramic beauty. As you ascend to this marvel, the sprawling city unfolds beneath, offering unparalleled views. This monumental masterpiece invites you not only to witness the cityscape but to feel the spiritual embrace that echoes through the hills.",
+    "id": "21",
+    "name": "Christ the Redeemer",
+    "location": {
+      "latitude": -22.9519,
+      "longitude": -43.2105
+    }
+  },
+  {
+    "additionInfo": "Beach paradise, Vibrant energy, Beach volleyball, Surfing lessons, Beachside markets, Samba beach parties, Fresh coconut vendors, Nighttime beach events",
+    "countryId": "4",
+    "demoImage": "https://c4.wallpaperflare.com/wallpaper/231/797/294/beach-brazil-copacabana-night-wallpaper-preview.jpg",
+    "description": "Copacabana Beach, a world-renowned stretch of golden sands in Rio de Janeiro, is more than a beach; its a canvas of vibrant energy and endless possibilities. Feel the pulse of the lively atmosphere as you relax on the iconic shores, where beach sports and sun-drenched days seamlessly blend. Copacabana is not just a beach; its a dynamic celebration of sun, sea, and the spirited essence of Brazilian culture.",
+    "id": "22",
+    "name": "Copacabana Beach",
+    "location": {
+      "latitude": -22.9719,
+      "longitude": -43.1859
+    }
+  },
+  {
+    "additionInfo": "Natures spectacle, Waterfall adventure, Boat excursions, Wildlife encounters, Moonlight walks, Birdwatching tours, Jungle safaris, Indigenous folklore",
+    "countryId": "4",
+    "demoImage": "https://w0.peakpx.com/wallpaper/447/579/HD-wallpaper-iguazu-falls-waterfall-nature-iguazu-other.jpg",
+    "description": "Iguazu Falls, a breathtaking natural wonder straddling the border of Brazil and Argentina, is a symphony of cascading water amidst lush rainforest. Venture into this natures spectacle to witness the sheer power and beauty of the falls. Engage in waterfall adventures, exploring walkways that offer immersive views and glimpses of diverse wildlife in this UNESCO-listed paradise.",
+    "id": "23",
+    "name": "Iguazu Falls",
+    "location": {
+      "latitude": -25.6953,
+      "longitude": -54.4367
+    }
+  },
+  {
+    "additionInfo": "Eco-tourism, Wildlife exploration, Canopy walks, River cruises, Indigenous community visits, Medicinal plant discoveries, Nighttime jungle safaris, Sustainability initiatives",
+    "countryId": "4",
+    "demoImage": "https://www.andbeyond.com/wp-content/uploads/sites/5/Amazon-Rain-Forest.jpg",
+    "description": "The Amazon Rainforest in Brazil, the worlds largest tropical rainforest, is a canvas of greenery pulsating with life. Embark on an eco-tourism journey to explore this cradle of biodiversity, where unique wildlife and lush vegetation coexist. Engage in guided tours that unveil the secrets of the rainforest, from the mighty Amazon River to the canopy above, fostering an appreciation for the delicate balance of this extraordinary ecosystem.",
+    "id": "24",
+    "name": "Amazon Rainforest",
+    "location": {
+      "latitude": -3.4653,
+      "longitude": -62.2159
+    }
+  },
+  {
+    "additionInfo": "Cultural extravaganza, Samba rhythms, Carnival history, Street parties, Samba school parades, Costume workshops, Carnival cuisine, Carnival balls",
+    "countryId": "4",
+    "demoImage": "https://southjets.com/wp-content/uploads/2019/02/Carnaval-en-Rio-de-Janeiro-la-fiesta-de-carnaval-mas-grande-del-mundo.jpg",
+    "description": "Experience the vibrant Carnival in Rio de Janeiro, a cultural extravaganza that transcends the boundaries of music, dance, and colorful parades. Immerse yourself in the rhythmic beats of samba, vibrant costumes, and the infectious energy that fills the streets. This world-famous celebration is not just an event; its a kaleidoscope of Brazilian culture that invites you to join the festivities and become part of the spectacle.",
+    "id": "25",
+    "name": "Carnival in Rio",
+    "location": {
+      "latitude": -22.9068,
+      "longitude": -43.1729
+    }
+  },
+  {
+    "additionInfo": "Scenic beauty, Hiking adventure, Cable car experiences, Full moon hikes, Birdwatching, Abseiling adventures, Sunset picnics, Table Mountain National Park",
+    "countryId": "5",
+    "demoImage": "https://i.pinimg.com/originals/e4/07/75/e4077595145db3a264436a8cbc7e75e8.jpg",
+    "description": "Table Mountain, a majestic landmark overlooking Cape Town, is more than a geographical wonder; its a canvas of scenic beauty and adventure. Whether you ascend via a cable car or embark on a hiking adventure, the summit offers panoramic views of the city, ocean, and surrounding landscapes. Table Mountain is a sanctuary where nature and urban allure converge, inviting you to explore its trails and embrace the allure of the Cape Peninsula.",
+    "id": "26",
+    "name": "Table Mountain",
+    "location": {
+      "latitude": -33.9626,
+      "longitude": 18.4098
+    }
+  },
+  {
+    "additionInfo": "Wildlife safari, Conservation area, Guided game drives, Bushwalk safaris, Stargazing experiences, Birding safaris, Luxury safari lodges, Rhino conservation initiatives",
+    "countryId": "5",
+    "demoImage": "https://wallpapercave.com/wp/wp2538125.jpg",
+    "description": "Kruger National Park, one of Africas premier safari destinations, beckons with the allure of wildlife encounters and untamed landscapes. Embark on a wildlife safari amidst the vast expanse of the park, where the Big Five roam freely. Immerse yourself in the magic of the bushveld, from sunrise game drives to starlit nights, creating memories that resonate with the primal rhythm of the African wilderness.",
+    "id": "27",
+    "name": "Kruger National Park",
+    "location": {
+      "latitude": -23.9884,
+      "longitude": 31.5547
+    }
+  },
+  {
+    "additionInfo": "Historical landmark, Apartheid history, Guided prison tours, Mandela legacy, Ferry excursions, Cape Town city views, Lighthouse exploration, Anti-apartheid struggle narratives",
+    "countryId": "5",
+    "demoImage": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/a4/f2/14/robben-islandhas-been.jpg?w=1200&h=-1&s=1",
+    "description": "Robben Island, a UNESCO World Heritage Site near Cape Town, is not just a historical landmark; its a living testament to South Africa's journey from oppression to resilience. Venture to this island to explore the former prison where Nelson Mandela was held captive and gain insights into the complexities of South Africas apartheid history. Robben Island is a pilgrimage of remembrance, a place where history whispers in the winds off the Atlantic.",
+    "id": "28",
+    "name": "Robben Island",
+    "location": {
+      "latitude": -33.8061,
+      "longitude": 18.3665
+    }
+  },
+  {
+    "additionInfo": "Canyon exploration, Natures beauty, God's Window viewpoints, Three Rondavels, Boat trips, Panorama Route drives, Bourke's Luck Potholes, Kadishi Tufa waterfall",
+    "countryId": "5",
+    "demoImage": "https://i.pinimg.com/736x/8e/3f/17/8e3f173a01a91fea92f7f64296e8a9f7.jpg",
+    "description": "Blyde River Canyon, a breathtaking natural wonder in South Africa, beckons with its lush greenery, towering red cliffs, and panoramic views. Traverse the rim of the canyon to witness natures beauty unfolding in every direction. Engage in canyon exploration, from hiking trails that lead to hidden viewpoints to boat excursions offering a unique perspective of the canyons geological formations.",
+    "id": "29",
+    "name": "Blyde River Canyon",
+    "location": {
+      "latitude": -24.5471,
+      "longitude": 30.8435
+    }
+  },
+  {
+    "additionInfo": "Shopping, Dining, Cultural experiences, Waterside promenades, Ferris wheel rides, Maritime history tours, Two Oceans Aquarium, Artisanal craft markets",
+    "countryId": "5",
+    "demoImage": "https://www.capetourism.com/wp-content/uploads/2023/01/cape-town-va-waterfront.jpg",
+    "description": "The Victoria & Alfred Waterfront in Cape Town is a vibrant harbor area that transcends the traditional definition of a waterfront. Explore the mix of historical charm and contemporary energy as you wander through shops, dine at waterfront restaurants, and immerse yourself in cultural attractions. This lively waterfront is not just a shopping and dining destination; it's a cultural and entertainment hub that invites you to experience Cape Town's dynamic spirit.",
+    "id": "30",
+    "name": "Victoria & Alfred Waterfront",
+    "location": {
+      "latitude": -33.907,
+      "longitude": 18.4209
+    }
+  },
+  {
+    "additionInfo": "Architectural marvel, UNESCO World Heritage Site, Love story, Mughal architecture, Intricate gardens, Marble domes, Historical significance",
+    "countryId": "7",
+    "demoImage": "https://imagescdn.pystravel.vn/uploads/posts/avatar/1644316230.jpg",
+    "description": "The Taj Mahal, a UNESCO World Heritage Site located in Agra, is an iconic symbol of love and architectural brilliance. Built by Emperor Shah Jahan in memory of his wife Mumtaz Mahal, this white marble mausoleum is a masterpiece of Mughal architecture. Explore the intricately designed gardens, marvel at the stunning marble domes, and immerse yourself in the historical and romantic aura of this timeless monument.",
+    "id": "31",
+    "name": "Taj Mahal",
+    "location": {
+      "latitude": 27.1751,
+      "longitude": 78.0421
+    }
+  },
+  {
+    "additionInfo": "Royal architecture, Blend of styles, Peacock Gate, Courtyards, Rajput heritage, Mughal influence, European design",
+    "countryId": "7",
+    "demoImage": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/96/8a/82/this-is-the-time-when.jpg?w=1200&h=1200&s=1",
+    "description": "The City Palace in Jaipur is a majestic complex that beautifully blends Rajput, Mughal, and European architectural styles. Explore the royal chambers, intricate courtyards, and the breathtaking Peacock Gate. With its rich history and opulent design, Jaipur City Palace offers a glimpse into the royal heritage of Rajasthan.",
+    "id": "32",
+    "name": "Jaipur City Palace",
+    "location": {
+      "latitude": 26.9258,
+      "longitude": 75.8069
+    }
+  },
+  {
+    "additionInfo": "Sacred Ganges River, Spiritual ambiance, Religious ceremonies, Boat ride, Ghats, Cultural immersion",
+    "countryId": "7",
+    "demoImage": "https://www.tripsavvy.com/thmb/tJ6ruJDKISZf3tZn6jx__HeMUMY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-128253674-592156025f9b58f4c0d79bfd.jpg",
+    "description": "Varanasi, situated on the banks of the sacred Ganges River, is known for its ghats that host religious ceremonies and rituals. Witness the spiritual ambiance, take a boat ride along the Ganges, and experience the profound connection between spirituality and daily life in Varanasi.",
+    "id": "33",
+    "name": "Varanasi Ghats",
+    "location": {
+      "latitude": 25.3176,
+      "longitude": 82.9739
+    }
+  },
+  {
+    "additionInfo": "Spiritual significance, Himalayan foothills, Ashrams, Ganga Aarti, Scenic beauty, Tranquil environment",
+    "countryId": "7",
+    "demoImage": "https://www.tourmyindia.com/socialimg/haridwar-and-rishikesh-tour.webp",
+    "description": "Rishikesh and Haridwar, located in the Himalayan foothills, are renowned for their spiritual significance and scenic beauty. Explore the ashrams in Rishikesh, witness the Ganga Aarti in Haridwar, and experience the tranquil environment of these two spiritually charged destinations.",
+    "id": "34",
+    "name": "Rishikesh and Haridwar",
+    "location": {
+      "latitude": 30.0862,
+      "longitude": 78.2676
+    }
+  },
+  {
+    "additionInfo": "Serene landscape, Houseboat cruise, Traditional art forms, Backwater network, South Indian paradise, Kerala culture",
+    "countryId": "7",
+    "demoImage": "https://media2.thrillophilia.com/images/photos/000/012/947/original/1513318534_India_Sea_Ships_450719.jpg?gravity=center&width=1280&height=642&crop=fill&quality=auto&fetch_format=auto&flags=strip_profile&format=jpg&sign_url=true",
+    "description": "The backwaters of Kerala offer a serene and picturesque landscape with interconnected rivers, lakes, and canals. Experience a houseboat cruise, witness traditional art forms, and immerse yourself in the tranquil beauty of this South Indian paradise.",
+    "id": "35",
+    "name": "Kerala Backwaters",
+    "location": {
+      "latitude": 9.4981,
+      "longitude": 76.3388
+    }
+  },
+  {
+    "additionInfo": "Mountain landscapes, Turquoise lakes, Outdoor adventures, Wildlife spotting, Scenic hikes, Lake Louise, Banff town, Canadian Rockies",
+    "countryId": "8",
+    "demoImage": "https://media.cntraveler.com/photos/5bbe66816477eb358f143759/master/w_1600%2Cc_limit/Fairmont-Banff-Springs__2018_BSH-548.jpg",
+    "description": "Banff National Park, nestled in the Canadian Rockies, is a pristine wilderness and a haven for outdoor enthusiasts. The park boasts stunning mountain landscapes, turquoise lakes, and diverse wildlife. Explore the picturesque town of Banff, embark on scenic hikes, and witness the beauty of Lake Louise. With opportunities for wildlife spotting and outdoor adventures, Banff National Park offers a true escape into the heart of nature.",
+    "id": "36",
+    "name": "Banff National Park",
+    "location": {
+      "latitude": 51.4968,
+      "longitude": -115.9281
+    }
+  },
+  {
+    "additionInfo": "Natural wonder, Spectacular views, Boat tour, Parks, Entertainment, Attractions, Canada-US border",
+    "countryId": "8",
+    "demoImage": "https://upload.wikimedia.org/wikipedia/commons/a/ab/3Falls_Niagara.jpg",
+    "description": "Niagara Falls, one of the natural wonders of the world, is a breathtaking spectacle located on the border of Canada and the United States. Experience the sheer power and beauty of the falls from various vantage points, take a boat tour to get up close, and explore the surrounding parks. Niagara Falls is not just a natural marvel; its also a hub of entertainment and attractions.",
+    "id": "37",
+    "name": "Niagara Falls",
+    "location": {
+      "latitude": 43.0812,
+      "longitude": -79.0742
+    }
+  },
+  {
+    "additionInfo": "Ski resort, Alpine landscapes, Outdoor adventures, Mountain biking, Zip-lining, Apres-ski, Charming village, British Columbia",
+    "countryId": "8",
+    "demoImage": "https://mountainwatch.travel/wp-content/uploads/2019/03/LargeThumbnails-ExteriorWinterBeaconSide-1024x585.jpg",
+    "description": "Whistler Blackcomb, located in British Columbia, is a world-renowned ski resort and outdoor adventure destination. With its stunning alpine landscapes, Whistler offers a wide range of activities, including skiing, snowboarding, mountain biking, and zip-lining. Explore the charming village, experience the vibrant apres-ski scene, and indulge in the thrill of outdoor pursuits.",
+    "id": "38",
+    "name": "Whistler Blackcomb",
+    "location": {
+      "latitude": 50.1163,
+      "longitude": -122.9574
+    }
+  },
+  {
+    "additionInfo": "Nature lover's paradise, Glacial lakes, Rugged peaks, Abundant wildlife, Icefields Parkway, Maligne Lake, Dark Sky Preserve, Canadian Rockies",
+    "countryId": "8",
+    "demoImage": "https://lp-cms-production.s3.amazonaws.com/public/2021-05/shutterstockRF_1027912921.jpg",
+    "description": "Jasper National Park, situated in the Canadian Rockies, is a haven for nature lovers and outdoor enthusiasts. Experience the beauty of glacial lakes, rugged mountain peaks, and abundant wildlife. Explore the iconic Icefields Parkway, take a boat cruise on Maligne Lake, and stargaze in the Dark Sky Preserve. Jasper National Park offers a serene and immersive escape into the heart of the Rockies.",
+    "id": "39",
+    "name": "Jasper National Park",
+    "location": {
+      "latitude": 52.8734,
+      "longitude": -118.0817
+    }
+  },
+  {
+    "additionInfo": "Charming city, Historic streets, Château Frontenac, French-Canadian culture, European ambiance, Festivals, Delicious cuisine, Province of Quebec",
+    "countryId": "8",
+    "demoImage": "https://travel.destinationcanada.com/_next/image?url=https%3A%2F%2Fadmin.destinationcanada.com%2Fsites%2Fdefault%2Ffiles%2F2023-06%2FQC-Chateau-Frontenac_hero.jpg&w=1920&q=75",
+    "description": "Quebec City, a charming and historic gem, is the capital of the province of Quebec. Explore the cobblestone streets of Old Quebec, visit the iconic Château Frontenac, and immerse yourself in the rich French-Canadian culture. With its European ambiance, lively festivals, and delicious cuisine, Quebec City offers a unique blend of history and modernity.",
+    "id": "40",
+    "name": "Quebec City",
+    "location": {
+      "latitude": 46.8139,
+      "longitude": -71.208
+    }
+  },
+  {
+    "additionInfo": "Ancient engineering marvel, UNESCO World Heritage Site, Panoramic views, Different sections, Historical significance, Landscapes",
+    "countryId": "9",
+    "demoImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/The_Great_Wall_of_China_at_Jinshanling-edit.jpg/1200px-The_Great_Wall_of_China_at_Jinshanling-edit.jpg",
+    "description": "The Great Wall of China is a marvel of ancient engineering and a symbol of the countrys rich history. Stretching over thousands of kilometers, the Great Wall offers panoramic views of the surrounding landscapes. Explore different sections of the wall, each with its unique characteristics, and immerse yourself in the historical significance of this UNESCO World Heritage Site.",
+    "id": "41",
+    "name": "The Great Wall",
+    "location": {
+      "latitude": 40.4319,
+      "longitude": 116.5704
+    }
+  },
+  {
+    "additionInfo": "Karst landscapes, Picturesque scenery, Scenic boat cruise, Limestone peaks, Traditional villages, Cormorant fishing, Guilin",
+    "countryId": "9",
+    "demoImage": "https://upload.wikimedia.org/wikipedia/commons/c/c3/87318-Li-River.jpg",
+    "description": "The Li River in Guilin is renowned for its stunning karst landscapes and picturesque scenery. Embark on a scenic boat cruise along the river, surrounded by towering limestone peaks and lush greenery. Explore traditional villages, witness cormorant fishing, and capture the breathtaking beauty that has inspired poets and artists for centuries.",
+    "id": "42",
+    "name": "Li River, Guilin",
+    "location": {
+      "latitude": 25.244,
+      "longitude": 110.214
+    }
+  },
+  {
+    "additionInfo": "Imperial palace, Ornate architecture, UNESCO World Heritage Site, Hall of Supreme Harmony, Imperial Gardens, Chinese history, Cultural heritage",
+    "countryId": "9",
+    "demoImage": "https://image.jimcdn.com/app/cms/image/transf/dimension=2080x10000:format=jpg/path/s2217cd0bb1220415/image/i924c52c240be26ee/version/1683854111/the-forbidden-city-beijing.jpg",
+    "description": "The Forbidden City, located in the heart of Beijing, is a majestic palace complex that served as the imperial palace for Chinese emperors for centuries. With its grand halls, ornate architecture, and extensive courtyards, the Forbidden City is a testament to China's imperial history. Explore the intricate details of the Hall of Supreme Harmony, stroll through the Imperial Gardens, and immerse yourself in the rich cultural heritage of this UNESCO World Heritage Site.",
+    "id": "43",
+    "name": "The Forbidden City",
+    "location": {
+      "latitude": 39.9163,
+      "longitude": 116.3971
+    }
+  },
+  {
+    "additionInfo": "UNESCO World Heritage Site, Granite peaks, Ancient pine trees, Breathtaking sunrise, Sea of clouds, Scenic trails, Huangshan",
+    "countryId": "9",
+    "demoImage": "https://www.mercierzeng.com/image/huangshan/yellow-mountains-19.jpg",
+    "description": "Yellow Mountain, or Huangshan, is a UNESCO World Heritage Site known for its unique granite peaks, ancient pine trees, and mystical atmosphere. Experience the breathtaking sunrise over the sea of clouds, hike through scenic trails, and appreciate the timeless beauty that has inspired traditional Chinese art and literature for centuries.",
+    "id": "44",
+    "name": "Yellow Mountain (Huangshan)",
+    "location": {
+      "latitude": 30.134,
+      "longitude": 118.15
+    }
+  },
+  {
+    "additionInfo": "Archaeological discovery, Life-sized clay soldiers, Emperor Qin Shi Huang, Three pits, Craftsmanship, Historical significance, Xi'an",
+    "countryId": "9",
+    "demoImage": "https://assets.editorial.aetnd.com/uploads/2014/03/gettyimages-1236172686.jpg?width=768",
+    "description": "The Terracotta Army in Xi'an is a remarkable archaeological discovery, featuring thousands of life-sized clay soldiers and horses buried with Emperor Qin Shi Huang. Explore the three pits containing the terracotta warriors, each with its own formations and details. Witness the incredible craftsmanship and historical significance of this UNESCO World Heritage Site.",
+    "id": "45",
+    "name": "Terracotta Army, Xi'an",
+    "location": {
+      "latitude": 34.385,
+      "longitude": 109.27
+    }
+  },
+  {
+    "additionInfo": "UNESCO World Heritage Site, Ancient Maya civilization, El Castillo pyramid, Astronomical precision, Archaeological complex, Yucatan Peninsula, Historical significance",
+    "countryId": "10",
+    "demoImage": "https://upload.wikimedia.org/wikipedia/commons/5/51/Chichen_Itza_3.jpg",
+    "description": "Chichen Itza, a UNESCO World Heritage Site on the Yucatan Peninsula, is a mesmerizing archaeological complex that was once a major city of the ancient Maya civilization. Explore the iconic El Castillo pyramid, marvel at the astronomical precision of the structures, and discover the rich history and cultural significance of Chichen Itza. With its captivating ruins and historical importance, Chichen Itza offers a fascinating journey into the mysteries of the Maya civilization.",
+    "id": "46",
+    "name": "Chichen Itza",
+    "location": {
+      "latitude": 20.6829,
+      "longitude": -88.5686
+    }
+  },
+  {
+    "additionInfo": "Ancient Mayan ruins, Caribbean Sea, Pristine beaches, Snorkeling, Riviera Maya, Cenotes, Tropical paradise",
+    "countryId": "10",
+    "demoImage": "https://a.cdn-hotels.com/gdcs/production73/d1624/45ab7e53-4363-41f8-8783-78765ac502ee.jpg",
+    "description": "Tulum, located along the Riviera Maya, is a coastal paradise with ancient Mayan ruins overlooking the Caribbean Sea. Explore the well-preserved archaeological site, relax on pristine beaches, and snorkel in crystal-clear cenotes. Tulum offers a perfect blend of history, nature, and relaxation in a breathtaking tropical setting.",
+    "id": "47",
+    "name": "Tulum",
+    "location": {
+      "latitude": 20.2119,
+      "longitude": -87.4658
+    }
+  },
+  {
+    "additionInfo": "Stunning beaches, Vibrant nightlife, Archaeological wonders, Hotel Zone, Mayan ruins, El Rey, Energetic atmosphere",
+    "countryId": "10",
+    "demoImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Cancun_aerial_photo_by_safa.jpg/1200px-Cancun_aerial_photo_by_safa.jpg",
+    "description": "Cancun, a world-renowned resort city on the Yucatan Peninsula, is famous for its stunning beaches, vibrant nightlife, and archaeological wonders. Relax on the white sands of the Hotel Zone, explore the Mayan ruins of El Rey, and indulge in the energetic atmosphere of the city's clubs and restaurants. Cancun offers a perfect blend of sun, sea, and culture.",
+    "id": "48",
+    "name": "Cancun",
+    "location": {
+      "latitude": 21.1619,
+      "longitude": -86.8515
+    }
+  },
+  {
+    "additionInfo": "Cobblestone streets, Vibrant art scene, Beautiful beaches, Old Town, Malecón boardwalk, Banderas Bay, Cultural richness",
+    "countryId": "10",
+    "demoImage": "https://cdn.aarp.net/content/dam/aarp/travel/international/2022/08/1140-puerto-vallarta.jpg",
+    "description": "Puerto Vallarta, nestled on the Pacific Coast, is a charming coastal town known for its cobblestone streets, vibrant art scene, and beautiful beaches. Explore the historic Old Town, stroll along the Malecón boardwalk, and enjoy water activities in Banderas Bay. Puerto Vallarta offers a blend of cultural richness and natural beauty.",
+    "id": "49",
+    "name": "Puerto Vallarta",
+    "location": {
+      "latitude": 20.6534,
+      "longitude": -105.2253
+    }
+  },
+  {
+    "additionInfo": "Archaeological site, Ancient Maya civilization, Temples, Palaces, Chiapas, Jungle, Mystical ambiance",
+    "countryId": "10",
+    "demoImage": "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1280,h_853/w_79,x_14,y_14,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/olr38xdasdwwvpnxtpgn/V%C3%A9Mi%E1%BB%85nX%E1%BA%BFpH%C3%A0ngV%C3%A0oC%E1%BB%ADaPalenque.jpg",
+    "description": "Palenque, nestled in the jungles of Chiapas, is an archaeological site showcasing the grandeur of the ancient Maya civilization. Explore the well-preserved temples and palaces, surrounded by lush greenery and wildlife. With its mystical ambiance and historical significance, Palenque offers a journey into the heart of Maya culture and architecture.",
+    "id": "50",
+    "name": "Palenque",
+    "location": {
+      "latitude": 17.4872,
+      "longitude": -92.0457
+    }
+  }
+]

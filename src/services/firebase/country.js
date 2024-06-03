@@ -32,7 +32,7 @@ const getCountryFromId = async (countryId) => {
         snapshot.forEach((childSnapshot) => {
             const childData = childSnapshot.val();
 
-            if (childData && childData.id && childData.id === countryId) {
+            if (childData && childData.id && childData.id == countryId) {
                 foundData = childData;
                 console.log("Node with countryId =", countryId, "found!");
             }
@@ -110,6 +110,17 @@ const getCountryIdFromTourId = async (tourId) => {
         throw error;
     }
 };
+
+// const getCountryIdsFromDestData = (destData) => {
+//     try {
+//         destData.forEach(
+
+//         )
+//     } catch (error) {
+//         console.error("Error finding country ids from dest data:", error);
+//         throw error;
+//     }
+// }
 
 const getCountryIdFromRestaurantId = async (restaurantId) => {
     try {

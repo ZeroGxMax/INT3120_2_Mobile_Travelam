@@ -83,7 +83,7 @@ const getCommentFromId = async (commentId) => {
     }
 };
 
-const addNewComment = async (tourId, body, created_at, email, userId) => {
+const addNewComment = async (tourId, body, created_at, email, userId, uploadImageUrl) => {
     try {
         const commentRef = ref(db, 'comment/data');
         const newCommentRef = push(commentRef);
@@ -100,6 +100,7 @@ const addNewComment = async (tourId, body, created_at, email, userId) => {
             reported: false,
             tourId: tourId,
             userId: userId,
+            uploadImageUrl: uploadImageUrl
         };
 
         // console.log("New comment: " + JSON.stringify(newComment, null, 2));
@@ -191,8 +192,7 @@ const getRefFromId = async (commentId) => {
             }
         });
         await Promise.all(promises);
-
-        // console.log(commentRefFound);
+        
         return commentRefFound;
     } catch (error) {
         console.error("Error getting comment reference:", error);

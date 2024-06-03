@@ -1,30 +1,62 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { getApps } from "firebase/app";
+import { getApps, initializeApp } from "firebase/app";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { default as customTheme } from "./customTheme.json";
 import { MainNavigator } from "./src/navigation/MainNavigator";
 import { AuthenticatedUserProvider } from "./src/providers";
-
+import * as Notifications from 'expo-notifications';
+import { registerForPushNotificationsAsync, schedulePushNotification } from './src/services/notificationService';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
   const isFirebaseInitialized = () => {
     const firebaseApps = getApps();
     return firebaseApps.length > 0;
   };
 
-  // Usage
-  if (isFirebaseInitialized()) {
-    console.log("Firebase is initialized.");
+  if (!isFirebaseInitialized()) {
+    initializeApp(firebaseConfig);
+    console.log("Firebase initialized.");
   } else {
-    console.log("Firebase is not initialized.");
+    console.log("Firebase is already initialized.");
   }
 
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+    }),
+  });
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+  
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />

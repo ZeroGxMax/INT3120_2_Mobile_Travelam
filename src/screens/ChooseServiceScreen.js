@@ -8,7 +8,7 @@ import {
     Image,
     ImageBackground,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
@@ -18,19 +18,19 @@ import Modal from "react-native-modal";
 import { useSelector } from "react-redux";
 import LoadingView from '../components/utils/LoadingView';
 import ServiceItem from "../components/ServiceItem";
-import { getAccomFromDestId } from "../services/firebase/accom";
-import { getRestFromDestId } from "../services/firebase/rest";
-import { getTransFromDestId } from "../services/firebase/trans";
-import { getActFromDestId } from "../services/firebase/activity";
+import { getAccomFromDestIdAddData } from "../services/firebase/accom";
+import { getRestFromDestIdAddData } from "../services/firebase/rest";
+import { getTransFromDestIdAddData } from "../services/firebase/trans";
+import { getActFromDestIdAddData } from "../services/firebase/activity";
 
-const ChooseServiceScreen = () => {
+export default ChooseServiceScreen = () => {
+    const [value, setValue] = useState('');
     const cart = useSelector((state) => state.cart.cart);
     const total = cart
-        .map((item) => 70 * item.quantity)
+        .map((item) => item.price)
         .reduce((curr, prev) => curr + prev, 0);
-    console.log(total);
-    console.log(cart);
     const route = useRoute();
+    console.log("Time: ", route.params.time)
     const navigation = useNavigation();
     const [menu, setMenu] = useState([]);
     const [accom, setAccom] = useState([])
@@ -49,21 +49,38 @@ const ChooseServiceScreen = () => {
     };
 
     const [loading, setLoading] = useState(true);
+    
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 // Fetch all countries
-                const allAccomData = await getAccomFromDestId(route.params.id);
+                const allAccomData = await getAccomFromDestIdAddData(
+                    route.params.id, 
+                    route.params.countryName, 
+                    route.params.destination
+                );
                 setAccom(allAccomData);
 
-                const allRestData = await getRestFromDestId(route.params.id);
+                const allRestData = await getRestFromDestIdAddData(
+                    route.params.id, 
+                    route.params.countryName, 
+                    route.params.destination
+                );
                 setRest(allRestData);
 
-                const allTransData = await getTransFromDestId(route.params.id);
+                const allTransData = await getTransFromDestIdAddData(
+                    route.params.id, 
+                    route.params.countryName, 
+                    route.params.destination
+                );
                 setTrans(allTransData);
 
-                const allActData = await getActFromDestId(route.params.id);
+                const allActData = await getActFromDestIdAddData(
+                    route.params.id, 
+                    route.params.countryName, 
+                    route.params.destination
+                );
                 setActivity(allActData);
 
                 setLoading(false);
@@ -171,7 +188,7 @@ const ChooseServiceScreen = () => {
                                     color: "white"
                                 }}
                             >
-                                {route.params.time}mins
+                                {route.params.time} days
                             </Text>
                         </View>
 
@@ -202,7 +219,7 @@ const ChooseServiceScreen = () => {
                                 marginTop: 10,
                             }}
                         >
-                            <Text style={{ color: "white" }}>22 mins</Text>
+                            <Text style={{ color: "white" }}>{route.params.timeFromHome} mins</Text>
                             <Text
                                 style={{
                                     marginLeft: 15,
@@ -245,33 +262,24 @@ const ChooseServiceScreen = () => {
                                     color: "white"
                                 }}
                             >
-                                0-3 Kms |
+                                {route.params.distance} Km from your home
                             </Text>
-                            <Text
-                                style={{
-                                    marginLeft: 7,
-                                    color: "gray",
-                                    fontSize: 16,
-                                    color: "white"
-                                }}
-                            >
-                                35 Delivery Fee will Apply
-                            </Text>
+                            
                         </View>
                     </View>
                 </View>
                 {(accom && trans && rest && activity) ? (
-                [{ id: 0, name: "Accommodation", items: accom },
-                { id: 200, name: "Restaurant", items: rest },
-                { id: 400, name: "Transportation", items: trans },
-                { id: 600, name: "Activity", items: activity }].map((item, i) => (
-                    <ServiceItem item={item} key={i} />
+                    [{ id: 0, name: "Accommodation", items: accom },
+                    { id: 200, name: "Restaurant", items: rest },
+                    { id: 400, name: "Transportation", items: trans },
+                    { id: 600, name: "Activity", items: activity }].map((item, index) => (
+                        <ServiceItem item={item} key={1900 + index} />
                     ))
                 ) : (
                     <Text>No menu data available</Text>
                 )}
 
-                {total === 0 ? null : <View style={{ marginBottom: 120 }}></View> }
+                {total === 0 ? null : <View style={{ marginBottom: 120 }}></View>}
 
             </ScrollView>
 
@@ -305,7 +313,7 @@ const ChooseServiceScreen = () => {
                                     color: "white",
                                 }}
                             >
-                                {cart.length} items | {total}
+                                {cart.length} items | ${total}
                             </Text>
                             <Text
                                 style={{
@@ -318,31 +326,32 @@ const ChooseServiceScreen = () => {
                                 Extra Charges may Apply!
                             </Text>
                         </View>
-
+ 
                         <Pressable
-                            onPress={() =>
+                            onPress={() => {
                                 navigation.navigate("Cart", {
                                     name: route.params.name,
+                                    distance: route.params.distance,
+                                    tour: route.params.tour
                                 })
                             }
+                            }
                         >
-                            <Text
-                                style={{
-                                    fontSize: 18,
-                                    fontWeight: "600",
-                                    color: "white",
-                                }}
-                            >
-                                View Cart
-                            </Text>
-                        </Pressable>
-                    </View>
+                        <Text
+                            style={{
+                                fontSize: 18,
+                                fontWeight: "600",
+                                color: "white",
+                            }}
+                        >
+                            View Cart
+                        </Text>
                 </Pressable>
+                    </View>
+                </Pressable >
             )}
         </>
     );
 };
-
-export default ChooseServiceScreen;
 
 const styles = StyleSheet.create({});

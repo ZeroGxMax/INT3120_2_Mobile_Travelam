@@ -31,7 +31,7 @@ const CountryMenuItem = ({ item, countryName }) => {
         <View>
           <ImageBackground
             imageStyle={{ borderRadius: 6 }}
-            style={{ height: 200, width: 388 }}
+            style={{ height: 200, width: 373 }}
             source={{ uri: item.demoImage }}
           >
             <AntDesign
@@ -50,24 +50,21 @@ const CountryMenuItem = ({ item, countryName }) => {
           >
             <MaterialIcons name="stars" size={24} color="green" />
             <Text style={{ marginLeft: 3, fontSize: 15, fontWeight: "400" }}>
-              {5.0}
-            </Text>
-            <Text style={{ marginLeft: 3 }}>•</Text>
-            <Text style={{ marginLeft: 3, fontSize: 15, fontWeight: "400" }}>
-              {"30-40"}mins
+              {5.0} - Excellent
             </Text>
           </View>
           <View>
-              {item.additionInfo.split(",").slice(0, 3).map((info) => (
-                <View>
-                    <Text>
+              {item.additionInfo.split(",").slice(0, 3).map((info, index) => (
+                <View key={1000 + index}>
+                    <Text style={{textTransform: "capitalize"}}>
                         <AntDesign
                             name="star"
                             size={24}
                             color="#0EEBBE"
+                            
                         />
 
-                        {info}
+                        {" " + info.trim()}
 
                     </Text>
                 </View>

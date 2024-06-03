@@ -30,6 +30,39 @@ const getRestFromId = async (restId) => {
     }
 };
 
+const getRestListFromId = async (restIdList) => {
+    try {
+        const restRef = ref(db, 'restaurant/data');
+        const snapshot = await get(restRef);
+
+        let foundData = [];
+        let i = 0;
+
+        snapshot.forEach((childSnapshot) => {
+            const childData = childSnapshot.val();
+
+            if (i === restIdList.length) {
+                return foundData;
+            }
+
+            if (childData && childData.id && childData.id == restIdList[i]) {
+                foundData.push(childData);
+                console.log("Node with restId =", restIdList[i], "found!");
+                i += 1
+            }
+        });
+
+        if (!foundData) {
+            console.log("Node with restId =", 1, "not found.");
+        }
+
+        return foundData;
+    } catch (error) {
+        console.error("Error finding rest:", error);
+        throw error;
+    }
+};
+
 const getRestFromName = async (restName) => {
     try {
         const restRef = ref(db, 'restaurant/data');
@@ -89,13 +122,43 @@ const getRestFromDestId = async (destId) => {
     }
 };
 
+const getRestFromDestIdAddData = async (destId, country, dest) => {
+    try {
+        const restRef = ref(db, "restaurant/data")
+        const restDestRef = ref(db, "dest_restaurant/data")
+
+        const restSnapshot = await get(restRef)
+        const restDestSnapshot = await get(restDestRef)
+        let foundRestList = [];
+
+        restDestSnapshot.forEach((restDestChild) => {
+            const restDestData = restDestChild.val();
+            if (restDestData && restDestData.destId == destId) {
+                const restId = restDestData.restId;
+                restSnapshot.forEach((restChild) => {
+                    const restData = restChild.val();
+                    if (restData && restData.id == restId) {
+                        foundRest = restData
+                        foundRest.baseId = 200
+                        foundRest.countryName = country,
+                        foundRest.destinationName = dest,
+                        foundRestList.push(foundRest)
+                    }
+                });
+            }
+        });
+
+        return foundRestList;
+    } catch (error) {
+        console.error("Error finding rest from country ID:", error);
+        throw error;
+    }
+};
+
 const getAllRestaurants = async () => {
     try {
-        const restaurantsRef = ref(db, 'restaurant/data');
-        const snapshot = await get(restaurantsRef); 
-
-        // console.log("Reference:", restaurantsRef.toString());
-        // console.log("Restaurant data:", snapshot.val());
+        const restRef = ref(db, 'restaurant/data');
+        const snapshot = await get(restRef); 
 
         return snapshot.val();
     } catch (error) {
@@ -104,4 +167,4 @@ const getAllRestaurants = async () => {
     }
 };
 
-export { getRestFromId, getRestFromName, getRestFromDestId, getAllRestaurants }
+export { getRestFromId, getRestListFromId, getRestFromName, getRestFromDestId, getAllRestaurants, getRestFromDestIdAddData }
