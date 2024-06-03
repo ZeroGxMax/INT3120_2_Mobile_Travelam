@@ -30,10 +30,6 @@ const OptionsScreen = () => {
         "navigation": "Profile",
         "icon": "user",
     }, {
-        "title": "Paid Tours",
-        "navigation": "Paid Tours",
-        "icon": "flag",
-    }, {
         "title": "Transactions",
         "navigation": "Transactions",
         "icon": "switcher",
@@ -44,7 +40,7 @@ const OptionsScreen = () => {
     }, {
         "title": "Administrator",
         "navigation": "Admin",
-        "icon": "customerservice",
+        "icon": "aliwangwang",
     }]
 
     const handleLogout = () => {

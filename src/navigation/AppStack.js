@@ -50,7 +50,7 @@ export const AppStack = () => {
       <Stack.Screen name="Contact Support" component={SupportScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Options" component={OptionsScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: true }} />
-      <Stack.Screen name="Paid Tours" component={TourHistoryScreen} options={{ headerShown: true }} />
+      <Stack.Screen name="Transactions" component={TourHistoryScreen} options={{ headerShown: true }} />
       <Stack.Screen name="Paid Tour Detail" component={PaidTourDetailScreen} options={{ headerShown: true }} />
       {/* Service Detail Screen */}
       <Stack.Screen name="RestDetail" component={RestDetailScreen} options={{ headerShown: false }} />

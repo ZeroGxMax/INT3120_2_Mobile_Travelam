@@ -7,7 +7,7 @@ import { colors } from "../../assets/colors/colors"
 import { ref, getDatabase, update } from "firebase/database";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-export default MenuItem = ({ key, item, menu }) => {
+export default ManagementSubDetail = ({ item, menu }) => {
     const [editable, setEditable] = useState(false)
     const [text, setText] = useState("")
     
@@ -21,7 +21,7 @@ export default MenuItem = ({ key, item, menu }) => {
                 alignItems: "center",
                 backgroundColor: "#EEE",
                 paddingHorizontal: 10
-            }} key={key}>
+            }}>
                 <View style={{
                     flex: 1,
                     flexDirection: "column",

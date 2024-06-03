@@ -15,24 +15,22 @@ import hotels from "../data/hotels";
 import PaidTourItem from "../components/PaidTourItem";
 import { useNavigation } from "@react-navigation/native";
 import LoadingView from '../components/utils/LoadingView';
-import { getCountryFromId, getCountryFromName, getAllCountry } from "../services/firebase/country";
+import { getAllPayment } from "../services/firebase/payment"
 
 const TourHistoryScreen = () => {
-    const [country, setCountry] = useState([])
+    const [payment, setPayment] = useState([])
     const [loading, setLoading] = useState(true);
-    const navigation = useNavigation();
-    const data = hotels;
-
-    const [queryData, setQueryData] = useState(country)
+    
+    const [queryData, setQueryData] = useState(payment)
 
     const handleSearch = (text) => {
         if (text) {
-            const filteredData = country.filter((coun) =>
-                coun.countryName.toLowerCase().includes(text.toLowerCase())
+            const filteredData = payment.filter((pay) =>
+                pay.tourName.toLowerCase().includes(text.toLowerCase())
             );
             setQueryData(filteredData);
         } else {
-            setQueryData(country)
+            setQueryData(payment)
         }
     }
 
@@ -40,9 +38,9 @@ const TourHistoryScreen = () => {
         const fetchData = async () => {
             try {
                 // Fetch all countries
-                const allCountryData = await getAllCountry();
-                setCountry(allCountryData);
-                setQueryData(allCountryData)
+                const allPayment = await getAllPayment();
+                setPayment(allPayment);
+                setQueryData(allPayment)
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -75,7 +73,7 @@ const TourHistoryScreen = () => {
             >
                 <TextInput
                     style={{ fontSize: 17 }}
-                    placeholder="Search for Paid Tours                                      "
+                    placeholder="Search for transactions                                      "
                     onChangeText={(text) => handleSearch(text)}
                 />
                 <AntDesign name="search1" size={24} color="#FF724C" />
