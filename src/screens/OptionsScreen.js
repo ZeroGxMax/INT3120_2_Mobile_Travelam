@@ -16,7 +16,7 @@ import { Logo } from "../assets"
 import CountryMenuItem from "../components/CountryMenuItem";
 import { useNavigation } from "@react-navigation/native";
 import LoadingView from '../components/utils/LoadingView';
-import { getCountryFromId, getCountryFromName, getAllCountry } from "../services/firebase/country";
+import { getCustomerFromId } from "../services/firebase/user";
 import { colors } from "../assets/colors/colors"
 
 import { signOut } from "firebase/auth";
@@ -25,7 +25,7 @@ import { auth } from "../services/firebaseService"
 const OptionsScreen = () => {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
-    const optionsList = [{
+    const options = [{
         "title": "User Profile",
         "navigation": "Profile",
         "icon": "user",
@@ -37,15 +37,43 @@ const OptionsScreen = () => {
         "title": "Contact Supports",
         "navigation": "Contact Support",
         "icon": "customerservice",
-    }, {
-        "title": "Administrator",
-        "navigation": "Admin",
-        "icon": "aliwangwang",
     }]
+
+    const [optionsList, setOptionsList] = useState(options)
 
     const handleLogout = () => {
         signOut(auth).catch((error) => console.log("Error logging out: ", error));
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Fetch all countries
+                const userAuth = auth.currentUser;
+                const userData = await getCustomerFromId(userAuth['uid']);
+                // console.log(userData)
+                if (userData && userData.role === 'admin') {
+                    // console.log("Is Admin")
+                    let new_options = [...options];
+                    new_options.push({
+                        "title": "Administrator",
+                        "navigation": "Admin",
+                        "icon": "aliwangwang",
+                    });
+
+                    setOptionsList(new_options);
+
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
 
     if (loading) {
         return <LoadingView />;
@@ -77,16 +105,10 @@ const OptionsScreen = () => {
             >
                 <Image source={Logo} style={styles.image} />
             </View>
-            {/* <View style={{
-                width: '100%',
-                borderWidth: 0.5,
-                borderColor: "grey",
-            }}>
-
-            </View> */}
             <View style={{
                 marginVertical: 10,
-                paddingHorizontal: 40
+                paddingHorizontal: 40,
+                marginTop: (optionsList.length === 3 ? 60 : 10)
             }}>
                 {optionsList.map((item, index) => (
                     <TouchableOpacity

@@ -44,12 +44,12 @@ export const isValidExpiryDate = (expiryDate) => {
         return false;
     }
 
-    if (expiryMonth == 2 && expiryYear % 4 !== 0 && expiryDay > 28) {
+    if (expiryMonth == 2 && expiryYear % 4 !== 0) {
         return false;
     }
 
     const thirtyDaysMonths = [4, 6, 9, 11];
-    if (thirtyDaysMonths.includes(expiryMonth) && expiryDay > 30) {
+    if (thirtyDaysMonths.includes(expiryMonth)) {
         return false;
     }
 
