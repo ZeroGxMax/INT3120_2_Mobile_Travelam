@@ -92,8 +92,8 @@ export default class Comments extends PureComponent {
         } else {
             this.props.saveAction(newCommentText, null, false);
         }
-
-        this.setState({ newCommentText: null, internalImageUrl: null, firebaseImageUrl: null, isSubmitting: false });
+        this.setState({ newCommentText: null, internalImageUrl: null, isSubmitting: false });
+        // this.setState({ newCommentText: null, internalImageUrl: null, firebaseImageUrl: null, isSubmitting: false });
         this.textInputs["inputMain"].clear();
         Keyboard.dismiss();
     };
@@ -242,15 +242,13 @@ export default class Comments extends PureComponent {
      * Renders comments children
      * */
     renderChildren(items) {
-        if (!items || !items.length) return;
-        let self = this;
-        return items.map(function (c) {
-            return (
-                <View key={self.props.keyExtractor(c) + "" + Math.random()}>
-                    {self.generateComment(c)}
-                </View>
-            );
-        });
+        if (!items || !items.length) return null;
+    
+        return items.map((c, index) => (
+            <View key={`${this.props.keyExtractor(c)}-${index}`}>
+                {this.generateComment(c)}
+            </View>
+        ));
     }
 
     /**
@@ -304,14 +302,18 @@ export default class Comments extends PureComponent {
         return (
             <TouchableHighlight
                 onPress={() => {
-                    this.setLikesModalVisible(false), like.tap(like.name);
+                    this.setLikesModalVisible(false);
+                    like.tap(like.name);
                 }}
                 style={styles.likeButton}
-                key={like.userId + "" + Math.random()}
+                key={like.userId} // Use userId as the unique key
             >
-                <View style={[styles.likeContainer]}>
-                    <Image style={[styles.likeImage]} source={{ uri: "https://cdn.pixabay.com/photo/2021/05/30/06/34/like-6295005_640.png" }} />
-                    <Text style={[styles.likeName]}>{like.name}</Text>
+                <View style={styles.likeContainer}>
+                    <Image
+                        style={styles.likeImage}
+                        source={{ uri: "https://cdn.pixabay.com/photo/2021/05/30/06/34/like-6295005_640.png" }}
+                    />
+                    <Text style={styles.likeName}>{like.name}</Text>
                 </View>
             </TouchableHighlight>
         );
@@ -431,8 +433,10 @@ export default class Comments extends PureComponent {
                             />
                             <TouchableHighlight
                                 onPress={() => {
+                                    console.log(this.state.replyCommentText)
                                     this.props.saveAction(
                                         this.state.replyCommentText,
+                                        null,
                                         this.props.keyExtractor(item)
                                     );
                                     this.setState({ replyCommentText: null });
@@ -486,19 +490,12 @@ export default class Comments extends PureComponent {
                             const { newCommentText } = this.state;
                             if (!newCommentText) {
                                 Alert.alert(
-                                    "Payment Success",
-                                    "Your payment was added successfully.",
-                                    [{ text: "OK", style: "default" }],
-                                    { cancelable: true }
-                                ) 
-                                return;
-                            } else {
-                                Alert.alert(
-                                    "Incomplete Details",
-                                    "Please select a card and ensure the cart is not empty.",
+                                    "Comment Text Required",
+                                    "Please write a comment text before submitting.",
                                     [{ text: "OK", style: "default" }],
                                     { cancelable: true }
                                 );
+                                return;
                             }
                             await this.handleCommentSubmit(); 
                         }}

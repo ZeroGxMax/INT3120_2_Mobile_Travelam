@@ -113,7 +113,7 @@ const Discover = ({route}) => {
             const notificationDate = new Date(noti.notification_date);
 
             if (!noti.pushed && notificationDate < now) {
-                await sendPushNotification(token, noti.title, noti.body);
+                await sendPushNotification(noti.push_token, noti.title, noti.body);
                 await markPushedNotifications(noti.id);
             }
         }

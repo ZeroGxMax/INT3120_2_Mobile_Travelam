@@ -73,24 +73,52 @@ const MapScreen = ({ route, navigation }) => {
     const handleMoveToNextMarker = () => {
         if (markerIndex < destinations.length - 1) {
             const curIndex = markerIndex
-            setMarkerIndex(curIndex + 1);
+            const threshold = 0.1;
+            const nextDestination = destinations[curIndex + 1].location;
             setRegion({
                 ...region,
                 latitude: destinations[curIndex + 1].location.latitude,
                 longitude: destinations[curIndex + 1].location.longitude,
             });
+            if (
+                Math.abs(region.latitude - nextDestination.latitude) < threshold &&
+                Math.abs(region.longitude - nextDestination.longitude) < threshold
+            ) {
+                // setRegion({
+                //     ...region,
+                //     latitude: destinations[curIndex + 1].location.latitude,
+                //     longitude: destinations[curIndex + 1].location.longitude,
+                // });
+                setMarkerIndex(curIndex + 1);
+            } else {
+                setMarkerIndex(curIndex)
+            }
         }
     };
 
     const handleMoveToPreviousMarker = () => {
         if (markerIndex > 0) {
             const curIndex = markerIndex
-            setMarkerIndex(curIndex - 1);
+            const threshold = 0.1;
+            const nextDestination = destinations[curIndex - 1].location;
             setRegion({
                 ...region,
                 latitude: destinations[curIndex - 1].location.latitude,
-                longitude: destinations[markerIndex - 1].location.longitude,
+                longitude: destinations[curIndex - 1].location.longitude,
             });
+            if (
+                Math.abs(region.latitude - nextDestination.latitude) < threshold &&
+                Math.abs(region.longitude - nextDestination.longitude) < threshold
+            ) {
+                // setRegion({
+                //     ...region,
+                //     latitude: destinations[curIndex - 1].location.latitude,
+                //     longitude: destinations[curIndex - 1].location.longitude,
+                // });
+                setMarkerIndex(curIndex - 1);
+            } else {
+                setMarkerIndex(curIndex)
+            }
         }
     };
 
@@ -103,11 +131,12 @@ const MapScreen = ({ route, navigation }) => {
                 region={region}
                 onRegionChangeComplete={setRegion}
             >
-                {currentLoc && ( 
+                {currentLoc && (
                     <Marker
                         coordinate={currentLoc}
                         title="Your Location"
                         pinColor={colors.primary}
+                        tracksViewChanges={false}
                     />
                 )}
                 {destinations.map((destination, index) => (
@@ -117,17 +146,18 @@ const MapScreen = ({ route, navigation }) => {
                             latitude: destination.location.latitude,
                             longitude: destination.location.longitude,
                         }}
+                        tracksViewChanges={false}
                     >
                         <Callout>
                             <View>
-                                <Text style={{fontWeight: "bold"}}>
+                                <Text style={{ fontWeight: "bold" }}>
                                     {(index + 1) + " - " + destination.name}
                                 </Text>
                             </View>
                         </Callout>
                     </Marker>
                 ))}
-                {currentLoc && destinations.length > 0 && ( 
+                {currentLoc && destinations.length > 0 && (
                     <Polyline
                         coordinates={[
                             { latitude: currentLoc.latitude, longitude: currentLoc.longitude },

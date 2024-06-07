@@ -107,7 +107,7 @@ const CommentScreen = ({ route, navigation }) => {
 
     const likesExtractor = (item) => {
         if (item.likes) {
-            return item.likes.map((like) => {
+            return item.likes.map((like, index) => {
                 return {
                     image: like.image,
                     name: like.username,
