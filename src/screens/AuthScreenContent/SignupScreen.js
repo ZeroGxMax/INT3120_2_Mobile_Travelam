@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { View, TextInput, Logo, Button, FormErrorMessage } from "../../components";
+import { View, TextInput, Logo, Button, FormErrorMessage, Image } from "../../components";
 import { Colors } from "../../config";
 import { Logo2 } from "../../assets";
 import { useTogglePasswordVisibility } from "../../hooks";
