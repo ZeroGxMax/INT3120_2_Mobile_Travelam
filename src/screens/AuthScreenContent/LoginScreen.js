@@ -5,12 +5,13 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from '@react-navigation/native';
 
-import { View, TextInput, Logo, Button, FormErrorMessage } from "../../components";
+import { View, TextInput, Logo, Button, FormErrorMessage, Image } from "../../components";
 import { Colors } from "../../config";
 import { useTogglePasswordVisibility } from "../../hooks";
 import { loginValidationSchema } from "../../utils";
 import { Logo2 } from '../../assets'
 import { auth } from '../../services/firebaseService'
+import { icons } from "../../assets/icons/icons";
 
 
 export const LoginScreen = ({ navigation }) => {
